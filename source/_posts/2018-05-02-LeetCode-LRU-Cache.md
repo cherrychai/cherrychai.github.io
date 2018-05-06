@@ -34,6 +34,7 @@ tags: [Coding]
 >     cache.get(4);       // returns 4
 
 最近最少使用算法，面试很喜欢考的一道题目，可以用LinkedHashMap实现。
+<!--more-->
 
 ###### Java:
 ``` java
