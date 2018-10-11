@@ -252,110 +252,6 @@
 
 
   
-    <article id="post-LeetCode-LRU-Cache" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/05/02/LeetCode-LRU-Cache/">LeetCode - LRU Cache</a>
-    </h1>
-  
-
-        
-        <a href="/2018/05/02/LeetCode-LRU-Cache/" class="archive-article-date">
-  	<time datetime="2018-05-01T16:13:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p><a href="https://leetcode.com/problems/lru-cache/" target="_blank" rel="noopener">146. LRU Cache</a></p>
-<p>Design and implement a data structure for <a href="https://en.wikipedia.org/wiki/Cache_replacement_policies#LRU" target="_blank" rel="noopener">Least Recently Used (LRU) cache</a>. It should support the following operations: get and put.</p>
-<p>get(key) - Get the value (will always be positive) of the key if the key exists in the cache, otherwise return -1.<br>put(key, value) - Set or insert the value if the key is not already present. When the cache reached its capacity, it should invalidate the least recently used item before inserting a new item.</p>
-<p><strong>Follow up:</strong><br>Could you do both operations in <strong>O(1)</strong> time complexity?</p>
-<p><strong>Example:</strong></p>
-<p>LRUCache cache = new LRUCache( 2 /<em> capacity </em>/ );</p>
-<pre><code>cache.put(1, 1);
-cache.put(2, 2);
-cache.get(1);       // returns 1
-cache.put(3, 3);    // evicts key 2
-cache.get(2);       // returns -1 (not found)
-cache.put(4, 4);    // evicts key 1
-cache.get(1);       // returns -1 (not found)
-cache.get(3);       // returns 3
-cache.get(4);       // returns 4
-</code></pre></blockquote>
-<p>最近最少使用算法，面试很喜欢考的一道题目，可以用LinkedHashMap实现。<br></p>
-        
-          <a class="article-more-a" href="/2018/05/02/LeetCode-LRU-Cache/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">coding</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/leetcode//" class="article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/05/02/LeetCode-LRU-Cache/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-LeetCode-Peeking-Iterator" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -363,13 +259,13 @@ cache.get(4);       // returns 4
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/27/LeetCode-Peeking-Iterator/">LeetCode - Peeking Iterator</a>
+      <a class="article-title" href="/2014/10/27/LeetCode-Peeking-Iterator/">LeetCode - Peeking Iterator</a>
     </h1>
   
 
         
-        <a href="/2017/10/27/LeetCode-Peeking-Iterator/" class="archive-article-date">
-  	<time datetime="2017-10-26T16:13:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-27</time>
+        <a href="/2014/10/27/LeetCode-Peeking-Iterator/" class="archive-article-date">
+  	<time datetime="2014-10-26T16:13:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2014-10-27</time>
 </a>
         
       </header>
@@ -387,7 +283,7 @@ cache.get(4);       // returns 4
 </blockquote>
 <p>基于Iterator实现一个PeekingIterator，使得这个类中包含一个peek()方法返回最顶端的元素，因为直接调用next()会遍历所有元素，所以需要定义一个变量保存每次next()的结果，比较简单，实现方法如下。<br></p>
         
-          <a class="article-more-a" href="/2017/10/27/LeetCode-Peeking-Iterator/#more">more >></a>
+          <a class="article-more-a" href="/2014/10/27/LeetCode-Peeking-Iterator/#more">more >></a>
         
       
 
@@ -422,7 +318,7 @@ cache.get(4);       // returns 4
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/27/LeetCode-Peeking-Iterator/">展开全文 >></a>
+          <a class="article-more-a" href="/2014/10/27/LeetCode-Peeking-Iterator/">展开全文 >></a>
         </p>
       
 
@@ -459,13 +355,13 @@ cache.get(4);       // returns 4
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/24/LeetCode-Sql-Questions/">LeetCode - Some Boring Sql Questions</a>
+      <a class="article-title" href="/2014/10/24/LeetCode-Sql-Questions/">LeetCode - Some Boring Sql Questions</a>
     </h1>
   
 
         
-        <a href="/2017/10/24/LeetCode-Sql-Questions/" class="archive-article-date">
-  	<time datetime="2017-10-23T16:13:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-24</time>
+        <a href="/2014/10/24/LeetCode-Sql-Questions/" class="archive-article-date">
+  	<time datetime="2014-10-23T16:13:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2014-10-24</time>
 </a>
         
       </header>
@@ -495,7 +391,7 @@ cache.get(4);       // returns 4
 +--------------+-------------+--------------+
 </code></pre></blockquote>
         
-          <a class="article-more-a" href="/2017/10/24/LeetCode-Sql-Questions/#more">more >></a>
+          <a class="article-more-a" href="/2014/10/24/LeetCode-Sql-Questions/#more">more >></a>
         
       
 
@@ -530,7 +426,7 @@ cache.get(4);       // returns 4
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/24/LeetCode-Sql-Questions/">展开全文 >></a>
+          <a class="article-more-a" href="/2014/10/24/LeetCode-Sql-Questions/">展开全文 >></a>
         </p>
       
 
@@ -567,13 +463,13 @@ cache.get(4);       // returns 4
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/08/LeetCode-Binary-Tree-Zigzag-Level-Order-Traversal/">LeetCode - Binary Tree Zigzag Level Order Traversal</a>
+      <a class="article-title" href="/2014/05/08/LeetCode-Binary-Tree-Zigzag-Level-Order-Traversal/">LeetCode - Binary Tree Zigzag Level Order Traversal</a>
     </h1>
   
 
         
-        <a href="/2017/05/08/LeetCode-Binary-Tree-Zigzag-Level-Order-Traversal/" class="archive-article-date">
-  	<time datetime="2017-05-07T16:13:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-08</time>
+        <a href="/2014/05/08/LeetCode-Binary-Tree-Zigzag-Level-Order-Traversal/" class="archive-article-date">
+  	<time datetime="2014-05-07T16:13:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2014-05-08</time>
 </a>
         
       </header>
@@ -640,7 +536,7 @@ cache.get(4);       // returns 4
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/05/08/LeetCode-Binary-Tree-Zigzag-Level-Order-Traversal/">展开全文 >></a>
+          <a class="article-more-a" href="/2014/05/08/LeetCode-Binary-Tree-Zigzag-Level-Order-Traversal/">展开全文 >></a>
         </p>
       
 
@@ -677,13 +573,13 @@ cache.get(4);       // returns 4
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/03/LeetCode-Binary-Tree-Right-Side-View/">LeetCode - Binary Tree Right Side View</a>
+      <a class="article-title" href="/2014/05/03/LeetCode-Binary-Tree-Right-Side-View/">LeetCode - Binary Tree Right Side View</a>
     </h1>
   
 
         
-        <a href="/2017/05/03/LeetCode-Binary-Tree-Right-Side-View/" class="archive-article-date">
-  	<time datetime="2017-05-02T16:13:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-03</time>
+        <a href="/2014/05/03/LeetCode-Binary-Tree-Right-Side-View/" class="archive-article-date">
+  	<time datetime="2014-05-02T16:13:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2014-05-03</time>
 </a>
         
       </header>
@@ -703,7 +599,7 @@ cache.get(4);       // returns 4
 </blockquote>
 <p>同<a href="http://localhost:4000/leetcode/2017/05/03/LeetCode-Binary-Tree-Level-Order-Traversal-2/" target="_blank" rel="noopener">LeetCode - Binary Tree Level Order Traversal 2</a>一样，也是<a href="http://chaihua.me/leetcode/2017/05/02/LeetCode-Binary-Tre-Level-Order-Traversal/">LeetCode - Binary Tree Level Order Traversal</a>的变形，二叉树的层序遍历，如果是从左向右遍历则需要在遍历到每一层的最后一个节点时进行输出，如果是从右向左遍历则需要输出没一层的第一个节点。<br></p>
         
-          <a class="article-more-a" href="/2017/05/03/LeetCode-Binary-Tree-Right-Side-View/#more">more >></a>
+          <a class="article-more-a" href="/2014/05/03/LeetCode-Binary-Tree-Right-Side-View/#more">more >></a>
         
       
 
@@ -742,7 +638,7 @@ cache.get(4);       // returns 4
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/05/03/LeetCode-Binary-Tree-Right-Side-View/">展开全文 >></a>
+          <a class="article-more-a" href="/2014/05/03/LeetCode-Binary-Tree-Right-Side-View/">展开全文 >></a>
         </p>
       
 
@@ -779,13 +675,13 @@ cache.get(4);       // returns 4
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/03/LeetCode-Binary-Tree-Level-Order-Traversal-2/">LeetCode - Binary Tree Level Order Traversal 2</a>
+      <a class="article-title" href="/2014/05/03/LeetCode-Binary-Tree-Level-Order-Traversal-2/">LeetCode - Binary Tree Level Order Traversal 2</a>
     </h1>
   
 
         
-        <a href="/2017/05/03/LeetCode-Binary-Tree-Level-Order-Traversal-2/" class="archive-article-date">
-  	<time datetime="2017-05-02T16:13:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-03</time>
+        <a href="/2014/05/03/LeetCode-Binary-Tree-Level-Order-Traversal-2/" class="archive-article-date">
+  	<time datetime="2014-05-02T16:13:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2014-05-03</time>
 </a>
         
       </header>
@@ -817,7 +713,7 @@ cache.get(4);       // returns 4
 </li>
 <li><p>仍然利用队列先进先出的特性输出每一层的结点信息，不同的是这次要对二叉树递归的进行层次遍历，然后在回溯的过程中输出结点信息，下面C++版本实现的便是这种方法，Java版本递归思路一样，只不过没有用队列</p></li></ul>
         
-          <a class="article-more-a" href="/2017/05/03/LeetCode-Binary-Tree-Level-Order-Traversal-2/#more">more >></a>
+          <a class="article-more-a" href="/2014/05/03/LeetCode-Binary-Tree-Level-Order-Traversal-2/#more">more >></a>
         
       
 
@@ -856,7 +752,111 @@ cache.get(4);       // returns 4
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/05/03/LeetCode-Binary-Tree-Level-Order-Traversal-2/">展开全文 >></a>
+          <a class="article-more-a" href="/2014/05/03/LeetCode-Binary-Tree-Level-Order-Traversal-2/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-LeetCode-LRU-Cache" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/05/02/LeetCode-LRU-Cache/">LeetCode - LRU Cache</a>
+    </h1>
+  
+
+        
+        <a href="/2014/05/02/LeetCode-LRU-Cache/" class="archive-article-date">
+  	<time datetime="2014-05-01T16:13:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2014-05-02</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p><a href="https://leetcode.com/problems/lru-cache/" target="_blank" rel="noopener">146. LRU Cache</a></p>
+<p>Design and implement a data structure for <a href="https://en.wikipedia.org/wiki/Cache_replacement_policies#LRU" target="_blank" rel="noopener">Least Recently Used (LRU) cache</a>. It should support the following operations: get and put.</p>
+<p>get(key) - Get the value (will always be positive) of the key if the key exists in the cache, otherwise return -1.<br>put(key, value) - Set or insert the value if the key is not already present. When the cache reached its capacity, it should invalidate the least recently used item before inserting a new item.</p>
+<p><strong>Follow up:</strong><br>Could you do both operations in <strong>O(1)</strong> time complexity?</p>
+<p><strong>Example:</strong></p>
+<p>LRUCache cache = new LRUCache( 2 /<em> capacity </em>/ );</p>
+<pre><code>cache.put(1, 1);
+cache.put(2, 2);
+cache.get(1);       // returns 1
+cache.put(3, 3);    // evicts key 2
+cache.get(2);       // returns -1 (not found)
+cache.put(4, 4);    // evicts key 1
+cache.get(1);       // returns -1 (not found)
+cache.get(3);       // returns 3
+cache.get(4);       // returns 4
+</code></pre></blockquote>
+<p>最近最少使用算法，面试很喜欢考的一道题目，可以用LinkedHashMap实现。<br></p>
+        
+          <a class="article-more-a" href="/2014/05/02/LeetCode-LRU-Cache/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">coding</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/leetcode//" class="article-tag-list-link color4">leetcode</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2014/05/02/LeetCode-LRU-Cache/">展开全文 >></a>
         </p>
       
 
@@ -893,13 +893,13 @@ cache.get(4);       // returns 4
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/02/LeetCode-Binary-Tree-Level-Order-Traversal/">LeetCode - Binary Tree Level Order Traversal</a>
+      <a class="article-title" href="/2014/05/02/LeetCode-Binary-Tree-Level-Order-Traversal/">LeetCode - Binary Tree Level Order Traversal</a>
     </h1>
   
 
         
-        <a href="/2017/05/02/LeetCode-Binary-Tree-Level-Order-Traversal/" class="archive-article-date">
-  	<time datetime="2017-05-01T16:13:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-02</time>
+        <a href="/2014/05/02/LeetCode-Binary-Tree-Level-Order-Traversal/" class="archive-article-date">
+  	<time datetime="2014-05-01T16:13:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2014-05-02</time>
 </a>
         
       </header>
@@ -925,7 +925,7 @@ cache.get(4);       // returns 4
 </code></pre></blockquote>
 <p>二叉树的层序遍历，要求从上到下、从左到右输出结点信息，送分题，利用队列先进先出的特性按层次遍历，在遍历的过程中记录结点信息即可。另外由于本题要求已二维数组的形式输出结果，中间可以用一个null结点标注每一层的结束。<br></p>
         
-          <a class="article-more-a" href="/2017/05/02/LeetCode-Binary-Tree-Level-Order-Traversal/#more">more >></a>
+          <a class="article-more-a" href="/2014/05/02/LeetCode-Binary-Tree-Level-Order-Traversal/#more">more >></a>
         
       
 
@@ -964,7 +964,7 @@ cache.get(4);       // returns 4
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/05/02/LeetCode-Binary-Tree-Level-Order-Traversal/">展开全文 >></a>
+          <a class="article-more-a" href="/2014/05/02/LeetCode-Binary-Tree-Level-Order-Traversal/">展开全文 >></a>
         </p>
       
 
@@ -1001,13 +1001,13 @@ cache.get(4);       // returns 4
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/06/LeetCode-Balanced-Binary-Tree/">LeetCode - Balanced Binary Tree</a>
+      <a class="article-title" href="/2014/03/06/LeetCode-Balanced-Binary-Tree/">LeetCode - Balanced Binary Tree</a>
     </h1>
   
 
         
-        <a href="/2017/03/06/LeetCode-Balanced-Binary-Tree/" class="archive-article-date">
-  	<time datetime="2017-03-05T16:13:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-06</time>
+        <a href="/2014/03/06/LeetCode-Balanced-Binary-Tree/" class="archive-article-date">
+  	<time datetime="2014-03-05T16:13:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2014-03-06</time>
 </a>
         
       </header>
@@ -1030,7 +1030,7 @@ cache.get(4);       // returns 4
 </ul>
 <p>传引用进入函数然后通过指针更新其值的时候还是有些地方需要注意，许久不写其实我也有些生疏，这种小细节考考校招同学的基本功还是可以有的。<br></p>
         
-          <a class="article-more-a" href="/2017/03/06/LeetCode-Balanced-Binary-Tree/#more">more >></a>
+          <a class="article-more-a" href="/2014/03/06/LeetCode-Balanced-Binary-Tree/#more">more >></a>
         
       
 
@@ -1069,7 +1069,7 @@ cache.get(4);       // returns 4
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/06/LeetCode-Balanced-Binary-Tree/">展开全文 >></a>
+          <a class="article-more-a" href="/2014/03/06/LeetCode-Balanced-Binary-Tree/">展开全文 >></a>
         </p>
       
 
@@ -1106,13 +1106,13 @@ cache.get(4);       // returns 4
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/05/LeetCode-Word-Break-2/">LeetCode - Word Break II</a>
+      <a class="article-title" href="/2014/03/05/LeetCode-Word-Break-2/">LeetCode - Word Break II</a>
     </h1>
   
 
         
-        <a href="/2017/03/05/LeetCode-Word-Break-2/" class="archive-article-date">
-  	<time datetime="2017-03-04T16:13:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-05</time>
+        <a href="/2014/03/05/LeetCode-Word-Break-2/" class="archive-article-date">
+  	<time datetime="2014-03-04T16:13:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2014-03-05</time>
 </a>
         
       </header>
@@ -1131,7 +1131,7 @@ cache.get(4);       // returns 4
 <p><a href="http://chaihua.me/leetcode/2017/03/01/LeetCode-Word-Break/">LeetCode - Word Break</a>的加强版，除了判断是不是能够拆分，还要求输出所有可能的拆分方案。一种方法就是在上一道题目解法的基础上增加一步在判断为true的时候将单词记录下来，最后再进行一个DFS获得所有解。</p>
 <p>算是LeetCode上需要写的比较长的一道题目了，我只想说离开IDE裸写这道题还是犯了很多错误的，而且居然下意识用了foreach也是醉醉的了，我都不知道已经多久没有用到它了，不得不说在IDE里面写代码还是省不少心的，不过也会惯坏自己，好多放到IDE里面非常明了的错误竟然肉眼检查不出来了，费了好大劲修复了所有的compile error之后就一遍AC了，枉我一直标榜自己纸上写代码的功力，近年来竟也退化了太多，果然不练习手就慢慢生了。<br></p>
         
-          <a class="article-more-a" href="/2017/03/05/LeetCode-Word-Break-2/#more">more >></a>
+          <a class="article-more-a" href="/2014/03/05/LeetCode-Word-Break-2/#more">more >></a>
         
       
 
@@ -1170,7 +1170,7 @@ cache.get(4);       // returns 4
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/05/LeetCode-Word-Break-2/">展开全文 >></a>
+          <a class="article-more-a" href="/2014/03/05/LeetCode-Word-Break-2/">展开全文 >></a>
         </p>
       
 
@@ -1293,6 +1293,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">two pointers</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">hash table</a>
               </li>
              
@@ -1305,19 +1309,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">two pointers</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">string</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">dynamic programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">math</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1325,7 +1317,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">backtracking</a>
+                <a href="javascript:void(0)" class="js-tag color5">math</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">string</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1337,11 +1333,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">backtracking</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">breadth-first search</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sql</a>
+                <a href="javascript:void(0)" class="js-tag color2">coding</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1349,7 +1349,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">coding</a>
+                <a href="javascript:void(0)" class="js-tag color4">sql</a>
               </li>
             
             <div class="clearfix"></div>
