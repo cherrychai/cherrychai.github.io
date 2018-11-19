@@ -172,6 +172,92 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-一次GC调优记录" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/19/一次GC调优记录/">一次GC调优记录</a>
+    </h1>
+  
+
+        
+        <a href="/2018/11/19/一次GC调优记录/" class="archive-article-date">
+  	<time datetime="2018-11-19T15:30:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>起因是某个服务（姑且将名字起做）会偶然发生长达 1.8 秒的 G1 Young GC（这个时间我是在监控上看到的，不过后来得知我们这个监控的 Young GC 和 MIXED GX 是混在一起的）。为了解决问题，增加了一些查看 GC 日志的参数。</p>
+<p>首先增加了一些参数把 GC 日志打印出来</p>
+<blockquote>
+<p>-XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps -XX:+PrintTenuringDistribution -XX:+PrintGCApplicationStoppedTime -XX:+PrintSafepointStatistics -XX:PrintSafepointStatisticsCount=1</p>
+</blockquote>
+<p>具体的含义如下：</p>
+<p>-XX:+PrintGCDetails 输出GC的详细日志</p>
+<p>-XX:+PrintGCTimeStamps 输出GC的时间戳（以基准时间的形式）</p>
+<p>-XX:+PrintGCDateStamps 输出GC的时间戳（以日期的形式，如 2013-05-04T21:53:59.234+0800）</p>
+<p>-XX:+PrintTenuringDistribution 在每次新生代GC时，输出幸存区中对象的年龄分布</p>
+<p>-XX:+PrintGCApplicationStoppedTime 输出全部的JVM停顿（STW）时间（不只是GC）</p>
+<p>-XX:+PrintSafepointStatistics -XX:PrintSafepointStatisticsCount=1 记录STW发生的原因、线程情况、STW各个阶段的停顿时间等</p>
+<p>-XX:+PrintHeapAtGC 在进行GC的前后打印出堆的信息</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/技术//" class="article-tag-list-link color3">技术</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/11/19/一次GC调优记录/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-新的征程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -223,6 +309,79 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2018/05/07/新的征程/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-RPC接口的返回结果到底要不要包一层BaseResponse" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/07/RPC接口的返回结果到底要不要包一层BaseResponse/">RPC接口的返回结果到底要不要包一层BaseResponse</a>
+    </h1>
+  
+
+        
+        <a href="/2018/05/07/RPC接口的返回结果到底要不要包一层BaseResponse/" class="archive-article-date">
+  	<time datetime="2018-05-07T15:13:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/技术//" class="article-tag-list-link color3">技术</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/05/07/RPC接口的返回结果到底要不要包一层BaseResponse/">展开全文 >></a>
         </p>
       
 
@@ -994,215 +1153,9 @@ cache.get(4);       // returns 4
 
 
   
-    <article id="post-LeetCode-Balanced-Binary-Tree" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/03/06/LeetCode-Balanced-Binary-Tree/">LeetCode - Balanced Binary Tree</a>
-    </h1>
-  
-
-        
-        <a href="/2014/03/06/LeetCode-Balanced-Binary-Tree/" class="archive-article-date">
-  	<time datetime="2014-03-05T16:13:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2014-03-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p><a href="https://leetcode.com/problems/balanced-binary-tree/" target="_blank" rel="noopener">110. Balanced Binary Tree</a></p>
-<p>Given a binary tree, determine if it is height-balanced.</p>
-<p>For this problem, a height-balanced binary tree is defined as a binary tree in which the depth of the two subtrees of every node never differ by more than 1.</p>
-</blockquote>
-<p>加班回到家已经11点半了，随便刷到简单的题目，求一个二叉树是不是平衡二叉树（本题目中定义为左右子树的深度相差不超过1）。</p>
-<p>没什么算法，只需知道如果一个二叉树的左右子树都是平衡二叉树，然后左右子树的深度相差不超过1，那么这个二叉树也是平衡二叉树，如此可见，就是深搜的过程中记录树的深度便可以了。</p>
-<p>实现了两种判断二叉树是否平衡并求树的深度的方式：</p>
-<ul>
-<li><p>Java版的把深度作为返回值，如果是平衡二叉树则返回树的深度，如果不平衡则返回-1</p>
-</li>
-<li><p>C++版的在主函数中定义一个深度的变量，然后将此变量的引用作为一个参数传进递归函数中，遍历的的过程中更新其值，同时将是否平衡作为返回值，平衡返回true，不平衡则返回false</p>
-</li>
-</ul>
-<p>传引用进入函数然后通过指针更新其值的时候还是有些地方需要注意，许久不写其实我也有些生疏，这种小细节考考校招同学的基本功还是可以有的。<br></p>
-        
-          <a class="article-more-a" href="/2014/03/06/LeetCode-Balanced-Binary-Tree/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tree</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">depth-first search</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/leetcode//" class="article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2014/03/06/LeetCode-Balanced-Binary-Tree/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-LeetCode-Word-Break-2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/03/05/LeetCode-Word-Break-2/">LeetCode - Word Break II</a>
-    </h1>
-  
-
-        
-        <a href="/2014/03/05/LeetCode-Word-Break-2/" class="archive-article-date">
-  	<time datetime="2014-03-04T16:13:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2014-03-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p><a href="https://leetcode.com/problems/word-break-ii/" target="_blank" rel="noopener">140. Word Break II</a></p>
-<p>Given a <strong>non-empty</strong> string s and a dictionary wordDict containing a list of <strong>non-empty</strong> words, add spaces in s to construct a sentence where each word is a valid dictionary word. You may assume the dictionary does not contain duplicate words.</p>
-<p>Return all such possible sentences.</p>
-<p>For example, given</p>
-<p>s = “catsanddog”,</p>
-<p>dict = [“cat”, “cats”, “and”, “sand”, “dog”].</p>
-<p>A solution is [“cats and dog”, “cat sand dog”].</p>
-</blockquote>
-<p><a href="http://chaihua.me/leetcode/2017/03/01/LeetCode-Word-Break/">LeetCode - Word Break</a>的加强版，除了判断是不是能够拆分，还要求输出所有可能的拆分方案。一种方法就是在上一道题目解法的基础上增加一步在判断为true的时候将单词记录下来，最后再进行一个DFS获得所有解。</p>
-<p>算是LeetCode上需要写的比较长的一道题目了，我只想说离开IDE裸写这道题还是犯了很多错误的，而且居然下意识用了foreach也是醉醉的了，我都不知道已经多久没有用到它了，不得不说在IDE里面写代码还是省不少心的，不过也会惯坏自己，好多放到IDE里面非常明了的错误竟然肉眼检查不出来了，费了好大劲修复了所有的compile error之后就一遍AC了，枉我一直标榜自己纸上写代码的功力，近年来竟也退化了太多，果然不练习手就慢慢生了。<br></p>
-        
-          <a class="article-more-a" href="/2014/03/05/LeetCode-Word-Break-2/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">dynamic programming</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">backtracking</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/leetcode//" class="article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2014/03/05/LeetCode-Word-Break-2/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 
@@ -1297,15 +1250,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">two pointers</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">two Pointers</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">binary search</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">two pointers</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1317,15 +1270,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">dynamic programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">string</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">backtracking</a>
+                <a href="javascript:void(0)" class="js-tag color5">dynamic programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1337,6 +1286,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">backtracking</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">breadth-first search</a>
               </li>
              
@@ -1345,11 +1298,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">stack</a>
+                <a href="javascript:void(0)" class="js-tag color4">sql</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sql</a>
+                <a href="javascript:void(0)" class="js-tag color1">stack</a>
               </li>
             
             <div class="clearfix"></div>
