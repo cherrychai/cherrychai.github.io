@@ -172,19 +172,19 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-一次GC调优记录" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-最近大家都在聊GC呢" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/19/一次GC调优记录/">一次GC调优记录</a>
+      <a class="article-title" href="/2018/11/19/最近大家都在聊GC呢/">最近大家都在聊GC呢</a>
     </h1>
   
 
         
-        <a href="/2018/11/19/一次GC调优记录/" class="archive-article-date">
+        <a href="/2018/11/19/最近大家都在聊GC呢/" class="archive-article-date">
   	<time datetime="2018-11-19T15:30:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-19</time>
 </a>
         
@@ -192,20 +192,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>起因是某个服务（姑且将名字起做）会偶然发生长达 1.8 秒的 G1 Young GC（这个时间我是在监控上看到的，不过后来得知我们这个监控的 Young GC 和 MIXED GX 是混在一起的）。为了解决问题，增加了一些查看 GC 日志的参数。</p>
-<p>首先增加了一些参数把 GC 日志打印出来</p>
-<blockquote>
-<p>-XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps -XX:+PrintTenuringDistribution -XX:+PrintGCApplicationStoppedTime -XX:+PrintSafepointStatistics -XX:PrintSafepointStatisticsCount=1</p>
-</blockquote>
-<p>具体的含义如下：</p>
-<p>-XX:+PrintGCDetails 输出GC的详细日志</p>
-<p>-XX:+PrintGCTimeStamps 输出GC的时间戳（以基准时间的形式）</p>
-<p>-XX:+PrintGCDateStamps 输出GC的时间戳（以日期的形式，如 2013-05-04T21:53:59.234+0800）</p>
-<p>-XX:+PrintTenuringDistribution 在每次新生代GC时，输出幸存区中对象的年龄分布</p>
-<p>-XX:+PrintGCApplicationStoppedTime 输出全部的JVM停顿（STW）时间（不只是GC）</p>
-<p>-XX:+PrintSafepointStatistics -XX:PrintSafepointStatisticsCount=1 记录STW发生的原因、线程情况、STW各个阶段的停顿时间等</p>
-<p>-XX:+PrintHeapAtGC 在进行GC的前后打印出堆的信息</p>
-
+        <h3 id="发现问题"><a href="#发现问题" class="headerlink" title="发现问题"></a>发现问题</h3><p>最近有人说调用我们服务偶发性失败，问我是不是频繁上线，首先我们当时并没有上线，其次即使是在上线也不应该用户有感知啊，但是我从服务端来看却又没有任何问题，整个服务的负载也都挺健康的，后来仔细对比时间和监控发现该服务时不时的发生一次长达 1.x 秒的 G1 Young GC（这个时间我是在监控上看到的，不过后来得知我们这个监控的 Young GC 和 MIXED GC 是混在一起的，所以也可能是个 1.x 秒的 MIXED GC），而最近好像大家都在聊 GC，于是我也准备自己来研究下这个问题。</p>
+<h3 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h3><p>为了解决问题，首先增加了一些打印 GC 日志的参数：</p>
+<pre><code>-XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps -XX:+PrintTenuringDistribution -XX:+PrintGCApplicationStoppedTime -XX:+PrintSafepointStatistics -XX:PrintSafepointStatisticsCount=1
+</code></pre><p>具体的含义如下：</p>
+<p><code>-XX:+PrintGCDetails</code>  输出GC的详细日志<br><code>-XX:+PrintGCTimeStamps</code>  输出GC的时间戳（以基准时间的形式）<br><code>-XX:+PrintGCDateStamps</code>  输出GC的时间戳（以日期的形式，如 2013-05-04T21:53:59.234+0800）<br><code>-XX:+PrintTenuringDistribution</code>  在每次新生代GC时，输出幸存区中对象的年龄分布<br><code>-XX:+PrintGCApplicationStoppedTime</code>  输出全部的JVM停顿（STW）时间（不只是GC）<br><code>-XX:+PrintSafepointStatistics</code> <code>-XX:PrintSafepointStatisticsCount=1</code>  记录STW发生的原因、线程情况、STW各个阶段的停顿时间<br><code>-XX:+PrintHeapAtGC</code>  在进行GC的前后打印出堆的信息</p>
+<p>打印出来的 GC 日志如下：</p>
+        
+          <a class="article-more-a" href="/2018/11/19/最近大家都在聊GC呢/#more">more >></a>
+        
       
 
       
@@ -228,7 +223,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/11/19/一次GC调优记录/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/11/19/最近大家都在聊GC呢/">展开全文 >></a>
         </p>
       
 
@@ -278,8 +273,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>更新中…</p>
-<p>前一天刚跟经理说了可能要离开，第二天消息便不胫而走，以至于整晚都在回复大家『是的，我要离开了』，于是赶紧将原本准备临走之前才发的好友圈POST了出来，结果第二天就有同学在电梯里哭着劝我不要走。</p>
+        <p>前一天刚跟经理说了可能要离开，第二天消息便不胫而走，以至于整晚都在回复大家『是的，我要离开了』，于是赶紧将原本准备临走之前才发的好友圈POST了出来，结果第二天就有同学直接在电梯里落泪，哭着劝我不要走。</p>
 <p>来到百度已经3年多，说没有感情那肯定是不可能的，说感情不深那也是不可能的，尤其是对于媒体云团队，我作为元老之一见证也带动了整个团队的成长，作为舵主兼前云花（因为当时其他都是汉子），我的精神力量其实早已融入这个团队，现在突然要走，我自己其实也非常不舍，但是我也有不得不迈出这一步的理由，终究还是要成为传说中的人了呢。</p>
 <p>人都会有惰性，尤其当你在一个地方待的很舒服的时候，就像温水里的青蛙，相信青蛙是能够感觉到有问题的，但是却不知道问题出在哪里，也不想深究，于是继续无忧无虑的玩耍，这时突然有人把火开大了（虚拟股票事件），这只青蛙马上意识到自己所处的环境并非表面上看起来那么平静，于是开始找新的家。</p>
 <p>但我其实是一只非常懒的青蛙，当周围的小伙伴已经拿到offer的时候我连简历还没更新好，小伙伴着急了，给我下达死命令，下周一必须把简历写好，然后我下周三终于挤除了第一份简历，开始了慢慢面试路。<br></p>
@@ -1250,15 +1244,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">two pointers</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">two Pointers</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">binary search</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">two pointers</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1278,15 +1272,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">backtracking</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">tree</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">depth-first search</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">backtracking</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1298,11 +1292,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sql</a>
+                <a href="javascript:void(0)" class="js-tag color1">stack</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">stack</a>
+                <a href="javascript:void(0)" class="js-tag color4">sql</a>
               </li>
             
             <div class="clearfix"></div>
