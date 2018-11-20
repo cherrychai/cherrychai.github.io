@@ -1,0 +1,8 @@
+---
+layout: post
+title: RPC接口的返回结果到底要不要包一层BaseResponse
+date: 2018-05-07 23:13:12
+categories : [技术]
+tags: []
+---
+
