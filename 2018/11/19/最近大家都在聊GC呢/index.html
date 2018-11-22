@@ -15,12 +15,10 @@
 <meta property="og:site_name" content="柴华的个人主页">
 <meta property="og:description" content="发现问题最近有人说调用我们服务偶发性失败，问我是不是频繁上线，首先我们当时并没有上线，其次即使是在上线也不应该用户有感知啊，但是我从服务端来看却又没有任何问题，整个服务的负载也都挺健康的，后来仔细对比时间和监控发现该服务时不时的发生一次长达 1.x 秒的 G1 Young GC（这个时间我是在监控上看到的，不过后来得知我们这个监控的 Young GC 和 MIXED GC 是混在一起的，所以也可能">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://chaihua.me/2018/11/19/最近大家都在聊GC呢/52fe23f7-96b6-467f-b809-5906afff6dce.png">
-<meta property="og:updated_time" content="2018-11-20T02:32:17.837Z">
+<meta property="og:updated_time" content="2018-11-21T13:02:23.252Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="最近大家都在聊GC呢">
 <meta name="twitter:description" content="发现问题最近有人说调用我们服务偶发性失败，问我是不是频繁上线，首先我们当时并没有上线，其次即使是在上线也不应该用户有感知啊，但是我从服务端来看却又没有任何问题，整个服务的负载也都挺健康的，后来仔细对比时间和监控发现该服务时不时的发生一次长达 1.x 秒的 G1 Young GC（这个时间我是在监控上看到的，不过后来得知我们这个监控的 Young GC 和 MIXED GC 是混在一起的，所以也可能">
-<meta name="twitter:image" content="http://chaihua.me/2018/11/19/最近大家都在聊GC呢/52fe23f7-96b6-467f-b809-5906afff6dce.png">
   
     <link rel="alternative" href="/atom.xml" title="柴华的个人主页" type="application/atom+xml">
   
@@ -202,9 +200,53 @@
 </code></pre><p>具体的含义如下：</p>
 <p><code>-XX:+PrintGCDetails</code>  输出GC的详细日志<br><code>-XX:+PrintGCTimeStamps</code>  输出GC的时间戳（以基准时间的形式）<br><code>-XX:+PrintGCDateStamps</code>  输出GC的时间戳（以日期的形式，如 2013-05-04T21:53:59.234+0800）<br><code>-XX:+PrintTenuringDistribution</code>  在每次新生代GC时，输出幸存区中对象的年龄分布<br><code>-XX:+PrintGCApplicationStoppedTime</code>  输出全部的JVM停顿（STW）时间（不只是GC）<br><code>-XX:+PrintSafepointStatistics</code> <code>-XX:PrintSafepointStatisticsCount=1</code>  记录STW发生的原因、线程情况、STW各个阶段的停顿时间<br><code>-XX:+PrintHeapAtGC</code>  在进行GC的前后打印出堆的信息</p>
 <p>打印出来的 GC 日志如下：<a id="more"></a></p>
-<p><img src="/2018/11/19/最近大家都在聊GC呢/52fe23f7-96b6-467f-b809-5906afff6dce.png" width="50%" height="50%" alt="" align="center"></p>
-<p>日志打印出来之后发现在做 long gc 的时候是因为出现了 <code>to-space exhausted</code>，但其实周围并没有大对象，而且此时 eden 区减少了 4.8G，但是整个 Heap 只减少了 2.4G，所以怀疑是 gc 的时候发现 to-apace 不够，所以把 young gen 的东西一股脑扔进了 old gen，然后开始调整各种 GC 参数准备解决这个问题。</p>
-<p>把 GC 日志贴到 <a href="http://gceasy.io/" target="_blank" rel="noopener">GCeasy</a> 上面是这样反馈的：</p>
+<pre><code>2018-11-04T11:12:49.639+0000: 10910.437: [GC pause (G1 Evacuation Pause) (young)
+Desired survivor size 322961408 bytes, new threshold 15 (max 15)
+- age   1:   17703048 bytes,   17703048 total
+- age   2:    2368904 bytes,   20071952 total
+- age   3:     230776 bytes,   20302728 total
+- age   4:     324672 bytes,   20627400 total
+- age   5:    1224736 bytes,   21852136 total
+- age   6:     667472 bytes,   22519608 total
+- age   7:     111688 bytes,   22631296 total
+- age   8:      86832 bytes,   22718128 total
+- age   9:     117616 bytes,   22835744 total
+- age  10:     135128 bytes,   22970872 total
+- age  11:    1181992 bytes,   24152864 total
+- age  12:     171416 bytes,   24324280 total
+- age  13:     310360 bytes,   24634640 total
+- age  14:      89392 bytes,   24724032 total
+- age  15:     182016 bytes,   24906048 total
+ (to-space exhausted), 1.9518071 secs]
+   [Parallel Time: 246.0 ms, GC Workers: 4]
+      [GC Worker Start (ms): Min: 10910438.2, Avg: 10910438.4, Max: 10910438.8, Diff: 0.6]
+      [Ext Root Scanning (ms): Min: 3.2, Avg: 3.8, Max: 4.3, Diff: 1.0, Sum: 15.2]
+      [Update RS (ms): Min: 18.5, Avg: 18.8, Max: 19.1, Diff: 0.5, Sum: 75.3]
+         [Processed Buffers: Min: 213, Avg: 248.5, Max: 285, Diff: 72, Sum: 994]
+      [Scan RS (ms): Min: 4.2, Avg: 4.4, Max: 4.7, Diff: 0.4, Sum: 17.7]
+      [Code Root Scanning (ms): Min: 0.3, Avg: 0.4, Max: 0.6, Diff: 0.3, Sum: 1.8]
+      [Object Copy (ms): Min: 218.0, Avg: 218.2, Max: 218.3, Diff: 0.3, Sum: 872.6]
+      [Termination (ms): Min: 0.0, Avg: 0.0, Max: 0.0, Diff: 0.0, Sum: 0.1]
+         [Termination Attempts: Min: 1, Avg: 1.0, Max: 1, Diff: 0, Sum: 4]
+      [GC Worker Other (ms): Min: 0.0, Avg: 0.1, Max: 0.1, Diff: 0.0, Sum: 0.2]
+      [GC Worker Total (ms): Min: 245.3, Avg: 245.7, Max: 245.9, Diff: 0.6, Sum: 982.9]
+      [GC Worker End (ms): Min: 10910684.1, Avg: 10910684.1, Max: 10910684.1, Diff: 0.0]
+   [Code Root Fixup: 0.3 ms]
+   [Code Root Purge: 0.0 ms]
+   [Clear CT: 0.7 ms]
+   [Other: 1704.9 ms]
+      [Evacuation Failure: 1699.6 ms]
+      [Choose CSet: 0.0 ms]
+      [Ref Proc: 0.3 ms]
+      [Ref Enq: 0.0 ms]
+      [Redirty Cards: 0.9 ms]
+      [Humongous Register: 0.2 ms]
+      [Humongous Reclaim: 2.4 ms]
+      [Free CSet: 0.5 ms]
+   [Eden: 4544.0M(4880.0M)-&gt;0.0B(2192.0M) Survivors: 32.0M-&gt;0.0B Heap: 7659.5M(8192.0M)-&gt;5134.9M(8192.0M)]
+ [Times: user=7.05 sys=0.09, real=1.96 secs] 
+</code></pre><p>日志打印出来之后发现在做 long gc 的时候是因为出现了 <code>to-space exhausted</code>，但其实周围并没有大对象，而且此时 eden 区减少了 4.8G，但是整个 Heap 只减少了 2.4G，所以怀疑是 gc 的时候发现 to-apace 不够，所以把 young gen 的东西一股脑扔进了 old gen（当 Eden 不够放入新创建的对象时，也就是 Eden 区满了，JVM 就会清理 Eden 区的空间，将存活的对象放入 to 区，如果 to 区放不下，则直接进入老年代 <strong><a href="https://www.cnblogs.com/stateis0/p/9062188.html" target="_blank" rel="noopener">link</a></strong>），然后开始调整各种 GC 参数准备解决这个问题。</p>
+<p>把 GC 日志贴到 <strong><a href="http://gceasy.io/" target="_blank" rel="noopener">GCeasy</a></strong> 上面是这样反馈的：</p>
 <blockquote>
 <p>14.77% of GC time (i.e 1 sec 692 ms) is caused by ‘Evacuation Failure’. When there are no more free regions to promote to the old generation or to copy to the survivor space, and the heap cannot expand since it is already at its maximum, an evacuation failure occurs. For G1 GC, an evacuation failure is very expensive - a. For successfully copied objects, G1 needs to update the references and the regions have to be tenured. b. For unsuccessfully copied objects, G1 will self-forward them and tenure the regions in place.<br>Solution: </p>
 <ol>
@@ -328,9 +370,18 @@
   
 <nav id="article-nav">
   
+    <a href="/2018/11/20/untitled/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          最近大家都在聊GC呢
+        
+      </div>
+    </a>
   
-    <a href="/2018/05/07/新的征程/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">新的征程</div>
+  
+    <a href="/2018/05/07/RPC接口的返回结果到底要不要包一层BaseResponse/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">RPC接口的返回结果到底要不要包一层BaseResponse</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -470,15 +521,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">hash table</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">two Pointers</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">binary search</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">hash table</a>
               </li>
              
               <li class="article-tag-list-item">
