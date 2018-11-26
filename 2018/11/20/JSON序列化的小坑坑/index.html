@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://chaihua.me">
-  <title>DIARY | 柴华的个人主页</title>
+  <title>JSON序列化的小坑坑 | 柴华的个人主页</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="2018.10.23: 知乎上看到一句话『soft on the person, hard on the problem』，感觉说的很好啊，值得学习。   2018.10.22: 奇葩说的杨奇函说每天都会问自己一句『今天你比昨天更博学了吗？』，大家都笑他，也许是觉得他过于浮夸，但是想想人生短暂，每一天其实都非常重要而且无可替代，那么我们是不是应该保证每一天都过的有意义，而不是忙忙碌碌碌碌无为。我">
-<meta property="og:type" content="website">
-<meta property="og:title" content="DIARY">
-<meta property="og:url" content="http://chaihua.me/diary/index.html">
+  <meta name="description" content="最近某同学解析一段 json body，由于提供方的是非类型安全的语言，所以传过来的某个字段（假设字段的名称为 uid）有时为 string，有时为 int，也就是说我们看到的 json 可能是一下两种样式：  {“uid”:”1234”} {“uid”:1234}  这样会导致使用类型安全语言的调用方无法使用一个确定的类型去解析这个 json body，而且有的时候可能还会对排查问题造成一些困扰">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JSON序列化的小坑坑">
+<meta property="og:url" content="http://chaihua.me/2018/11/20/JSON序列化的小坑坑/index.html">
 <meta property="og:site_name" content="柴华的个人主页">
-<meta property="og:description" content="2018.10.23: 知乎上看到一句话『soft on the person, hard on the problem』，感觉说的很好啊，值得学习。   2018.10.22: 奇葩说的杨奇函说每天都会问自己一句『今天你比昨天更博学了吗？』，大家都笑他，也许是觉得他过于浮夸，但是想想人生短暂，每一天其实都非常重要而且无可替代，那么我们是不是应该保证每一天都过的有意义，而不是忙忙碌碌碌碌无为。我">
+<meta property="og:description" content="最近某同学解析一段 json body，由于提供方的是非类型安全的语言，所以传过来的某个字段（假设字段的名称为 uid）有时为 string，有时为 int，也就是说我们看到的 json 可能是一下两种样式：  {“uid”:”1234”} {“uid”:1234}  这样会导致使用类型安全语言的调用方无法使用一个确定的类型去解析这个 json body，而且有的时候可能还会对排查问题造成一些困扰">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-10-23T06:18:45.721Z">
+<meta property="og:updated_time" content="2018-11-26T03:34:51.762Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="DIARY">
-<meta name="twitter:description" content="2018.10.23: 知乎上看到一句话『soft on the person, hard on the problem』，感觉说的很好啊，值得学习。   2018.10.22: 奇葩说的杨奇函说每天都会问自己一句『今天你比昨天更博学了吗？』，大家都笑他，也许是觉得他过于浮夸，但是想想人生短暂，每一天其实都非常重要而且无可替代，那么我们是不是应该保证每一天都过的有意义，而不是忙忙碌碌碌碌无为。我">
+<meta name="twitter:title" content="JSON序列化的小坑坑">
+<meta name="twitter:description" content="最近某同学解析一段 json body，由于提供方的是非类型安全的语言，所以传过来的某个字段（假设字段的名称为 uid）有时为 string，有时为 int，也就是说我们看到的 json 可能是一下两种样式：  {“uid”:”1234”} {“uid”:1234}  这样会导致使用类型安全语言的调用方无法使用一个确定的类型去解析这个 json body，而且有的时候可能还会对排查问题造成一些困扰">
   
     <link rel="alternative" href="/atom.xml" title="柴华的个人主页" type="application/atom+xml">
   
@@ -174,62 +174,36 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-JSON序列化的小坑坑" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      DIARY
+      JSON序列化的小坑坑
     </h1>
   
 
         
-        <a href="/diary/index.html" class="archive-article-date">
-  	<time datetime="2018-10-23T06:18:45.721Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-23</time>
+        <a href="/2018/11/20/JSON序列化的小坑坑/" class="archive-article-date">
+  	<time datetime="2018-11-20T15:30:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-20</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <blockquote>
-<p><strong>2018.10.23:</strong> 知乎上看到一句话『soft on the person, hard on the problem』，感觉说的很好啊，值得学习。</p>
-</blockquote>
-<blockquote>
-<p><strong>2018.10.22:</strong> 奇葩说的杨奇函说每天都会问自己一句『今天你比昨天更博学了吗？』，大家都笑他，也许是觉得他过于浮夸，但是想想人生短暂，每一天其实都非常重要而且无可替代，那么我们是不是应该保证每一天都过的有意义，而不是忙忙碌碌碌碌无为。我想我也许不需要每天都问自己『今天你比昨天更博学了吗？』，但是我需要保证每一天过去之后我会变的有些许不同，每天进步一点点，每天成长一点点。</p>
-</blockquote>
-<blockquote>
-<p><strong>2018.10.12:</strong> 适当的时候需要让自己慢下来，多做一些思考，工作是做不完的，忙碌的日子也会过的飞快，而学习进步也许对自己更重要。</p>
-</blockquote>
-<blockquote>
-<p><strong>2018.07.26:</strong> 处理紧急问题的时候注意一定要先摆客观事实，再加上自己的主观判断，当然这个判断未必是准的。</p>
-</blockquote>
-<blockquote>
-<p><strong>2018.05.16:</strong> 有时感觉自己是一个特别纠结的人，做个决定思前想后，但有时又特别果断，决定的事情别人怎么都拉不回来，可能确实很难选吧。</p>
-</blockquote>
-<blockquote>
-<p><strong>2018.04.23:</strong> 收到阿里云的口头offer，不过确实要考虑下是否还要在继续在大厂镀金了。</p>
-</blockquote>
-<blockquote>
-<p><strong>2018.04.22:</strong> 做点有趣的东西吧，不能让人生就这么荒废了。</p>
-</blockquote>
-<blockquote>
-<p><strong>2018.04.17:</strong> 原来每个人变得那么优秀都是有原因的，看到组内小朋友（无非）梳理工作时遇到的知识点有感，希望自己也可以越来越好。</p>
-</blockquote>
-<blockquote>
-<p><strong>2018.03.02:</strong> 成长是道明媚的忧伤。</p>
-</blockquote>
-<blockquote>
-<p><strong>2014.04.03:</strong> 久居屌丝群而独善其身，做有思想的文艺范IT女青年。</p>
-</blockquote>
-<blockquote>
-<p><strong>2012.12.18:</strong> 转眼间已经工作半年了，真是时光飞逝啊，谨记alps的教诲，但做好事，莫问前程，加油姑娘，一定要快乐的工作。</p>
-</blockquote>
-<blockquote>
-<p><strong>2011.02.14:</strong> 不过马上就要毕业了，好日子到头了，呃。</p>
-</blockquote>
+        <p>最近某同学解析一段 json body，由于提供方的是非类型安全的语言，所以传过来的某个字段（假设字段的名称为 uid）有时为 string，有时为 int，也就是说我们看到的 json 可能是一下两种样式：</p>
+<ul>
+<li>{“uid”:”1234”}</li>
+<li>{“uid”:1234}</li>
+</ul>
+<p>这样会导致使用类型安全语言的调用方无法使用一个确定的类型去解析这个 json body，而且有的时候可能还会对排查问题造成一些困扰。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    List&lt;String&gt; contentList = Arrays.asList(<span class="string">"&#123;\"uid\":1234&#125;"</span>, <span class="string">"&#123;\"uid\":\"5678\"&#125;"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (String content : contentList) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Map&lt;String, String&gt; bodyValueMap = JSON.parseObject(content, Map.class);</span><br><span class="line"></span><br><span class="line">            ... ... <span class="comment">//省略代码 n 行</span></span><br><span class="line"></span><br><span class="line">            String uid = Optional.ofNullable(bodyValueMap.get(<span class="string">"uid"</span>)).map(String::valueOf).orElse(<span class="string">"0"</span>);</span><br><span class="line">            log.info(<span class="string">"uid = &#123;&#125;"</span>, uid);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            log.error(<span class="string">"exception: &#123;&#125;"</span>, e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个地方如愿抛出了com.alibaba.fastjson.JSONException: parseInt error, field : uid，不过是在第 8 行抛出来的，而不是在第 6 行，这个同学就觉得非常困惑，这一行不应该有什么问题啊，使用姿势很正确啊。但是后来改成用 Map&lt;String, Object&gt; 接收就没有问题了。后来研究了一下发现其实在做 JSON.parseObject 会将原来的类型擦除，所以这个地方并不会报错，但是在取出来的时候会转成定义的 String 类型，然后就报错了。其实是个小问题，主要是报错的地方不符合预期，然后一开始又不知道对方会传那么奇怪的 json，会导致排查错了方向。后来又深入了解了下 fastjson，发现正确的代码姿势应该如下所示。<br><a id="more"></a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    List&lt;String&gt; contentList = Arrays.asList(<span class="string">"&#123;\"uid\":1234&#125;"</span>, <span class="string">"&#123;\"uid\":\"5678\"&#125;"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (String content : contentList) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Map&lt;String, Object&gt; bodyValueMap = JSON.parseObject(content, Map.class);</span><br><span class="line">            String uid = Optional.ofNullable(bodyValueMap.get(<span class="string">"uid"</span>)).map(String::valueOf).orElse(<span class="string">"0"</span>);</span><br><span class="line">            log.info(<span class="string">"uid = &#123;&#125;"</span>, uid);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            log.error(<span class="string">"exception: &#123;&#125;"</span>, e);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Map&lt;String, String&gt; bodyValueMap = JSON.parseObject(content, <span class="keyword">new</span> TypeReference&lt;Map&lt;String, String&gt;&gt;() &#123;&#125;);</span><br><span class="line">            String uid = Optional.ofNullable(bodyValueMap.get(<span class="string">"uid"</span>)).map(String::valueOf).orElse(<span class="string">"0"</span>);</span><br><span class="line">            log.info(<span class="string">"uid = &#123;&#125;"</span>, uid);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            log.error(<span class="string">"exception: &#123;&#125;"</span>, e.getMessage());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Map&lt;String, Integer&gt; bodyValueMap = JSON.parseObject(content, <span class="keyword">new</span> TypeReference&lt;Map&lt;String, Integer&gt;&gt;() &#123;&#125;);</span><br><span class="line">            String uid = Optional.ofNullable(bodyValueMap.get(<span class="string">"uid"</span>)).map(String::valueOf).orElse(<span class="string">"0"</span>);</span><br><span class="line">            log.info(<span class="string">"uid = &#123;&#125;"</span>, uid);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            log.error(<span class="string">"exception: &#123;&#125;"</span>, e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>搞完这个又想到之前解析某部门的 json，有些类型可能是 string，也可能是 list，最后也没有想到很好的方法来解析，只能用 string 接收之后判断开头是什么字符（23333，感觉也是很机智的方法），真的是非常头痛啊。</p>
 
       
 
@@ -265,6 +239,17 @@
       
       
       
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/技术//" class="article-tag-list-link color3">技术</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
 
       
 
@@ -314,7 +299,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://chaihua.me/diary/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://chaihua.me/2018/11/20/JSON序列化的小坑坑/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -326,6 +311,16 @@
 </article>
 
   
+<nav id="article-nav">
+  
+  
+    <a href="/2018/11/19/最近大家都在聊GC呢/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">最近大家都在聊GC呢</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -361,7 +356,7 @@
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 var gitment = new Gitment({
-  id: 'Tue Oct 23 2018 14:18:45 GMT+0800',
+  id: 'Tue Nov 20 2018 23:30:26 GMT+0800',
   owner: 'cherrychai',
   repo: 'cherrychai.github.io',
   oauth: {
@@ -394,7 +389,7 @@ gitment.render('gitmentContainer')
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

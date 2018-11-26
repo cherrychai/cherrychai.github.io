@@ -172,19 +172,19 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-untitled" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-JSON序列化的小坑坑" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/20/untitled/">最近大家都在聊GC呢</a>
+      <a class="article-title" href="/2018/11/20/JSON序列化的小坑坑/">JSON序列化的小坑坑</a>
     </h1>
   
 
         
-        <a href="/2018/11/20/untitled/" class="archive-article-date">
+        <a href="/2018/11/20/JSON序列化的小坑坑/" class="archive-article-date">
   	<time datetime="2018-11-20T15:30:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-20</time>
 </a>
         
@@ -192,10 +192,17 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>最近解析一段 json string，由于业务方使用的 LUA，导致类型不是强一致，可以理解为他传过来的 string 有些是</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    List&lt;String&gt; contentList = Arrays.asList(<span class="string">"&#123;\"uid\":1234&#125;"</span>, <span class="string">"&#123;\"uid\":\"5678a\"&#125;"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (String content : contentList) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Map&lt;String, String&gt; bodyValueMap = JSON.parseObject(content, Map.class);</span><br><span class="line">            ... ... <span class="comment">//省略代码 n 行</span></span><br><span class="line">            String uid = Optional.ofNullable(bodyValueMap.get(<span class="string">"uid"</span>)).map(String::valueOf).orElse(<span class="string">"0"</span>);</span><br><span class="line">            log.info(<span class="string">"uid = &#123;&#125;"</span>, uid);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            log.error(<span class="string">"exception: &#123;&#125;"</span>, e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这个地方抛出了</p>
-
+        <p>最近某同学解析一段 json body，由于提供方的是非类型安全的语言，所以传过来的某个字段（假设字段的名称为 uid）有时为 string，有时为 int，也就是说我们看到的 json 可能是一下两种样式：</p>
+<ul>
+<li>{“uid”:”1234”}</li>
+<li>{“uid”:1234}</li>
+</ul>
+<p>这样会导致使用类型安全语言的调用方无法使用一个确定的类型去解析这个 json body，而且有的时候可能还会对排查问题造成一些困扰。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    List&lt;String&gt; contentList = Arrays.asList(<span class="string">"&#123;\"uid\":1234&#125;"</span>, <span class="string">"&#123;\"uid\":\"5678\"&#125;"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (String content : contentList) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Map&lt;String, String&gt; bodyValueMap = JSON.parseObject(content, Map.class);</span><br><span class="line"></span><br><span class="line">            ... ... <span class="comment">//省略代码 n 行</span></span><br><span class="line"></span><br><span class="line">            String uid = Optional.ofNullable(bodyValueMap.get(<span class="string">"uid"</span>)).map(String::valueOf).orElse(<span class="string">"0"</span>);</span><br><span class="line">            log.info(<span class="string">"uid = &#123;&#125;"</span>, uid);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            log.error(<span class="string">"exception: &#123;&#125;"</span>, e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个地方如愿抛出了com.alibaba.fastjson.JSONException: parseInt error, field : uid，不过是在第 8 行抛出来的，而不是在第 6 行，这个同学就觉得非常困惑，这一行不应该有什么问题啊，使用姿势很正确啊。但是后来改成用 Map&lt;String, Object&gt; 接收就没有问题了。后来研究了一下发现其实在做 JSON.parseObject 会将原来的类型擦除，所以这个地方并不会报错，但是在取出来的时候会转成定义的 String 类型，然后就报错了。其实是个小问题，主要是报错的地方不符合预期，然后一开始又不知道对方会传那么奇怪的 json，会导致排查错了方向。后来又深入了解了下 fastjson，发现正确的代码姿势应该如下所示。<br></p>
+        
+          <a class="article-more-a" href="/2018/11/20/JSON序列化的小坑坑/#more">more >></a>
+        
       
 
       
@@ -218,7 +225,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/11/20/untitled/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/11/20/JSON序列化的小坑坑/">展开全文 >></a>
         </p>
       
 
@@ -273,7 +280,7 @@
 <pre><code>-XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps -XX:+PrintTenuringDistribution -XX:+PrintGCApplicationStoppedTime -XX:+PrintSafepointStatistics -XX:PrintSafepointStatisticsCount=1
 </code></pre><p>具体的含义如下：</p>
 <p><code>-XX:+PrintGCDetails</code>  输出GC的详细日志<br><code>-XX:+PrintGCTimeStamps</code>  输出GC的时间戳（以基准时间的形式）<br><code>-XX:+PrintGCDateStamps</code>  输出GC的时间戳（以日期的形式，如 2013-05-04T21:53:59.234+0800）<br><code>-XX:+PrintTenuringDistribution</code>  在每次新生代GC时，输出幸存区中对象的年龄分布<br><code>-XX:+PrintGCApplicationStoppedTime</code>  输出全部的JVM停顿（STW）时间（不只是GC）<br><code>-XX:+PrintSafepointStatistics</code> <code>-XX:PrintSafepointStatisticsCount=1</code>  记录STW发生的原因、线程情况、STW各个阶段的停顿时间<br><code>-XX:+PrintHeapAtGC</code>  在进行GC的前后打印出堆的信息</p>
-<p>打印出来的 GC 日志如下：</p>
+<p>打印出来的 GC 日志如下：<br></p>
         
           <a class="article-more-a" href="/2018/11/19/最近大家都在聊GC呢/#more">more >></a>
         
@@ -1212,6 +1219,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">two pointers</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">hash table</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">two Pointers</a>
               </li>
              
@@ -1220,11 +1235,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">hash table</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">two pointers</a>
+                <a href="javascript:void(0)" class="js-tag color1">hash Table</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1236,11 +1247,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">hash Table</a>
+                <a href="javascript:void(0)" class="js-tag color5">dynamic programming</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">dynamic programming</a>
+                <a href="javascript:void(0)" class="js-tag color3">backtracking</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1249,10 +1260,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">depth-first search</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">backtracking</a>
               </li>
              
               <li class="article-tag-list-item">
