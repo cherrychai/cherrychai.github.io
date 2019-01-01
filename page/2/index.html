@@ -63,6 +63,8 @@
 	        
 				<li><a href="/categories/leetcode/">刷题</a></li>
 	        
+				<li><a href="/notes/">笔记</a></li>
+	        
 				<li><a href="/about/">关于我</a></li>
 	        
 				<li><a href="/diary/">DIARY</a></li>
@@ -127,6 +129,8 @@
 			
 				
 			
+				
+			
 			
 			
 			<nav class="header-nav">
@@ -145,17 +149,19 @@
 				<ul style="width: 70%">
 				
 				
-					<li style="width: 16.666666666666668%"><a href="/">主页</a></li>
+					<li style="width: 14.285714285714286%"><a href="/">主页</a></li>
 		        
-					<li style="width: 16.666666666666668%"><a href="/categories/随笔/">随笔</a></li>
+					<li style="width: 14.285714285714286%"><a href="/categories/随笔/">随笔</a></li>
 		        
-					<li style="width: 16.666666666666668%"><a href="/categories/study/">学习</a></li>
+					<li style="width: 14.285714285714286%"><a href="/categories/study/">学习</a></li>
 		        
-					<li style="width: 16.666666666666668%"><a href="/categories/leetcode/">刷题</a></li>
+					<li style="width: 14.285714285714286%"><a href="/categories/leetcode/">刷题</a></li>
 		        
-					<li style="width: 16.666666666666668%"><a href="/about/">关于我</a></li>
+					<li style="width: 14.285714285714286%"><a href="/notes/">笔记</a></li>
 		        
-					<li style="width: 16.666666666666668%"><a href="/diary/">DIARY</a></li>
+					<li style="width: 14.285714285714286%"><a href="/about/">关于我</a></li>
+		        
+					<li style="width: 14.285714285714286%"><a href="/diary/">DIARY</a></li>
 		        
 				</ul>
 			</nav>
@@ -251,6 +257,110 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2014/05/02/LeetCode-Binary-Tree-Level-Order-Traversal/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-LeetCode-LRU-Cache" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/05/02/LeetCode-LRU-Cache/">LeetCode - LRU Cache</a>
+    </h1>
+  
+
+        
+        <a href="/2014/05/02/LeetCode-LRU-Cache/" class="archive-article-date">
+  	<time datetime="2014-05-01T16:13:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2014-05-02</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p><a href="https://leetcode.com/problems/lru-cache/" target="_blank" rel="noopener">146. LRU Cache</a></p>
+<p>Design and implement a data structure for <a href="https://en.wikipedia.org/wiki/Cache_replacement_policies#LRU" target="_blank" rel="noopener">Least Recently Used (LRU) cache</a>. It should support the following operations: get and put.</p>
+<p>get(key) - Get the value (will always be positive) of the key if the key exists in the cache, otherwise return -1.<br>put(key, value) - Set or insert the value if the key is not already present. When the cache reached its capacity, it should invalidate the least recently used item before inserting a new item.</p>
+<p><strong>Follow up:</strong><br>Could you do both operations in <strong>O(1)</strong> time complexity?</p>
+<p><strong>Example:</strong></p>
+<p>LRUCache cache = new LRUCache( 2 /<em> capacity </em>/ );</p>
+<pre><code>cache.put(1, 1);
+cache.put(2, 2);
+cache.get(1);       // returns 1
+cache.put(3, 3);    // evicts key 2
+cache.get(2);       // returns -1 (not found)
+cache.put(4, 4);    // evicts key 1
+cache.get(1);       // returns -1 (not found)
+cache.get(3);       // returns 3
+cache.get(4);       // returns 4
+</code></pre></blockquote>
+<p>最近最少使用算法，面试很喜欢考的一道题目，可以用LinkedHashMap实现。<br></p>
+        
+          <a class="article-more-a" href="/2014/05/02/LeetCode-LRU-Cache/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">coding</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/leetcode//" class="article-tag-list-link color4">leetcode</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2014/05/02/LeetCode-LRU-Cache/">展开全文 >></a>
         </p>
       
 
@@ -1115,103 +1225,6 @@ A solution set is:
 
 
   
-    <article id="post-LeetCode-3Sum-Closest" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2013/11/18/LeetCode-3Sum-Closest/">LeetCode - 3Sum Closest</a>
-    </h1>
-  
-
-        
-        <a href="/2013/11/18/LeetCode-3Sum-Closest/" class="archive-article-date">
-  	<time datetime="2013-11-17T16:13:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2013-11-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p><a href="https://leetcode.com/problems/3sum-closest/" target="_blank" rel="noopener">16. 3Sum Closest</a></p>
-<p>Given an array S of n integers, find three integers in S such that the sum is closest to a given number, target. Return the sum of the three integers. You may assume that each input would have exactly one solution.</p>
-<pre><code>For example, given array S = {-1 2 1 -4}, and target = 1.
-The sum that is closest to the target is 2. (-1 + 2 + 1 = 2).
-</code></pre></blockquote>
-<p>给定一个数组和一个目标数字，求和最接近目标数字的3个数字之和，同样假设有且只有一个满足条件的解。<br></p>
-        
-          <a class="article-more-a" href="/2013/11/18/LeetCode-3Sum-Closest/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">array</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">two pointers</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/leetcode//" class="article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2013/11/18/LeetCode-3Sum-Closest/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -1226,7 +1239,7 @@ The sum that is closest to the target is 2. (-1 + 2 + 1 = 2).
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018 柴华
+    		&copy; 2019 柴华
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -1305,10 +1318,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">two pointers</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">hash table</a>
               </li>
              
@@ -1318,6 +1327,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">binary search</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">two pointers</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1337,10 +1350,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">coding</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">backtracking</a>
               </li>
              
@@ -1349,11 +1358,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">depth-first search</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">breadth-first search</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">depth-first search</a>
+                <a href="javascript:void(0)" class="js-tag color2">coding</a>
               </li>
              
               <li class="article-tag-list-item">
