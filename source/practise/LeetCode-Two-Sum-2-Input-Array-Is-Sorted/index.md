@@ -1,9 +1,7 @@
 ---
 layout: post
 title: LeetCode - Two Sum II - Input array is sorted
-date: 2013-11-17 00:13:14
-categories: [leetcode]
-tags: [array, two Pointers, binary search]
+date: 2013-11-16 16:13:14
 ---
 
 > [167. Two Sum II - Input array is sorted](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/)

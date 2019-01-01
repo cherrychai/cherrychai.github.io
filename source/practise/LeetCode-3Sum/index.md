@@ -1,9 +1,7 @@
 ---
 layout: post
 title: LeetCode - 3Sum
-date: 2013-11-18 00:13:15
-categories: [leetcode]
-tags: [array, two pointers]
+date: 2013-11-17 16:13:15
 ---
 
 > [15. 3Sum](https://leetcode.com/problems/3sum/)

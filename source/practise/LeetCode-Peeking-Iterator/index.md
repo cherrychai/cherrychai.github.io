@@ -1,9 +1,7 @@
 ---
 layout: post
 title: LeetCode - Peeking Iterator
-date: 2014-10-27 00:13:14
-categories : [leetcode]
-tags: [coding]
+date: 2014-10-26 17:13:14
 ---
 
 > [284. Peeking Iterator](https://leetcode.com/problems/peeking-iterator/)

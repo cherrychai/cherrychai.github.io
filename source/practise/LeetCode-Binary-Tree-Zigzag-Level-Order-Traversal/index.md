@@ -1,9 +1,7 @@
 ---
 layout: post
 title: LeetCode - Binary Tree Zigzag Level Order Traversal
-date: 2014-05-08 00:13:14
-categories : [leetcode]
-tags: [tree, breadth-first search, stack]
+date: 2014-05-07 17:13:14
 ---
 
 > [103. Binary Tree Zigzag Level Order Traversal](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/)

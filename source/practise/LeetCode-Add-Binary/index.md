@@ -1,9 +1,7 @@
 ---
 layout: post
 title: LeetCode - Add Binary
-date: 2013-11-28 00:13:14
-categories : [leetcode]
-tags: [math, string]
+date: 2013-11-27 16:13:14
 ---
 
 > [67. Add Binary](https://leetcode.com/problems/add-binary/)

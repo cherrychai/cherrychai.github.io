@@ -2,11 +2,11 @@
 
 menu:
   主页: /
-  随笔: /categories/随笔/
-  学习: /categories/study/
-  刷题: /categories/leetcode/
+  笔记: /notes/
+  刷题: /practise/
   关于我: /about/
   DIARY: /diary/
+
 
 # SubNav
 subnav:

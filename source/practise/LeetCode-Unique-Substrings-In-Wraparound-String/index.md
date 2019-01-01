@@ -1,9 +1,7 @@
 ---
 layout: post
 title: LeetCode - Unique Substrings in Wraparound String
-date: 2014-02-28 00:13:14
-categories : [leetcode]
-tags: [dynamic programming]
+date: 2014-02-27 16:13:14
 ---
 
 > [467. Unique Substrings in Wraparound String](https://leetcode.com/problems/unique-substrings-in-wraparound-string/)

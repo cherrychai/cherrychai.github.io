@@ -1,9 +1,7 @@
 ---
 layout: post
 title: LeetCode - Balanced Binary Tree
-date: 2014-03-06 00:13:14
-categories : [leetcode]
-tags: [tree, depth-first search]
+date: 2014-03-05 16:13:14
 ---
 
 > [110. Balanced Binary Tree](https://leetcode.com/problems/balanced-binary-tree/)

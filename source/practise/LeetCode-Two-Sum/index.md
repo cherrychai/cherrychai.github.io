@@ -1,9 +1,7 @@
 ---
 layout: post
 title: LeetCode - Two Sum
-date: 2013-11-11 00:13:14
-categories : [leetcode]
-tags: [array, hash table]
+date: 2013-11-10 16:13:14
 ---
 
 > [1. Two Sum](https://leetcode.com/problems/two-sum/)

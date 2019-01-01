@@ -1,9 +1,7 @@
 ---
 layout: post
 title: LeetCode - Word Break
-date: 2014-03-01 00:13:14
-categories : [leetcode]
-tags: [dynamic programming]
+date: 2014-02-28 16:13:14
 ---
 
 > [139. Word Break](https://leetcode.com/problems/word-break/)

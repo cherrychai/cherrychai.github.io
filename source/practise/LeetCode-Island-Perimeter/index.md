@@ -1,9 +1,7 @@
 ---
 layout: post
 title: LeetCode - Island Perimeter
-date: 2013-11-20 00:13:14
-categories: [leetcode]
-tags: [hash Table, math]
+date: 2013-11-19 16:13:14
 ---
 
 > [463. Island Perimeter](https://leetcode.com/problems/island-perimeter/)

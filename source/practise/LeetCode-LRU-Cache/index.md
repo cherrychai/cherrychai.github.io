@@ -1,9 +1,7 @@
 ---
 layout: post
 title: LeetCode - LRU Cache
-date: 2014-05-02 00:13:14
-categories : [leetcode]
-tags: [coding]
+date: 2014-05-01 17:13:14
 ---
 
 > [146. LRU Cache](https://leetcode.com/problems/lru-cache/)
