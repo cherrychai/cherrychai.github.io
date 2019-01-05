@@ -1,7 +1,7 @@
 ---
 layout: post
 title: LeetCode - Some Boring Sql Questions
-date: 2014-10-23 17:13:14
+date: 2014-10-23
 ---
 
 > [595. Big Countries](https://leetcode.com/problems/big-countries/)

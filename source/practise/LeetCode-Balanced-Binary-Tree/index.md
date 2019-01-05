@@ -1,7 +1,7 @@
 ---
 layout: post
 title: LeetCode - Balanced Binary Tree
-date: 2014-03-05 16:13:14
+date: 2014-03-05
 ---
 
 > [110. Balanced Binary Tree](https://leetcode.com/problems/balanced-binary-tree/)

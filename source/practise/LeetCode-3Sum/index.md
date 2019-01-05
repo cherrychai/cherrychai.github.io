@@ -1,7 +1,7 @@
 ---
 layout: post
 title: LeetCode - 3Sum
-date: 2013-11-17 16:13:15
+date: 2013-11-17
 ---
 
 > [15. 3Sum](https://leetcode.com/problems/3sum/)

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: LeetCode - Add Binary
-date: 2013-11-27 16:13:14
+date: 2013-11-27
 ---
 
 > [67. Add Binary](https://leetcode.com/problems/add-binary/)

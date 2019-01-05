@@ -1,7 +1,7 @@
 ---
 layout: post
 title: LeetCode - Binary Tree Right Side View
-date: 2014-05-02 17:13:15
+date: 2014-05-02
 ---
 
 > [199. Binary Tree Right Side View](https://leetcode.com/problems/binary-tree-right-side-view/)

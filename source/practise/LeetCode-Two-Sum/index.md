@@ -1,7 +1,7 @@
 ---
 layout: post
 title: LeetCode - Two Sum
-date: 2013-11-10 16:13:14
+date: 2013-11-10
 ---
 
 > [1. Two Sum](https://leetcode.com/problems/two-sum/)

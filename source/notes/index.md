@@ -1,7 +1,12 @@
 ---
 layout: post
-title: NOTE
+title: 读书笔记
+date: 2018-06-01
 ---
 
-[]()
+#### Java
+[GC](/notes/java/gc)
+
+#### 架构
+[疯狂 Spring Cloud 架构实战](/notes/achetecture/疯狂SpringCloud微服务架构实战)
 

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: LeetCode - Two Sum II - Input array is sorted
-date: 2013-11-16 16:13:14
+date: 2013-11-16
 ---
 
 > [167. Two Sum II - Input array is sorted](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/)

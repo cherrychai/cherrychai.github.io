@@ -1,7 +1,7 @@
 ---
 layout: post
 title: LeetCode - Binary Tree Level Order Traversal
-date: 2014-05-01 17:13:14
+date: 2014-05-01
 ---
 
 > [102. Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/)

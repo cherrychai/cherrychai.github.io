@@ -1,7 +1,7 @@
 ---
 layout: post
 title: LeetCode - Word Break
-date: 2014-02-28 16:13:14
+date: 2014-02-2
 ---
 
 > [139. Word Break](https://leetcode.com/problems/word-break/)
