@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="柴华的个人主页">
 <meta property="og:description" content="发现问题最近有人说调用我们服务偶发性失败，问我是不是频繁上线，首先我们当时并没有上线，其次即使是在上线也不应该用户有感知啊，但是我从服务端来看却又没有任何问题，整个服务的负载也都挺健康的，后来仔细对比时间和监控发现该服务时不时的发生一次长达 1.x 秒的 G1 Young GC（这个时间我是在监控上看到的，不过后来得知我们这个监控的 Young GC 和 MIXED GC 是混在一起的，所以也可能">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-01-01T09:00:49.753Z">
+<meta property="og:updated_time" content="2019-01-02T11:31:00.079Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="最近大家都在聊GC呢">
 <meta name="twitter:description" content="发现问题最近有人说调用我们服务偶发性失败，问我是不是频繁上线，首先我们当时并没有上线，其次即使是在上线也不应该用户有感知啊，但是我从服务端来看却又没有任何问题，整个服务的负载也都挺健康的，后来仔细对比时间和监控发现该服务时不时的发生一次长达 1.x 秒的 G1 Young GC（这个时间我是在监控上看到的，不过后来得知我们这个监控的 Young GC 和 MIXED GC 是混在一起的，所以也可能">
@@ -181,15 +181,15 @@
 
         
         <a href="/2018/11/19/最近大家都在聊GC呢/" class="archive-article-date">
-  	<time datetime="2018-11-19T15:30:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-19</time>
+  	<time datetime="2018-11-18T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-19</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="发现问题"><a href="#发现问题" class="headerlink" title="发现问题"></a>发现问题</h3><p>最近有人说调用我们服务偶发性失败，问我是不是频繁上线，首先我们当时并没有上线，其次即使是在上线也不应该用户有感知啊，但是我从服务端来看却又没有任何问题，整个服务的负载也都挺健康的，后来仔细对比时间和监控发现该服务时不时的发生一次长达 1.x 秒的 G1 Young GC（这个时间我是在监控上看到的，不过后来得知我们这个监控的 Young GC 和 MIXED GC 是混在一起的，所以也可能是个 1.x 秒的 MIXED GC），而最近好像大家都在聊 GC，于是我也准备自己来研究下这个问题。</p>
-<h3 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h3><p>为了解决问题，首先增加了一些打印 GC 日志的参数：</p>
+        <h3><span id="发现问题">发现问题</span></h3><p>最近有人说调用我们服务偶发性失败，问我是不是频繁上线，首先我们当时并没有上线，其次即使是在上线也不应该用户有感知啊，但是我从服务端来看却又没有任何问题，整个服务的负载也都挺健康的，后来仔细对比时间和监控发现该服务时不时的发生一次长达 1.x 秒的 G1 Young GC（这个时间我是在监控上看到的，不过后来得知我们这个监控的 Young GC 和 MIXED GC 是混在一起的，所以也可能是个 1.x 秒的 MIXED GC），而最近好像大家都在聊 GC，于是我也准备自己来研究下这个问题。</p>
+<h3><span id="解决问题">解决问题</span></h3><p>为了解决问题，首先增加了一些打印 GC 日志的参数：</p>
 <pre><code>-XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps -XX:+PrintTenuringDistribution -XX:+PrintGCApplicationStoppedTime -XX:+PrintSafepointStatistics -XX:PrintSafepointStatisticsCount=1
 </code></pre><p>具体的含义如下：</p>
 <p><code>-XX:+PrintGCDetails</code>  输出GC的详细日志<br><code>-XX:+PrintGCTimeStamps</code>  输出GC的时间戳（以基准时间的形式）<br><code>-XX:+PrintGCDateStamps</code>  输出GC的时间戳（以日期的形式，如 2013-05-04T21:53:59.234+0800）<br><code>-XX:+PrintTenuringDistribution</code>  在每次新生代GC时，输出幸存区中对象的年龄分布<br><code>-XX:+PrintGCApplicationStoppedTime</code>  输出全部的JVM停顿（STW）时间（不只是GC）<br><code>-XX:+PrintSafepointStatistics</code> <code>-XX:PrintSafepointStatisticsCount=1</code>  记录STW发生的原因、线程情况、STW各个阶段的停顿时间<br><code>-XX:+PrintHeapAtGC</code>  在进行GC的前后打印出堆的信息</p>
@@ -254,7 +254,7 @@ Desired survivor size 322961408 bytes, new threshold 15 (max 15)
 <p>所以我们尝试调整各种参数试图解决问题：</p>
 <p><code>-XX:InitiatingHeapOccupancyPercent=45</code>  设置触发标记周期的 Java 堆占用率阈值，默认值是 45，之前不知道为什么调整到了 70，设置到 45 之后确实能更快的进行 old gc，但是那个很长时间的 young gc 仍然存在<br><code>-XX:G1ReservePercent=20</code>  设置作为空闲空间的预留内存百分比，以降低目标空间溢出的风险，因为报的是 to-space exhausted，所以优先想到修改这个参数，网上也是这样推荐的，然而并没有什么卵用<br><code>-XX:ParallelGCThreads=5</code>  如果逻辑处理器不止8个，则将n的值设置为逻辑处理器数的5/8左右，这是一个 magic number，据说可以解决很多问题，但是没有解决我们的问题<br><code>-XX:G1HeapRegionSize=16M</code>  G1 区域的大小，值是 2 的幂，范围是 1MB 到 32MB 之间，目标是根据最小的 Java 堆大小划分出约 2048 个区域，默认值为 8M，设置成 16M 之后 8M 以上的对象才会被认为是大对象，可以降低大对象出现的频率，并且减少 old gen 的碎片化<br><code>-XX:MetaspaceSize=256m</code>  设置这个参数也不是为了解决这次的问题，主要是看其他文章的时候发现这个也应该设置一下<br><code>-XX:MaxTenuringThreshold=4</code>  为了让对象更快的从 young gen 进入 old gen，从而减轻 young gen 的压力，然而问题还是存在</p>
 <p>调整了各种参数最终都没有解决问题，说实话内心是有点小崩溃的。这个时候恰好又看了下最新的 GC 日志，却这个时候却发现很多现象变得不太一样了。之前发生 lg young gc 的时候 FreePhysicalMemory 并没有下降，所以怀疑是 <code>to-space exhausted</code> 之后导致所有的都进了老年代，而其中并没有大对象，所以一直在调整 GC 参数，但是现在这个情况看下来还是可能有大对象的，然后再结合最新的 GC 日志推测确实是在哪个时间产生了大对象，后来发现是在某些场景下会把整个图片的 base64 都打印下来了，而有些照片的大小本身就 5M 了，打印日志的时候随便坐下拼接就超过 8M 了。</p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>虽然并没有真正通过 GC 调优解决这次的问题，但是在过程中还是对各个参数有了更深入的理解。而且<code>-XX:G1HeapRegionSize=16M</code>这个参数后来还帮助我们解决了另外一个服务 OOM  的问题。</p>
+<h3><span id="总结">总结</span></h3><p>虽然并没有真正通过 GC 调优解决这次的问题，但是在过程中还是对各个参数有了更深入的理解。而且<code>-XX:G1HeapRegionSize=16M</code>这个参数后来还帮助我们解决了另外一个服务 OOM  的问题。</p>
 
       
 
@@ -416,7 +416,7 @@ Desired survivor size 322961408 bytes, new threshold 15 (max 15)
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 var gitment = new Gitment({
-  id: 'Mon Nov 19 2018 23:30:26 GMT+0800',
+  id: 'Mon Nov 19 2018 00:00:00 GMT+0800',
   owner: 'cherrychai',
   repo: 'cherrychai.github.io',
   oauth: {

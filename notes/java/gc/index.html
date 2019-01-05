@@ -8,14 +8,17 @@
   <link rel="dns-prefetch" href="http://chaihua.me">
   <title>GC | 柴华的个人主页</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+  <meta name="description" content="目录  概念解析 元空间 压缩的类空间 Eden Space（heap区） Young GC Survivor Space（heap区） Old Gen（heap区） ZGC   参数解析 -XX:ParallelGCThreads=n -XX:ConcGCThreads=n   Q&amp;amp;A 参考资料   概念解析元空间-XX:MetaspaceSize=100m 随着JDK8的到来，JVM不">
+<meta property="og:type" content="website">
 <meta property="og:title" content="GC">
 <meta property="og:url" content="http://chaihua.me/notes/java/gc/index.html">
 <meta property="og:site_name" content="柴华的个人主页">
+<meta property="og:description" content="目录  概念解析 元空间 压缩的类空间 Eden Space（heap区） Young GC Survivor Space（heap区） Old Gen（heap区） ZGC   参数解析 -XX:ParallelGCThreads=n -XX:ConcGCThreads=n   Q&amp;amp;A 参考资料   概念解析元空间-XX:MetaspaceSize=100m 随着JDK8的到来，JVM不">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-01-01T14:53:26.256Z">
+<meta property="og:updated_time" content="2019-01-02T11:27:30.464Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="GC">
+<meta name="twitter:description" content="目录  概念解析 元空间 压缩的类空间 Eden Space（heap区） Young GC Survivor Space（heap区） Old Gen（heap区） ZGC   参数解析 -XX:ParallelGCThreads=n -XX:ConcGCThreads=n   Q&amp;amp;A 参考资料   概念解析元空间-XX:MetaspaceSize=100m 随着JDK8的到来，JVM不">
   
     <link rel="alternative" href="/atom.xml" title="柴华的个人主页" type="application/atom+xml">
   
@@ -178,14 +181,59 @@
 
         
         <a href="/notes/java/gc/index.html" class="archive-article-date">
-  	<time datetime="2013-06-01T03:13:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2013-06-01</time>
+  	<time datetime="2019-01-01T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-02</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h1><span id="目录">目录</span></h1><!-- toc -->
+<ul>
+<li><a href="#概念解析">概念解析</a><ul>
+<li><a href="#元空间">元空间</a></li>
+<li><a href="#压缩的类空间">压缩的类空间</a></li>
+<li><a href="#eden-spaceheap区">Eden Space（heap区）</a></li>
+<li><a href="#young-gc">Young GC</a></li>
+<li><a href="#survivor-spaceheap区">Survivor Space（heap区）</a></li>
+<li><a href="#old-genheap区">Old Gen（heap区）</a></li>
+<li><a href="#zgc">ZGC</a></li>
+</ul>
+</li>
+<li><a href="#参数解析">参数解析</a><ul>
+<li><a href="#-xxparallelgcthreadsn">-XX:ParallelGCThreads=n</a></li>
+<li><a href="#-xxconcgcthreadsn">-XX:ConcGCThreads=n</a></li>
+</ul>
+</li>
+<li><a href="#qa">Q&amp;A</a></li>
+<li><a href="#参考资料">参考资料</a></li>
+</ul>
+<!-- tocstop -->
+<h1><span id="概念解析">概念解析</span></h1><h3><span id="元空间">元空间</span></h3><p>-XX:MetaspaceSize=100m</p>
+<p>随着JDK8的到来，JVM不再有PermGen。但类的元数据信息（metadata）还在，只不过不再是存储在连续的堆空间上，而是移动到叫做“Metaspace”的本地内存（Native memory）中。</p>
+<p>元空间的本质和永久代类似，都是对JVM规范中方法区的实现。不过元空间与永久代之间最大的区别在于：元空间并不在虚拟机中，而是使用本地内存。因此，默认情况下，元空间的大小仅受本地内存限制，但可以通过以下参数来指定元空间的大小： </p>
+<p>• -XX:MetaspaceSize，初始空间大小，达到该值就会触发垃圾收集进行类型卸载，同时GC会对该值进行调整：如果释放了大量的空间，就适当降低该值；如果释放了很少的空间，那么在不超过MaxMetaspaceSize时，适当提高该值。<br>• -XX:MaxMetaspaceSize，最大空间，默认是没有限制的。 </p>
+<p>除了上面两个指定大小的选项以外，还有两个与 GC 相关的属性： </p>
+<p>• -XX:MinMetaspaceFreeRatio，在GC之后，最小的Metaspace剩余空间容量的百分比，减少为分配空间所导致的垃圾收集<br>• -XX:MaxMetaspaceFreeRatio，在GC之后，最大的Metaspace剩余空间容量的百分比，减少为释放空间所导致的垃圾收集</p>
+<p>-verbose参数是为了获取类型加载和卸载的信息</p>
+<p>通过GC日志可以看到，old区离最大配置还很远，Metaspace区并没有真正释放空间，所以怀疑是Metaspace区不够用了。</p>
+<p>以前只认为，Metaspace区是保存在本地内存中，是没有上限的，经查阅资料才发现，原来JDK8中，XX:MaxMetaspaceSize确实是没有上限的，最大容量与机器的内存有关；但是XX:MetaspaceSize是有一个默认值的：21M。问题就出在这里。 </p>
+<h3><span id="压缩的类空间">压缩的类空间</span></h3><p>Compressed Class space is part of the metaspace.</p>
+<h3><span id="eden-spaceheap区">Eden Space（heap区）</span></h3><p>字面意思是伊甸园，对象被创建的时候首先放到这个区域，进行垃圾回收后，不能被回收的对象被放入到空的survivor区域。</p>
+<h3><span id="young-gc">Young GC</span></h3><p>当Eden区的空间占满之后，会触发Young GC，G1将Eden和Survivor中存活的对象拷贝到Survivor，或者直接晋升到Old Region中。Young GC的执行是多线程并发的，期间会停顿所有的用户线程（STW）。</p>
+<h3><span id="survivor-spaceheap区">Survivor Space（heap区）</span></h3><p>幸存者区，用于保存在eden space内存区域中经过垃圾回收后没有被回收的对象。Survivor有两个，分别为To Survivor、 From Survivor，这个两个区域的空间大小是一样的。执行垃圾回收的时候Eden区域不能被回收的对象被放入到空的survivor（也就是To Survivor，同时Eden区域的内存会在垃圾回收的过程中全部释放），另一个survivor（即From Survivor）里不能被回收的对象也会被放入这个survivor（即To Survivor），然后To Survivor 和 From Survivor的标记会互换，始终保证一个survivor是空的。</p>
+<p>Eden Space和Survivor Space都属于新生代，新生代中执行的垃圾回收被称之为Minor GC（因为是对新生代进行垃圾回收，所以又被称为Young GC），每一次Young GC后留下来的对象age加1。</p>
+<h3><span id="old-genheap区">Old Gen（heap区）</span></h3><p>老年代，用于存放新生代中经过多次垃圾回收仍然存活的对象，也有可能是新生代分配不了内存的大对象会直接进入老年代。经过多次垃圾回收都没有被回收的对象，这些对象的年代已经足够old了，就会放入到老年代。</p>
+<p>当老年代被放满的之后，虚拟机会进行垃圾回收，称之为Major GC。由于Major GC除并发GC外均需对整个堆进行扫描和回收，因此又称为Full GC。</p>
+<h3><span id="zgc">ZGC</span></h3><p>ZGC来了 !!! Java程序员可以光荣的远离讨厌的GC停顿和调优了。ZGC的成绩是，无论你开了多大的堆内存(1288G？ 2T？)，硬是能保证低于10毫秒的JVM停顿。</p>
+<h1><span id="参数解析">参数解析</span></h1><p>打印 GC 参数：</p>
+<p>-XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps -XX:+PrintTenuringDistribution -XX:+PrintGCApplicationStoppedTime -XX:+PrintSafepointStatistics -XX:PrintSafepointStatisticsCount=1</p>
+<p>-XX:+PrintGC -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+UseCompressedClassPointers -XX:+UseCompressedOops -XX:+UseParallelGC</p>
+<h3><span id="-xxparallelgcthreadsn">-XX:ParallelGCThreads=n</span></h3><p>设置 STW 工作线程数的值。将 n 的值设置为逻辑处理器的数量。n 的值与逻辑处理器的数量相同，最多为 8。如果逻辑处理器不止八个，则将 n 的值设置为逻辑处理器数的 5/8 左右。这适用于大多数情况，除非是较大的 SPARC 系统，其中 n 的值可以是逻辑处理器数的 5/16 左右。</p>
+<h3><span id="-xxconcgcthreadsn">-XX:ConcGCThreads=n</span></h3><p>设置并行标记的线程数。将 n 设置为并行垃圾回收线程数 (ParallelGCThreads) 的 1/4 左右。</p>
+<h1><span id="qampa">Q&amp;A</span></h1><p>Q: 什么时候发生 YGC 呢？<br>A: 当 Eden 不够放入新创建的对象时，也就是Eden 区满了，JVM 就会清理Eden 区的空间，将存活的对象放入 to 区，如果 to 区放不下，则直接进入老年代。</p>
+<h1><span id="参考资料">参考资料</span></h1><p><a href="http://www.leonlu.cc/profession/24-jvm-g1-gc/" target="_blank" rel="noopener">JVM G1 垃圾回收器总结</a><br><a href="http://blog.mgm-tp.com/2018/01/g1-mature-in-java9/" target="_blank" rel="noopener">G1 Garbage Collector is mature in Java 9, finally</a><br><a href="https://segmentfault.com/a/1190000013615459" target="_blank" rel="noopener">Make G1 the Default Garbage Collector</a><br><a href="https://www.cnblogs.com/duanxz/p/3520829.html" target="_blank" rel="noopener">Metaspace 之一: Metaspace整体介绍 (永久代被替换原因、元空间特点、元空间内存查看分析方法)</a><br><a href="https://www.cnblogs.com/stateis0/p/9062188.html" target="_blank" rel="noopener">深入浅出 JVM GC (2)</a></p>
+
       
 
       
@@ -316,7 +364,7 @@
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 var gitment = new Gitment({
-  id: 'Sat Jun 01 2013 11:13:12 GMT+0800',
+  id: 'Wed Jan 02 2019 00:00:00 GMT+0800',
   owner: 'cherrychai',
   repo: 'cherrychai.github.io',
   oauth: {

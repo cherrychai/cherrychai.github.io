@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="柴华的个人主页">
 <meta property="og:description" content="595. Big Countries There is a table World +-----------------+------------+------------+--------------+---------------+ | name            | continent  | area       | population   | gdp           | +--">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-01-01T09:23:40.593Z">
+<meta property="og:updated_time" content="2019-01-02T11:34:59.772Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode - Some Boring Sql Questions">
 <meta name="twitter:description" content="595. Big Countries There is a table World +-----------------+------------+------------+--------------+---------------+ | name            | continent  | area       | population   | gdp           | +--">
@@ -181,7 +181,7 @@
 
         
         <a href="/practise/LeetCode-Sql-Questions/index.html" class="archive-article-date">
-  	<time datetime="2014-10-23T09:13:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2014-10-23</time>
+  	<time datetime="2014-10-22T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2014-10-23</time>
 </a>
         
       </header>
@@ -211,7 +211,7 @@
 +--------------+-------------+--------------+
 </code></pre><a id="more"></a>
 </blockquote>
-<h6 id="Answer"><a href="#Answer" class="headerlink" title="Answer:"></a>Answer:</h6><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">name</span>,population,area <span class="keyword">FROM</span> World <span class="keyword">WHERE</span> area &gt; <span class="number">3000000</span> <span class="keyword">OR</span> population &gt; <span class="number">25000000</span>;</span><br></pre></td></tr></table></figure>
+<h6><span id="answer">Answer:</span></h6><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">name</span>,population,area <span class="keyword">FROM</span> World <span class="keyword">WHERE</span> area &gt; <span class="number">3000000</span> <span class="keyword">OR</span> population &gt; <span class="number">25000000</span>;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p><a href="https://leetcode.com/problems/swap-salary/" target="_blank" rel="noopener">627. Swap Salary</a></p>
 <p>Given a table salary, such as the one below, that has m=male and f=female values. Swap all f and m values (i.e., change all f values to m and vice versa) with a single update query and no intermediate temp table.</p>
@@ -230,7 +230,7 @@
 | 3  | C    | f   | 5500   |
 | 4  | D    | m   | 500    |
 </code></pre></blockquote>
-<h6 id="Answer-1"><a href="#Answer-1" class="headerlink" title="Answer:"></a>Answer:</h6><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> salary <span class="keyword">SET</span> sex = (<span class="keyword">CASE</span> <span class="keyword">WHEN</span> sex = <span class="string">'m'</span> <span class="keyword">THEN</span> <span class="string">'f'</span> <span class="keyword">ELSE</span> <span class="string">'m'</span> <span class="keyword">END</span>);</span><br></pre></td></tr></table></figure>
+<h6><span id="answer">Answer:</span></h6><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> salary <span class="keyword">SET</span> sex = (<span class="keyword">CASE</span> <span class="keyword">WHEN</span> sex = <span class="string">'m'</span> <span class="keyword">THEN</span> <span class="string">'f'</span> <span class="keyword">ELSE</span> <span class="string">'m'</span> <span class="keyword">END</span>);</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p><a href="https://leetcode.com/problems/not-boring-movies/" target="_blank" rel="noopener">620. Not Boring Movies</a></p>
 <p>X city opened a new cinema, many people would like to go to this cinema. The cinema also gives out a poster indicating the movies’ ratings and descriptions.</p>
@@ -253,7 +253,7 @@
 |   1     | War       |   great 3D   |   8.9     |
 +---------+-----------+--------------+-----------+
 </code></pre></blockquote>
-<h6 id="Answer-2"><a href="#Answer-2" class="headerlink" title="Answer:"></a>Answer:</h6><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> cinema <span class="keyword">WHERE</span> <span class="keyword">id</span> % <span class="number">2</span> = <span class="number">1</span> <span class="keyword">AND</span> description != <span class="string">"boring"</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> rating <span class="keyword">DESC</span>;</span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> cinema <span class="keyword">WHERE</span> <span class="keyword">MOD</span>(<span class="keyword">id</span>,<span class="number">2</span>)=<span class="number">1</span> <span class="keyword">AND</span> description != <span class="string">"boring"</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> rating <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure>
+<h6><span id="answer">Answer:</span></h6><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> cinema <span class="keyword">WHERE</span> <span class="keyword">id</span> % <span class="number">2</span> = <span class="number">1</span> <span class="keyword">AND</span> description != <span class="string">"boring"</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> rating <span class="keyword">DESC</span>;</span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> cinema <span class="keyword">WHERE</span> <span class="keyword">MOD</span>(<span class="keyword">id</span>,<span class="number">2</span>)=<span class="number">1</span> <span class="keyword">AND</span> description != <span class="string">"boring"</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> rating <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure>
 
       
 
@@ -385,7 +385,7 @@
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 var gitment = new Gitment({
-  id: 'Thu Oct 23 2014 17:13:14 GMT+0800',
+  id: 'Thu Oct 23 2014 00:00:00 GMT+0800',
   owner: 'cherrychai',
   repo: 'cherrychai.github.io',
   oauth: {

@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://chaihua.me">
-  <title>LeetCode - Peeking Iterator | 柴华的个人主页</title>
+  <title>疯狂 Spring Cloud 架构实战 | 柴华的个人主页</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="284. Peeking Iterator Given an Iterator class interface with methods: next() and hasNext(), design and implement a PeekingIterator that support the peek() operation – it essentially peek() at the ele">
+  <meta name="description" content="目录  第1章 Spring Cloud 概述 1.1 传统的应用 1.2 微服务与 Srping Cloud 1.3 学习方面的准备工作   第2章 搭建开发环境 2.1 安装和配置 Maven 2.2 安装 Eclipse 2.3 Spring Boot 2.4 Spring Boot 配置文件 2.5 Spring Cloud 版本   第3章 微服务发布与调用 3.1 Eureka 介绍">
 <meta property="og:type" content="website">
-<meta property="og:title" content="LeetCode - Peeking Iterator">
-<meta property="og:url" content="http://chaihua.me/practise/LeetCode-Peeking-Iterator/index.html">
+<meta property="og:title" content="疯狂 Spring Cloud 架构实战">
+<meta property="og:url" content="http://chaihua.me/notes/achetecture/疯狂SpringCloud微服务架构实战/index.html">
 <meta property="og:site_name" content="柴华的个人主页">
-<meta property="og:description" content="284. Peeking Iterator Given an Iterator class interface with methods: next() and hasNext(), design and implement a PeekingIterator that support the peek() operation – it essentially peek() at the ele">
+<meta property="og:description" content="目录  第1章 Spring Cloud 概述 1.1 传统的应用 1.2 微服务与 Srping Cloud 1.3 学习方面的准备工作   第2章 搭建开发环境 2.1 安装和配置 Maven 2.2 安装 Eclipse 2.3 Spring Boot 2.4 Spring Boot 配置文件 2.5 Spring Cloud 版本   第3章 微服务发布与调用 3.1 Eureka 介绍">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-01-02T11:34:51.861Z">
+<meta property="og:updated_time" content="2019-01-04T05:38:45.514Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LeetCode - Peeking Iterator">
-<meta name="twitter:description" content="284. Peeking Iterator Given an Iterator class interface with methods: next() and hasNext(), design and implement a PeekingIterator that support the peek() operation – it essentially peek() at the ele">
+<meta name="twitter:title" content="疯狂 Spring Cloud 架构实战">
+<meta name="twitter:description" content="目录  第1章 Spring Cloud 概述 1.1 传统的应用 1.2 微服务与 Srping Cloud 1.3 学习方面的准备工作   第2章 搭建开发环境 2.1 安装和配置 Maven 2.2 安装 Eclipse 2.3 Spring Boot 2.4 Spring Boot 配置文件 2.5 Spring Cloud 版本   第3章 微服务发布与调用 3.1 Eureka 介绍">
   
     <link rel="alternative" href="/atom.xml" title="柴华的个人主页" type="application/atom+xml">
   
@@ -175,31 +175,124 @@
         
   
     <h1 class="article-title" itemprop="name">
-      LeetCode - Peeking Iterator
+      疯狂 Spring Cloud 架构实战
     </h1>
   
 
         
-        <a href="/practise/LeetCode-Peeking-Iterator/index.html" class="archive-article-date">
-  	<time datetime="2014-10-25T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2014-10-26</time>
+        <a href="/notes/achetecture/疯狂SpringCloud微服务架构实战/index.html" class="archive-article-date">
+  	<time datetime="2019-01-02T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-03</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <blockquote>
-<p><a href="https://leetcode.com/problems/peeking-iterator/" target="_blank" rel="noopener">284. Peeking Iterator</a></p>
-<p>Given an Iterator class interface with methods: next() and hasNext(), design and implement a PeekingIterator that support the peek() operation – it essentially peek() at the element that will be returned by the next call to next().</p>
-<p>Here is an example. Assume that the iterator is initialized to the beginning of the list: [1, 2, 3].</p>
-<p>Call next() gets you 1, the first element in the list.</p>
-<p>Now you call peek() and it returns 2, the next element. Calling next() after that still return 2.</p>
-<p>You call next() the final time and it returns 3, the last element. Calling hasNext() after that should return false.</p>
-<p>Follow up: How would you extend your design to be generic and work with all types, not just integer?</p>
+        <h1><span id="目录">目录</span></h1><!-- toc -->
+<ul>
+<li><a href="#第1章-spring-cloud-概述">第1章 Spring Cloud 概述</a><ul>
+<li><a href="#11-传统的应用">1.1 传统的应用</a></li>
+<li><a href="#12-微服务与-srping-cloud">1.2 微服务与 Srping Cloud</a></li>
+<li><a href="#13-学习方面的准备工作">1.3 学习方面的准备工作</a></li>
+</ul>
+</li>
+<li><a href="#第2章-搭建开发环境">第2章 搭建开发环境</a><ul>
+<li><a href="#21-安装和配置-maven">2.1 安装和配置 Maven</a></li>
+<li><a href="#22-安装-eclipse">2.2 安装 Eclipse</a></li>
+<li><a href="#23-spring-boot">2.3 Spring Boot</a></li>
+<li><a href="#24-spring-boot-配置文件">2.4 Spring Boot 配置文件</a></li>
+<li><a href="#25-spring-cloud-版本">2.5 Spring Cloud 版本</a></li>
+</ul>
+</li>
+<li><a href="#第3章-微服务发布与调用">第3章 微服务发布与调用</a><ul>
+<li><a href="#31-eureka-介绍">3.1 Eureka 介绍</a></li>
+<li><a href="#32-第一个-eureka-服务">3.2 第一个 Eureka 服务</a></li>
+<li><a href="#33-eureka-集群搭建">3.3 Eureka 集群搭建</a></li>
+<li><a href="#34-服务实例的健康检查">3.4 服务实例的健康检查</a></li>
+<li><a href="#35-eureka-的常用配置">3.5 Eureka 的常用配置</a></li>
+</ul>
+</li>
+<li><a href="#第4章-负载均衡">第4章 负载均衡</a><ul>
+<li><a href="#41-ribbon-介绍">4.1 Ribbon 介绍</a></li>
+<li><a href="#42-第一个-ribbon-程序">4.2 第一个 Ribbon 程序</a></li>
+<li><a href="#43-ribbon-的负载均衡机制">4.3 Ribbon 的负载均衡机制</a></li>
+<li><a href="#44-在-spring-cloud-中使用-ribbon">4.4 在 Spring Cloud 中使用 Ribbon</a></li>
+<li><a href="#45-resttemplate-负载均衡">4.5 RestTemplate 负载均衡</a></li>
+</ul>
+</li>
+<li><a href="#第5章-rest-客户端-feign">第5章 REST 客户端 Feign</a><ul>
+<li><a href="#51-rest-客户端">5.1 REST 客户端</a></li>
+<li><a href="#52-使用-feign">5.2 使用 Feign</a></li>
+<li><a href="#53-在-spring-cloud-中使用-feign">5.3 在 Spring Cloud 中使用 Feign</a></li>
+</ul>
+</li>
+<li><a href="#第6章-spring-cloud-的保护机制">第6章 Spring Cloud 的保护机制</a><ul>
+<li><a href="#61-概述">6.1 概述</a></li>
+<li><a href="#62-第一个-hystrix-程序">6.2 第一个 Hystrix 程序</a></li>
+<li><a href="#63-hystrix-的使用">6.3 Hystrix 的使用</a></li>
+<li><a href="#64-在-spring-cloud-中使用-hystrix">6.4 在 Spring Cloud 中使用 Hystrix</a></li>
+</ul>
+</li>
+<li><a href="#第7章-微服务集群网关">第7章 微服务集群网关</a><ul>
+<li><a href="#71-zuul-框架介绍">7.1 Zuul 框架介绍</a></li>
+<li><a href="#72-在-web-项目中使用-zuul">7.2 在 Web 项目中使用 Zuul</a></li>
+<li><a href="#73-在微服务集群中初试-zuul">7.3 在微服务集群中初试 Zuul</a></li>
+<li><a href="#74-路由配置">7.4 路由配置</a></li>
+<li><a href="#75-zuul-的其他配置">7.5 Zuul 的其他配置</a></li>
+<li><a href="#76-zuul-功能进阶">7.6 Zuul 功能进阶</a></li>
+</ul>
+</li>
+<li><a href="#第8章-微服务与消息驱动">第8章 微服务与消息驱动</a><ul>
+<li><a href="#81-spring-cloud-stream-介绍">8.1 Spring Cloud Stream 介绍</a></li>
+<li><a href="#82-rabbitmq-框架">8.2 RabbitMQ 框架</a></li>
+<li><a href="#83-apache-kafka-框架">8.3 Apache Kafka 框架</a></li>
+<li><a href="#84-开发消息微服务">8.4 开发消息微服务</a></li>
+</ul>
+</li>
+<li><a href="#第9章-集群配置中心">第9章 集群配置中心</a><ul>
+<li><a href="#91-概述">9.1 概述</a></li>
+<li><a href="#92-构建第一个例子">9.2 构建第一个例子</a><ul>
+<li><a href="#927-刷新-bean">9.2.7 刷新 Bean</a></li>
+</ul>
+</li>
+<li><a href="#93-配置的加密与解密">9.3 配置的加密与解密</a><ul>
+<li><a href="#934-非对称加密">9.3.4 非对称加密</a></li>
+</ul>
+</li>
+<li><a href="#94-其他配置">9.4 其他配置</a></li>
+<li><a href="#95-整合使用">9.5 整合使用</a></li>
+</ul>
+</li>
+<li><a href="#第10章-微服务跟踪">第10章 微服务跟踪</a><ul>
+<li><a href="#101-概述">10.1 概述</a></li>
+<li><a href="#102-sleuth-整合-zipkin">10.2 Sleuth 整合 Zipkin</a></li>
+<li><a href="#103-sleuth-整合-elk">10.3 Sleuth 整合 ELK</a></li>
+</ul>
+</li>
+<li><a href="#第11章-微服务数据库实战">第11章 微服务数据库实战</a><ul>
+<li><a href="#111-概述">11.1 概述</a></li>
+<li><a href="#112-spring-data-与-jpa">11.2 Spring Data 与 JPA</a></li>
+<li><a href="#113-spring-data-与-mongodb">11.3 Spring Data 与 MongoDB</a></li>
+<li><a href="#114-spring-data-与-redis">11.4 Spring Data 与 Redis</a></li>
+</ul>
+</li>
+<li><a href="#第12章-案例实战">第12章 案例实战</a><ul>
+<li><a href="#121-概述">12.1 概述</a></li>
+<li><a href="#122-spring-boot-与-jsp">12.2 Spring Boot 与 JSP</a></li>
+<li><a href="#123-模板引擎-thymeleaf">12.3 模板引擎 Thymeleaf</a></li>
+<li><a href="#124-图书管理案例">12.4 图书管理案例</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<h1><span id="第1章-spring-cloud-概述">第1章 Spring Cloud 概述</span></h1><h2><span id="11-传统的应用">1.1 传统的应用</span></h2><h2><span id="12-微服务与-srping-cloud">1.2 微服务与 Srping Cloud</span></h2><h2><span id="13-学习方面的准备工作">1.3 学习方面的准备工作</span></h2><h1><span id="第2章-搭建开发环境">第2章 搭建开发环境</span></h1><h2><span id="21-安装和配置-maven">2.1 安装和配置 Maven</span></h2><h2><span id="22-安装-eclipse">2.2 安装 Eclipse</span></h2><h2><span id="23-spring-boot">2.3 Spring Boot</span></h2><h2><span id="24-spring-boot-配置文件">2.4 Spring Boot 配置文件</span></h2><h2><span id="25-spring-cloud-版本">2.5 Spring Cloud 版本</span></h2><h1><span id="第3章-微服务发布与调用">第3章 微服务发布与调用</span></h1><h2><span id="31-eureka-介绍">3.1 Eureka 介绍</span></h2><h2><span id="32-第一个-eureka-服务">3.2 第一个 Eureka 服务</span></h2><h2><span id="33-eureka-集群搭建">3.3 Eureka 集群搭建</span></h2><h2><span id="34-服务实例的健康检查">3.4 服务实例的健康检查</span></h2><h2><span id="35-eureka-的常用配置">3.5 Eureka 的常用配置</span></h2><h1><span id="第4章-负载均衡">第4章 负载均衡</span></h1><h2><span id="41-ribbon-介绍">4.1 Ribbon 介绍</span></h2><h2><span id="42-第一个-ribbon-程序">4.2 第一个 Ribbon 程序</span></h2><h2><span id="43-ribbon-的负载均衡机制">4.3 Ribbon 的负载均衡机制</span></h2><h2><span id="44-在-spring-cloud-中使用-ribbon">4.4 在 Spring Cloud 中使用 Ribbon</span></h2><h2><span id="45-resttemplate-负载均衡">4.5 RestTemplate 负载均衡</span></h2><h1><span id="第5章-rest-客户端-feign">第5章 REST 客户端 Feign</span></h1><h2><span id="51-rest-客户端">5.1 REST 客户端</span></h2><h2><span id="52-使用-feign">5.2 使用 Feign</span></h2><h2><span id="53-在-spring-cloud-中使用-feign">5.3 在 Spring Cloud 中使用 Feign</span></h2><h1><span id="第6章-spring-cloud-的保护机制">第6章 Spring Cloud 的保护机制</span></h1><h2><span id="61-概述">6.1 概述</span></h2><h2><span id="62-第一个-hystrix-程序">6.2 第一个 Hystrix 程序</span></h2><h2><span id="63-hystrix-的使用">6.3 Hystrix 的使用</span></h2><h2><span id="64-在-spring-cloud-中使用-hystrix">6.4 在 Spring Cloud 中使用 Hystrix</span></h2><h1><span id="第7章-微服务集群网关">第7章 微服务集群网关</span></h1><h2><span id="71-zuul-框架介绍">7.1 Zuul 框架介绍</span></h2><h2><span id="72-在-web-项目中使用-zuul">7.2 在 Web 项目中使用 Zuul</span></h2><h2><span id="73-在微服务集群中初试-zuul">7.3 在微服务集群中初试 Zuul</span></h2><h2><span id="74-路由配置">7.4 路由配置</span></h2><h2><span id="75-zuul-的其他配置">7.5 Zuul 的其他配置</span></h2><h2><span id="76-zuul-功能进阶">7.6 Zuul 功能进阶</span></h2><h1><span id="第8章-微服务与消息驱动">第8章 微服务与消息驱动</span></h1><h2><span id="81-spring-cloud-stream-介绍">8.1 Spring Cloud Stream 介绍</span></h2><h2><span id="82-rabbitmq-框架">8.2 RabbitMQ 框架</span></h2><h2><span id="83-apache-kafka-框架">8.3 Apache Kafka 框架</span></h2><h2><span id="84-开发消息微服务">8.4 开发消息微服务</span></h2><h1><span id="第9章-集群配置中心">第9章 集群配置中心</span></h1><h2><span id="91-概述">9.1 概述</span></h2><h2><span id="92-构建第一个例子">9.2 构建第一个例子</span></h2><h3><span id="927-刷新-bean">9.2.7 刷新 Bean</span></h3><p>在 Spring 的容器中，有一个类型为 RefreshBean 的 Bean。当 /fresh 端点被访问时，负责处理刷新的 ContextRefresher 类会先去远程的配置服务器刷新配置，然后再调用 RefreshBean 的 refreshAll 方法来处理实例。容器中使用了 @RefreshBean 注解进行修饰的 Bean，都会在缓存中进行销毁，当这些 Bean 被再次引用时，就会创建新的实例，以此达到一个『刷新』的效果。</p>
+<blockquote>
+<p>柴：此处理解一下『惰性更新』的概念，说是更新，但实际只是销毁，需要用的时候再去获取新的值。</p>
 </blockquote>
-<p>基于Iterator实现一个PeekingIterator，使得这个类中包含一个peek()方法返回最顶端的元素，因为直接调用next()会遍历所有元素，所以需要定义一个变量保存每次next()的结果，比较简单，实现方法如下。<br><a id="more"></a></p>
-<h6><span id="java">Java:</span></h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Java Iterator interface reference:</span></span><br><span class="line"><span class="comment">// https://docs.oracle.com/javase/8/docs/api/java/util/Iterator.html</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PeekingIterator</span> <span class="keyword">implements</span> <span class="title">Iterator</span>&lt;<span class="title">Integer</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Integer next;</span><br><span class="line">    <span class="keyword">private</span> Iterator&lt;Integer&gt; iter;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> empty;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PeekingIterator</span><span class="params">(Iterator&lt;Integer&gt; iterator)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// initialize any member here.</span></span><br><span class="line">        <span class="keyword">this</span>.iter = iterator;</span><br><span class="line">        <span class="keyword">if</span> (iter.hasNext()) &#123;</span><br><span class="line">            next = iter.next();</span><br><span class="line">            empty = <span class="keyword">false</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            next = <span class="keyword">null</span>;</span><br><span class="line">            empty = <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Returns the next element in the iteration without advancing the iterator.</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">peek</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> next;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// hasNext() and next() should behave the same as in the Iterator interface.</span></span><br><span class="line">    <span class="comment">// Override them if needed.</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">next</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Integer res = next;</span><br><span class="line">        <span class="keyword">if</span> (iter.hasNext()) &#123;</span><br><span class="line">            next = iter.next();</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            next = <span class="keyword">null</span>;</span><br><span class="line">            empty = <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> !empty;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<h2><span id="93-配置的加密与解密">9.3 配置的加密与解密</span></h2><p>在实际应用中会涉及很多敏感的数据，这些数据会被加密保存到 SVN 仓库中，最常见的就是数据库密码。Spring Cloud Config 为这类敏感数据提供了加密和解密的功能，加密后的密文在传输给客户端前会进行解密。配置服务器支持对称加密和非对称加密，对称加密使用 AES 算法，非对称加密使用 RSA 算法。</p>
+<h3><span id="934-非对称加密">9.3.4 非对称加密</span></h3><p>对称加密算法在加密和解密时都使用同一个密钥，而非对称加密则使用一对密钥。使用公钥加密时，解密就需要使用私钥。Spring Cloud Config 同样支持非对称加密，使用 keytool 工具生成一对密钥用于加密和解密，在控制台输入以下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -genkeypair -alias &quot;testKey&quot; -keyalg &quot;RSA&quot; -keystore &quot;D:\myTest.keystore&quot;</span><br></pre></td></tr></table></figure>
+<h2><span id="94-其他配置">9.4 其他配置</span></h2><h2><span id="95-整合使用">9.5 整合使用</span></h2><h1><span id="第10章-微服务跟踪">第10章 微服务跟踪</span></h1><h2><span id="101-概述">10.1 概述</span></h2><h2><span id="102-sleuth-整合-zipkin">10.2 Sleuth 整合 Zipkin</span></h2><h2><span id="103-sleuth-整合-elk">10.3 Sleuth 整合 ELK</span></h2><h1><span id="第11章-微服务数据库实战">第11章 微服务数据库实战</span></h1><h2><span id="111-概述">11.1 概述</span></h2><h2><span id="112-spring-data-与-jpa">11.2 Spring Data 与 JPA</span></h2><h2><span id="113-spring-data-与-mongodb">11.3 Spring Data 与 MongoDB</span></h2><h2><span id="114-spring-data-与-redis">11.4 Spring Data 与 Redis</span></h2><h1><span id="第12章-案例实战">第12章 案例实战</span></h1><h2><span id="121-概述">12.1 概述</span></h2><h2><span id="122-spring-boot-与-jsp">12.2 Spring Boot 与 JSP</span></h2><h2><span id="123-模板引擎-thymeleaf">12.3 模板引擎 Thymeleaf</span></h2><h2><span id="124-图书管理案例">12.4 图书管理案例</span></h2>
       
 
       
@@ -283,7 +376,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://chaihua.me/practise/LeetCode-Peeking-Iterator/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://chaihua.me/notes/achetecture/疯狂SpringCloud微服务架构实战/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -330,7 +423,7 @@
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 var gitment = new Gitment({
-  id: 'Sun Oct 26 2014 00:00:00 GMT+0800',
+  id: 'Thu Jan 03 2019 00:00:00 GMT+0800',
   owner: 'cherrychai',
   repo: 'cherrychai.github.io',
   oauth: {
