@@ -4,14 +4,15 @@ title: 疯狂 Spring Cloud 架构实战
 date: 2019-01-03
 ---
 
-# 目录
+<img src="084f304e-866d-418e-bc82-b5ecb664e367.jpg" width="30%" height="30%" alt="" align=center />
+
 <!-- toc -->
 
 # 第1章 Spring Cloud 概述
 
 ## 1.1 传统的应用
 
-## 1.2 微服务与 Srping Cloud
+## 1.2 微服务与 Spring Cloud
 
 ## 1.3 学习方面的准备工作
 
@@ -103,7 +104,7 @@ date: 2019-01-03
 
 在 Spring 的容器中，有一个类型为 RefreshBean 的 Bean。当 /fresh 端点被访问时，负责处理刷新的 ContextRefresher 类会先去远程的配置服务器刷新配置，然后再调用 RefreshBean 的 refreshAll 方法来处理实例。容器中使用了 @RefreshBean 注解进行修饰的 Bean，都会在缓存中进行销毁，当这些 Bean 被再次引用时，就会创建新的实例，以此达到一个『刷新』的效果。
 
-> 柴：此处理解一下『惰性更新』的概念，说是更新，但实际只是销毁，需要用的时候再去获取新的值。
+> 评语：此处理解一下『惰性更新』的概念，说是更新，但实际只是销毁，需要用的时候再去获取新的值。
 
 ## 9.3 配置的加密与解密
 
