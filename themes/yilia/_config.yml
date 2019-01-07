@@ -81,10 +81,10 @@ share_jia: true
 #不需要使用某项，直接设置值为false，或注释掉
 #具体请参考wiki：https://github.com/litten/hexo-theme-yilia/wiki/
 
-#1、多说
+#1、多说（已停服）
 duoshuo: false
 
-#2、网易云跟帖
+#2、网易云跟帖（已停服）
 wangyiyun: false
 
 #3、畅言
@@ -95,11 +95,24 @@ changyan_conf: false
 disqus: false
 
 #5、Gitment
-gitment_owner: cherrychai                                     #你的 GitHub ID
-gitment_repo: 'cherrychai.github.io'                          #存储评论的 repo
-gitment_oauth:
-  client_id: 'e6f309e5b4ebc0a533e4'                           #client ID
-  client_secret: 'f767dd524947d7ca42622b8396fb8ba46ace7ba0'   #client secret
+#gitment_owner: cherrychai                                     #你的 GitHub ID
+#gitment_repo: 'cherrychai.github.io'                          #存储评论的 repo
+#gitment_oauth:
+#  client_id: 'e6f309e5b4ebc0a533e4'                           #client ID
+#  client_secret: 'f767dd524947d7ca42622b8396fb8ba46ace7ba0'   #client secret
+
+#6、来必力
+livere: false
+
+#7、gitalk评论
+gitalk:
+  enable:  true
+  githubID:  cherrychai
+  repo:  'mycomments'
+  ClientID:  'e6f309e5b4ebc0a533e4'
+  ClientSecret:  'f767dd524947d7ca42622b8396fb8ba46ace7ba0'
+  adminUser:  cherrychai
+  distractionFreeMode: true
 
 # 样式定制 - 一般不需要修改，除非有很强的定制欲望…
 style:

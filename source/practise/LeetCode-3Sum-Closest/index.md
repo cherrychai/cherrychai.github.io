@@ -1,7 +1,7 @@
 ---
 layout: post
 title: LeetCode - 3Sum Closest
-date: 2013-11-17
+date: 2013-11-18
 ---
 
 > [16. 3Sum Closest](https://leetcode.com/problems/3sum-closest/)

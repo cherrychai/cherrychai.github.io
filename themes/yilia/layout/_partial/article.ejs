@@ -80,6 +80,7 @@
 
 
 <% if (!index && post.comments){ %>
+
   <% if (theme.duoshuo){ %>
   <%- partial('post/duoshuo', {
       key: post.slug,
@@ -123,7 +124,16 @@
   <% } %>
 
   <% if (theme.gitment_owner && theme.gitment_repo &&theme.gitment_oauth && theme.gitment_oauth.client_id && theme.gitment_oauth.client_secret){ %>
+
   <%- partial('post/gitment', {
+      key: post.slug,
+      title: post.title,
+      url: config.url+url_for(post.path)
+    }) %>
+  <% } %>
+
+  <% if(theme.gitalk.enable){ %>
+    <%- partial('post/gitalk', {
       key: post.slug,
       title: post.title,
       url: config.url+url_for(post.path)
