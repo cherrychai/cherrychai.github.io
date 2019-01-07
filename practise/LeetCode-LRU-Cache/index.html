@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="柴华的个人主页">
 <meta property="og:description" content="146. LRU Cache Design and implement a data structure for Least Recently Used (LRU) cache. It should support the following operations: get and put. get(key) - Get the value (will always be positive) o">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-01-02T11:34:39.614Z">
+<meta property="og:updated_time" content="2019-01-07T11:19:24.887Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode - LRU Cache">
 <meta name="twitter:description" content="146. LRU Cache Design and implement a data structure for Least Recently Used (LRU) cache. It should support the following operations: get and put. get(key) - Get the value (will always be positive) o">
@@ -181,7 +181,7 @@
 
         
         <a href="/practise/LeetCode-LRU-Cache/index.html" class="archive-article-date">
-  	<time datetime="2014-04-30T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2014-05-01</time>
+  	<time datetime="2014-05-04T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2014-05-05</time>
 </a>
         
       </header>
@@ -332,22 +332,25 @@ cache.get(4);       // returns 4
 
   
 
-  <div id="gitmentContainer">
-   <div id="gitment-ctn"></div>
-</div> 
-<link rel="stylesheet" href="/assets/gitment.css">
-<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
-<script>
-var gitment = new Gitment({
-  id: 'Thu May 01 2014 00:00:00 GMT+0800',
-  owner: 'cherrychai',
-  repo: 'cherrychai.github.io',
-  oauth: {
-    client_id: 'e6f309e5b4ebc0a533e4',
-    client_secret: 'f767dd524947d7ca42622b8396fb8ba46ace7ba0',
-  },
+  
+    <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+
+if(true){
+    var gitalk = new Gitalk({
+    clientID: 'e6f309e5b4ebc0a533e4',
+    clientSecret: 'f767dd524947d7ca42622b8396fb8ba46ace7ba0',
+    repo: 'mycomments',
+    owner: 'cherrychai',
+    admin: ['cherrychai'],
+    id: 'Mon May 05 2014 00:00:00 GMT+0800',
+    distractionFreeMode: 'true'
 })
-gitment.render('gitmentContainer')
+gitalk.render('gitalk-container') 
+}
 </script>
   
 

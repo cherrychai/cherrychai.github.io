@@ -332,22 +332,25 @@
 
   
 
-  <div id="gitmentContainer">
-   <div id="gitment-ctn"></div>
-</div> 
-<link rel="stylesheet" href="/assets/gitment.css">
-<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
-<script>
-var gitment = new Gitment({
-  id: 'Wed May 07 2014 00:00:00 GMT+0800',
-  owner: 'cherrychai',
-  repo: 'cherrychai.github.io',
-  oauth: {
-    client_id: 'e6f309e5b4ebc0a533e4',
-    client_secret: 'f767dd524947d7ca42622b8396fb8ba46ace7ba0',
-  },
+  
+    <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+
+if(true){
+    var gitalk = new Gitalk({
+    clientID: 'e6f309e5b4ebc0a533e4',
+    clientSecret: 'f767dd524947d7ca42622b8396fb8ba46ace7ba0',
+    repo: 'mycomments',
+    owner: 'cherrychai',
+    admin: ['cherrychai'],
+    id: 'Wed May 07 2014 00:00:00 GMT+0800',
+    distractionFreeMode: 'true'
 })
-gitment.render('gitmentContainer')
+gitalk.render('gitalk-container') 
+}
 </script>
   
 
