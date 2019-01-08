@@ -6,23 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://chaihua.me">
-  <title>可伸缩服务架构-框架与中间件 | 柴华的个人主页</title>
+  <title>可伸缩服务架构-框架与中间件 | 慕湮</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="第1章 如何设计一款用不重复的高性能分布式发号器 1.1 可选方案及技术选型 1.1.1 为什么不用 UUID 1.1.2 基于数据库的实现方案 1.1.3 Snowflake 开源项目   1.2 分布式系统对发号器的基本要求 1.3 架构设计与核心要点 1.4 如何根据设计实现多场景的发号器 1.5 如何保证性能要求 1.6 如何让用户快速使用 1.7 为客户提供 API 文档">
+  <meta name="description" content="第1章 如何设计一款用不重复的高性能分布式发号器 1.1 可选方案及技术选型 1.1.1 为什么不用 UUID 1.1.2 基于数据库的实现方案 1.1.3 Snowflake 开源项目   1.2 分布式系统对发号器的基本要求 1.3 架构设计与核心要点 1.4 如何根据设计实现多场景的发号器 1.5 如何保证性能要求 1.6 如何让用户快速使用 1.7 为客户提供 API 文档   第3">
 <meta property="og:type" content="website">
 <meta property="og:title" content="可伸缩服务架构-框架与中间件">
 <meta property="og:url" content="http://chaihua.me/notes/achetecture/可伸缩服务架构-框架与中间件/index.html">
-<meta property="og:site_name" content="柴华的个人主页">
-<meta property="og:description" content="第1章 如何设计一款用不重复的高性能分布式发号器 1.1 可选方案及技术选型 1.1.1 为什么不用 UUID 1.1.2 基于数据库的实现方案 1.1.3 Snowflake 开源项目   1.2 分布式系统对发号器的基本要求 1.3 架构设计与核心要点 1.4 如何根据设计实现多场景的发号器 1.5 如何保证性能要求 1.6 如何让用户快速使用 1.7 为客户提供 API 文档">
+<meta property="og:site_name" content="慕湮">
+<meta property="og:description" content="第1章 如何设计一款用不重复的高性能分布式发号器 1.1 可选方案及技术选型 1.1.1 为什么不用 UUID 1.1.2 基于数据库的实现方案 1.1.3 Snowflake 开源项目   1.2 分布式系统对发号器的基本要求 1.3 架构设计与核心要点 1.4 如何根据设计实现多场景的发号器 1.5 如何保证性能要求 1.6 如何让用户快速使用 1.7 为客户提供 API 文档   第3">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://chaihua.me/notes/achetecture/可伸缩服务架构-框架与中间件/705c135f-df1f-485b-b3ea-29b8ee647f62.jpg">
-<meta property="og:updated_time" content="2019-01-07T05:58:56.393Z">
+<meta property="og:updated_time" content="2019-01-08T05:54:43.978Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="可伸缩服务架构-框架与中间件">
-<meta name="twitter:description" content="第1章 如何设计一款用不重复的高性能分布式发号器 1.1 可选方案及技术选型 1.1.1 为什么不用 UUID 1.1.2 基于数据库的实现方案 1.1.3 Snowflake 开源项目   1.2 分布式系统对发号器的基本要求 1.3 架构设计与核心要点 1.4 如何根据设计实现多场景的发号器 1.5 如何保证性能要求 1.6 如何让用户快速使用 1.7 为客户提供 API 文档">
+<meta name="twitter:description" content="第1章 如何设计一款用不重复的高性能分布式发号器 1.1 可选方案及技术选型 1.1.1 为什么不用 UUID 1.1.2 基于数据库的实现方案 1.1.3 Snowflake 开源项目   1.2 分布式系统对发号器的基本要求 1.3 架构设计与核心要点 1.4 如何根据设计实现多场景的发号器 1.5 如何保证性能要求 1.6 如何让用户快速使用 1.7 为客户提供 API 文档   第3">
 <meta name="twitter:image" content="http://chaihua.me/notes/achetecture/可伸缩服务架构-框架与中间件/705c135f-df1f-485b-b3ea-29b8ee647f62.jpg">
   
-    <link rel="alternative" href="/atom.xml" title="柴华的个人主页" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="慕湮" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
@@ -212,6 +212,16 @@
 <li><a href="#17-为客户提供-api-文档">1.7 为客户提供 API 文档</a></li>
 </ul>
 </li>
+<li><a href="#第3章-轻量级的数据库分库分表架构与框架">第3章 轻量级的数据库分库分表架构与框架</a><ul>
+<li><a href="#31-什么是分库分表">3.1 什么是分库分表</a></li>
+<li><a href="#32-三种分而治之的解决方案">3.2 三种分而治之的解决方案</a></li>
+<li><a href="#33-分库分表的架构设计">3.3 分库分表的架构设计</a></li>
+<li><a href="#34-流行代理分片框架-mycat-的初体验">3.4 流行代理分片框架 Mycat 的初体验</a></li>
+<li><a href="#35-流行的客户端分片框架-sharding-jdbc-的初体验">3.5 流行的客户端分片框架 Sharding JDBC 的初体验</a></li>
+<li><a href="#36-自研客户端分片框架-dbsplit-的设计-实现与使用">3.6 自研客户端分片框架 dbsplit 的设计、实现与使用</a></li>
+</ul>
+</li>
+<li><a href="#第4章">第4章</a></li>
 </ul>
 <!-- tocstop -->
 <h1><span id="第1章-如何设计一款用不重复的高性能分布式发号器">第1章 如何设计一款用不重复的高性能分布式发号器</span></h1><h2><span id="11-可选方案及技术选型">1.1 可选方案及技术选型</span></h2><h3><span id="111-为什么不用-uuid">1.1.1 为什么不用 UUID</span></h3><h3><span id="112-基于数据库的实现方案">1.1.2 基于数据库的实现方案</span></h3><h3><span id="113-snowflake-开源项目">1.1.3 Snowflake 开源项目</span></h3><h2><span id="12-分布式系统对发号器的基本要求">1.2 分布式系统对发号器的基本要求</span></h2><ul>
@@ -223,7 +233,7 @@
 <li>高可用</li>
 <li>可伸缩</li>
 </ul>
-<h2><span id="13-架构设计与核心要点">1.3 架构设计与核心要点</span></h2><h2><span id="14-如何根据设计实现多场景的发号器">1.4 如何根据设计实现多场景的发号器</span></h2><h2><span id="15-如何保证性能要求">1.5 如何保证性能要求</span></h2><h2><span id="16-如何让用户快速使用">1.6 如何让用户快速使用</span></h2><h2><span id="17-为客户提供-api-文档">1.7 为客户提供 API 文档</span></h2>
+<h2><span id="13-架构设计与核心要点">1.3 架构设计与核心要点</span></h2><h2><span id="14-如何根据设计实现多场景的发号器">1.4 如何根据设计实现多场景的发号器</span></h2><h2><span id="15-如何保证性能要求">1.5 如何保证性能要求</span></h2><h2><span id="16-如何让用户快速使用">1.6 如何让用户快速使用</span></h2><h2><span id="17-为客户提供-api-文档">1.7 为客户提供 API 文档</span></h2><h1><span id="第3章-轻量级的数据库分库分表架构与框架">第3章 轻量级的数据库分库分表架构与框架</span></h1><h2><span id="31-什么是分库分表">3.1 什么是分库分表</span></h2><h2><span id="32-三种分而治之的解决方案">3.2 三种分而治之的解决方案</span></h2><h2><span id="33-分库分表的架构设计">3.3 分库分表的架构设计</span></h2><h2><span id="34-流行代理分片框架-mycat-的初体验">3.4 流行代理分片框架 Mycat 的初体验</span></h2><h2><span id="35-流行的客户端分片框架-sharding-jdbc-的初体验">3.5 流行的客户端分片框架 Sharding JDBC 的初体验</span></h2><h2><span id="36-自研客户端分片框架-dbsplit-的设计-实现与使用">3.6 自研客户端分片框架 dbsplit 的设计、实现与使用</span></h2><h1><span id="第4章">第4章</span></h1>
       
 
       

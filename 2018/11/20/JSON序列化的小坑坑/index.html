@@ -6,13 +6,13 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://chaihua.me">
-  <title>JSON序列化的小坑坑 | 柴华的个人主页</title>
+  <title>JSON序列化的小坑坑 | 慕湮</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="最近某同学解析一段 json body，由于提供方的是非强类型的语言，所以传过来的某个字段（假设字段的名称为 uid）有时为 string，有时为 int，也就是说我们看到的 json 可能是一下两种样式：  {“uid”:”1234”} {“uid”:1234}  这样会导致使用强类型语言的调用方无法使用一个确定的类型去解析这个 json body，而且有的时候可能还会对排查问题造成一些困扰。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JSON序列化的小坑坑">
 <meta property="og:url" content="http://chaihua.me/2018/11/20/JSON序列化的小坑坑/index.html">
-<meta property="og:site_name" content="柴华的个人主页">
+<meta property="og:site_name" content="慕湮">
 <meta property="og:description" content="最近某同学解析一段 json body，由于提供方的是非强类型的语言，所以传过来的某个字段（假设字段的名称为 uid）有时为 string，有时为 int，也就是说我们看到的 json 可能是一下两种样式：  {“uid”:”1234”} {“uid”:1234}  这样会导致使用强类型语言的调用方无法使用一个确定的类型去解析这个 json body，而且有的时候可能还会对排查问题造成一些困扰。">
 <meta property="og:locale" content="default">
 <meta property="og:updated_time" content="2019-01-02T11:31:07.706Z">
@@ -20,7 +20,7 @@
 <meta name="twitter:title" content="JSON序列化的小坑坑">
 <meta name="twitter:description" content="最近某同学解析一段 json body，由于提供方的是非强类型的语言，所以传过来的某个字段（假设字段的名称为 uid）有时为 string，有时为 int，也就是说我们看到的 json 可能是一下两种样式：  {“uid”:”1234”} {“uid”:1234}  这样会导致使用强类型语言的调用方无法使用一个确定的类型去解析这个 json body，而且有的时候可能还会对排查问题造成一些困扰。">
   
-    <link rel="alternative" href="/atom.xml" title="柴华的个人主页" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="慕湮" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
