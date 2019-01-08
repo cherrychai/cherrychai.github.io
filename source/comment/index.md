@@ -1,6 +1,14 @@
+---
+layout: post
+title: 留言板
+date: 2018-01-08
+comments: true
+---
+
+{% raw %}
 <div class="livere">
     <!-- 来必力City版安装代码 -->
-    <div id="lv-container" data-id="city" data-uid="<%=theme.livere.uid%>">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC80MjAyNy8xODU3NA==">
         <script type="text/javascript">
        (function(d, s) {
            var j, e = d.getElementsByTagName(s)[0];
@@ -18,3 +26,4 @@
     </div>
     <!-- City版安装代码已完成 -->
 </div>
+{% endraw %}

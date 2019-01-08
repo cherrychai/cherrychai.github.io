@@ -5,8 +5,7 @@ menu:
   笔记: /notes/
   刷题: /practise/
   关于我: /about/
-  DIARY: /diary/
-
+  留言板: /comment/
 
 # SubNav
 subnav:
@@ -21,7 +20,7 @@ subnav:
   #segmentfault: "#"
   #bilibili: "#"
   #acfun: "#"
-  #mail: "mailto:litten225@qq.com"
+  mail: "mailto:huachai@live.com"
   #facebook: "#"
   #google: "#"
   #twitter: "#"
@@ -102,17 +101,12 @@ disqus: false
 #  client_secret: 'f767dd524947d7ca42622b8396fb8ba46ace7ba0'   #client secret
 
 #6、来必力
-livere: false
+# 注释所有畅言配置
+# 注释所有gitalk配置
+# livere配置
+livere: 
+  uid: MTAyMC80MjAyNy8xODU3NA==
 
-#7、gitalk评论
-gitalk:
-  enable:  true
-  githubID:  cherrychai
-  repo:  'mycomments'
-  ClientID:  'e6f309e5b4ebc0a533e4'
-  ClientSecret:  'f767dd524947d7ca42622b8396fb8ba46ace7ba0'
-  adminUser:  cherrychai
-  distractionFreeMode: true
 
 # 样式定制 - 一般不需要修改，除非有很强的定制欲望…
 style:

@@ -1,4 +1,4 @@
-# [柴华的博客](http://chaihua.me/)
+# [柴华的个人主页](http://chaihua.me/)
 
 ### 用到的几种颜色
 
