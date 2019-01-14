@@ -16,7 +16,7 @@
 <meta property="og:description" content="第1章 如何设计一款用不重复的高性能分布式发号器 1.1 可选方案及技术选型 1.1.1 为什么不用 UUID 1.1.2 基于数据库的实现方案 1.1.3 Snowflake 开源项目   1.2 分布式系统对发号器的基本要求 1.3 架构设计与核心要点 1.4 如何根据设计实现多场景的发号器 1.5 如何保证性能要求 1.6 如何让用户快速使用 1.7 为客户提供 API 文档   第3">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://chaihua.me/notes/achetecture/可伸缩服务架构-框架与中间件/705c135f-df1f-485b-b3ea-29b8ee647f62.jpg">
-<meta property="og:updated_time" content="2019-01-14T12:37:19.544Z">
+<meta property="og:updated_time" content="2019-01-14T15:52:33.418Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="可伸缩服务架构 - 框架与中间件">
 <meta name="twitter:description" content="第1章 如何设计一款用不重复的高性能分布式发号器 1.1 可选方案及技术选型 1.1.1 为什么不用 UUID 1.1.2 基于数据库的实现方案 1.1.3 Snowflake 开源项目   1.2 分布式系统对发号器的基本要求 1.3 架构设计与核心要点 1.4 如何根据设计实现多场景的发号器 1.5 如何保证性能要求 1.6 如何让用户快速使用 1.7 为客户提供 API 文档   第3">
@@ -254,7 +254,7 @@
 <p><strong>2. 水平切分的分片维度</strong></p>
 <p>1) 按照哈希切片<br>2) 按照时间切片</p>
 <blockquote>
-<p><em><a href="https://github.com/Meituan-Dianping/Zebra/wiki/%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%E5%90%88%E9%80%82%E7%9A%84%E5%88%86%E8%A1%A8%E9%94%AE%EF%BC%8C%E8%B7%AF%E7%94%B1%E8%A7%84%E5%88%99%E5%8F%8A%E5%88%86%E7%89%87%E6%95%B0" target="_blank" rel="noopener">Zebra - 如何选择合适的分表键，路由规则及分片数</a> 中提到数据表拆分的首要原则，就是要尽可能找到数据表中的数据在业务逻辑上的主体，并确定大部分（或核心的）数据库操作都是围绕这个主体的数据进行，然后可使用该主体对应的字段作为分表键，进行分库分表。</em><br><em>业务逻辑上的主体，通常与业务的应用场景相关，下面的一些典型应用场景都有明确的业务逻辑主体，可用于分表键：</em><br><em>1) 面向用户的互联网应用，都是围绕用户维度来做各种操作，那么业务逻辑主体就是用户，可使用用户对应的字段作为分表键。</em><br><em>2) 侧重于卖家的电商应用，都是围绕卖家维度来进行各种操作，那么业务逻辑主体就是卖家，可使用卖家对应的字段作为分表键。</em></p>
+<p><a href="https://github.com/Meituan-Dianping/Zebra/wiki/%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%E5%90%88%E9%80%82%E7%9A%84%E5%88%86%E8%A1%A8%E9%94%AE%EF%BC%8C%E8%B7%AF%E7%94%B1%E8%A7%84%E5%88%99%E5%8F%8A%E5%88%86%E7%89%87%E6%95%B0" target="_blank" rel="noopener">Zebra - 如何选择合适的分表键，路由规则及分片数</a> 中提到数据表拆分的首要原则，就是要尽可能找到数据表中的数据在业务逻辑上的主体，并确定大部分（或核心的）数据库操作都是围绕这个主体的数据进行，然后可使用该主体对应的字段作为分表键，进行分库分表。<br>业务逻辑上的主体，通常与业务的应用场景相关，下面的一些典型应用场景都有明确的业务逻辑主体，可用于分表键：<br>1) 面向用户的互联网应用，都是围绕用户维度来做各种操作，那么业务逻辑主体就是用户，可使用用户对应的字段作为分表键。<br>2) 侧重于卖家的电商应用，都是围绕卖家维度来进行各种操作，那么业务逻辑主体就是卖家，可使用卖家对应的字段作为分表键。</p>
 </blockquote>
 <h3><span id="333-分片后的事务处理机制">3.3.3 分片后的事务处理机制</span></h3><p><strong>1. 分布式事务</strong></p>
 <p>1) 两阶段提交协议</p>
@@ -414,6 +414,8 @@
     </div>
   </div>
 </footer>
+<!--页面点击小红心-->
+<script type="text/javascript" src="/love.js"></script>
     </div>
     <script>
 	var yiliaConfig = {
