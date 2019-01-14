@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://chaihua.me">
-  <title>可伸缩服务架构-框架与中间件 | 慕湮</title>
+  <title>可伸缩服务架构 - 框架与中间件 | 慕湮</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="第1章 如何设计一款用不重复的高性能分布式发号器 1.1 可选方案及技术选型 1.1.1 为什么不用 UUID 1.1.2 基于数据库的实现方案 1.1.3 Snowflake 开源项目   1.2 分布式系统对发号器的基本要求 1.3 架构设计与核心要点 1.4 如何根据设计实现多场景的发号器 1.5 如何保证性能要求 1.6 如何让用户快速使用 1.7 为客户提供 API 文档   第3">
 <meta property="og:type" content="website">
-<meta property="og:title" content="可伸缩服务架构-框架与中间件">
+<meta property="og:title" content="可伸缩服务架构 - 框架与中间件">
 <meta property="og:url" content="http://chaihua.me/notes/achetecture/可伸缩服务架构-框架与中间件/index.html">
 <meta property="og:site_name" content="慕湮">
 <meta property="og:description" content="第1章 如何设计一款用不重复的高性能分布式发号器 1.1 可选方案及技术选型 1.1.1 为什么不用 UUID 1.1.2 基于数据库的实现方案 1.1.3 Snowflake 开源项目   1.2 分布式系统对发号器的基本要求 1.3 架构设计与核心要点 1.4 如何根据设计实现多场景的发号器 1.5 如何保证性能要求 1.6 如何让用户快速使用 1.7 为客户提供 API 文档   第3">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://chaihua.me/notes/achetecture/可伸缩服务架构-框架与中间件/705c135f-df1f-485b-b3ea-29b8ee647f62.jpg">
-<meta property="og:updated_time" content="2019-01-08T05:54:43.978Z">
+<meta property="og:updated_time" content="2019-01-14T12:37:19.544Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="可伸缩服务架构-框架与中间件">
+<meta name="twitter:title" content="可伸缩服务架构 - 框架与中间件">
 <meta name="twitter:description" content="第1章 如何设计一款用不重复的高性能分布式发号器 1.1 可选方案及技术选型 1.1.1 为什么不用 UUID 1.1.2 基于数据库的实现方案 1.1.3 Snowflake 开源项目   1.2 分布式系统对发号器的基本要求 1.3 架构设计与核心要点 1.4 如何根据设计实现多场景的发号器 1.5 如何保证性能要求 1.6 如何让用户快速使用 1.7 为客户提供 API 文档   第3">
 <meta name="twitter:image" content="http://chaihua.me/notes/achetecture/可伸缩服务架构-框架与中间件/705c135f-df1f-485b-b3ea-29b8ee647f62.jpg">
   
@@ -181,7 +181,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      可伸缩服务架构-框架与中间件
+      可伸缩服务架构 - 框架与中间件
     </h1>
   
 
@@ -215,8 +215,22 @@
 <li><a href="#第3章-轻量级的数据库分库分表架构与框架">第3章 轻量级的数据库分库分表架构与框架</a><ul>
 <li><a href="#31-什么是分库分表">3.1 什么是分库分表</a></li>
 <li><a href="#32-三种分而治之的解决方案">3.2 三种分而治之的解决方案</a></li>
-<li><a href="#33-分库分表的架构设计">3.3 分库分表的架构设计</a></li>
-<li><a href="#34-流行代理分片框架-mycat-的初体验">3.4 流行代理分片框架 Mycat 的初体验</a></li>
+<li><a href="#33-分库分表的架构设计">3.3 分库分表的架构设计</a><ul>
+<li><a href="#331-整体的切分方式">3.3.1 整体的切分方式</a></li>
+<li><a href="#332-水平切分的路由过程和分片维度">3.3.2 水平切分的路由过程和分片维度</a></li>
+<li><a href="#333-分片后的事务处理机制">3.3.3 分片后的事务处理机制</a></li>
+<li><a href="#334-读写分离">3.3.4 读写分离</a></li>
+<li><a href="#335-分库分表引起的问题">3.3.5 分库分表引起的问题</a></li>
+</ul>
+</li>
+<li><a href="#34-流行代理分片框架-mycat-的初体验">3.4 流行代理分片框架 Mycat 的初体验</a><ul>
+<li><a href="#341-安装-mycat">3.4.1 安装 Mycat</a></li>
+<li><a href="#342-配置-mycat">3.4.2 配置 Mycat</a></li>
+<li><a href="#343-配置数据库节点">3.4.3 配置数据库节点</a></li>
+<li><a href="#344-数据迁移">3.4.4 数据迁移</a></li>
+<li><a href="#345-mycat-支持的分片规则">3.4.5 Mycat 支持的分片规则</a></li>
+</ul>
+</li>
 <li><a href="#35-流行的客户端分片框架-sharding-jdbc-的初体验">3.5 流行的客户端分片框架 Sharding JDBC 的初体验</a></li>
 <li><a href="#36-自研客户端分片框架-dbsplit-的设计-实现与使用">3.6 自研客户端分片框架 dbsplit 的设计、实现与使用</a></li>
 </ul>
@@ -233,7 +247,31 @@
 <li>高可用</li>
 <li>可伸缩</li>
 </ul>
-<h2><span id="13-架构设计与核心要点">1.3 架构设计与核心要点</span></h2><h2><span id="14-如何根据设计实现多场景的发号器">1.4 如何根据设计实现多场景的发号器</span></h2><h2><span id="15-如何保证性能要求">1.5 如何保证性能要求</span></h2><h2><span id="16-如何让用户快速使用">1.6 如何让用户快速使用</span></h2><h2><span id="17-为客户提供-api-文档">1.7 为客户提供 API 文档</span></h2><h1><span id="第3章-轻量级的数据库分库分表架构与框架">第3章 轻量级的数据库分库分表架构与框架</span></h1><h2><span id="31-什么是分库分表">3.1 什么是分库分表</span></h2><h2><span id="32-三种分而治之的解决方案">3.2 三种分而治之的解决方案</span></h2><h2><span id="33-分库分表的架构设计">3.3 分库分表的架构设计</span></h2><h2><span id="34-流行代理分片框架-mycat-的初体验">3.4 流行代理分片框架 Mycat 的初体验</span></h2><h2><span id="35-流行的客户端分片框架-sharding-jdbc-的初体验">3.5 流行的客户端分片框架 Sharding JDBC 的初体验</span></h2><h2><span id="36-自研客户端分片框架-dbsplit-的设计-实现与使用">3.6 自研客户端分片框架 dbsplit 的设计、实现与使用</span></h2><h1><span id="第4章">第4章</span></h1>
+<h2><span id="13-架构设计与核心要点">1.3 架构设计与核心要点</span></h2><h2><span id="14-如何根据设计实现多场景的发号器">1.4 如何根据设计实现多场景的发号器</span></h2><h2><span id="15-如何保证性能要求">1.5 如何保证性能要求</span></h2><h2><span id="16-如何让用户快速使用">1.6 如何让用户快速使用</span></h2><h2><span id="17-为客户提供-api-文档">1.7 为客户提供 API 文档</span></h2><h1><span id="第3章-轻量级的数据库分库分表架构与框架">第3章 轻量级的数据库分库分表架构与框架</span></h1><h2><span id="31-什么是分库分表">3.1 什么是分库分表</span></h2><h2><span id="32-三种分而治之的解决方案">3.2 三种分而治之的解决方案</span></h2><h2><span id="33-分库分表的架构设计">3.3 分库分表的架构设计</span></h2><h3><span id="331-整体的切分方式">3.3.1 整体的切分方式</span></h3><p><strong>1. 垂直切分</strong></p>
+<p>我们推荐在设计数据库表结构时，就考虑垂直拆分，根据冷热分离、动静分离的原则，再根据使用的存储引擎的特点，对冷数据可以使用 MyISAM，能更好地进行数据查询，对热数据可以使用 InnoDB，有更快的更新速度，这样能够有效提升性能。</p>
+<p><strong>2. 水平切分</strong></p>
+<h3><span id="332-水平切分的路由过程和分片维度">3.3.2 水平切分的路由过程和分片维度</span></h3><p><strong>1. 水平切分的路由过程</strong></p>
+<p><strong>2. 水平切分的分片维度</strong></p>
+<p>1) 按照哈希切片<br>2) 按照时间切片</p>
+<blockquote>
+<p><em><a href="https://github.com/Meituan-Dianping/Zebra/wiki/%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%E5%90%88%E9%80%82%E7%9A%84%E5%88%86%E8%A1%A8%E9%94%AE%EF%BC%8C%E8%B7%AF%E7%94%B1%E8%A7%84%E5%88%99%E5%8F%8A%E5%88%86%E7%89%87%E6%95%B0" target="_blank" rel="noopener">Zebra - 如何选择合适的分表键，路由规则及分片数</a> 中提到数据表拆分的首要原则，就是要尽可能找到数据表中的数据在业务逻辑上的主体，并确定大部分（或核心的）数据库操作都是围绕这个主体的数据进行，然后可使用该主体对应的字段作为分表键，进行分库分表。</em><br><em>业务逻辑上的主体，通常与业务的应用场景相关，下面的一些典型应用场景都有明确的业务逻辑主体，可用于分表键：</em><br><em>1) 面向用户的互联网应用，都是围绕用户维度来做各种操作，那么业务逻辑主体就是用户，可使用用户对应的字段作为分表键。</em><br><em>2) 侧重于卖家的电商应用，都是围绕卖家维度来进行各种操作，那么业务逻辑主体就是卖家，可使用卖家对应的字段作为分表键。</em></p>
+</blockquote>
+<h3><span id="333-分片后的事务处理机制">3.3.3 分片后的事务处理机制</span></h3><p><strong>1. 分布式事务</strong></p>
+<p>1) 两阶段提交协议</p>
+<p>两阶段提交协议也带来了性能方面的问题，难于进行水平伸缩，因为在提交事务的过程中，事务管理器需要和每个参与者进行准备和提交的操作的协调，在准备阶段锁定资源，在提交阶段消费资源，但是由于参与者较多，锁定资源和消费资源之间的时间差被拉长，导致响应速度较慢，在此期间产生死锁或者不确定结果的可能性很大。因此，在互联网行业里，为了追求性能的提升，很少使用两阶段提交协议。</p>
+<p>2) 最大努力保证模式</p>
+<p>3) 事务补偿机制</p>
+<h3><span id="334-读写分离">3.3.4 读写分离</span></h3><ul>
+<li>当读操作压力很大时，可以考虑添加从库机器来分解大量读操作带来的压力，但是当从库机器达到一定的数量时，就需要考虑分库来缓解压力了。</li>
+<li>当写压力很大时，就必须进行分库操作了。</li>
+<li>可能会因为种种原因，集群中的数据库硬件配置等会不一样，某些性能高，某些性能低，这时可以通过程序控制每台机器读写的比重来达到负载均衡，这需要更加复杂的读写分离的路由规则。</li>
+</ul>
+<h3><span id="335-分库分表引起的问题">3.3.5 分库分表引起的问题</span></h3><p><strong>1. 扩容和迁移</strong></p>
+<p><strong>2. 分库分表维度导致的查询问题</strong></p>
+<p>常用的解决方式如下：<br>1) 在多个分片表查询后合并数据集，这种方式的效率很低。<br>2) 记录两份数据，一份按照买家维度分表，一份按照商品维度分表。<br>3) 通过搜索引擎解决，但如果实时性要求很高，就需要专门实现实时搜索。</p>
+<p><strong>3. 跨库事务难以实现</strong></p>
+<p><strong>4. 同组数据跨库问题</strong></p>
+<h2><span id="34-流行代理分片框架-mycat-的初体验">3.4 流行代理分片框架 Mycat 的初体验</span></h2><h3><span id="341-安装-mycat">3.4.1 安装 Mycat</span></h3><h3><span id="342-配置-mycat">3.4.2 配置 Mycat</span></h3><h3><span id="343-配置数据库节点">3.4.3 配置数据库节点</span></h3><h3><span id="344-数据迁移">3.4.4 数据迁移</span></h3><h3><span id="345-mycat-支持的分片规则">3.4.5 Mycat 支持的分片规则</span></h3><h2><span id="35-流行的客户端分片框架-sharding-jdbc-的初体验">3.5 流行的客户端分片框架 Sharding JDBC 的初体验</span></h2><h2><span id="36-自研客户端分片框架-dbsplit-的设计-实现与使用">3.6 自研客户端分片框架 dbsplit 的设计、实现与使用</span></h2><h1><span id="第4章">第4章</span></h1>
       
 
       
