@@ -41,7 +41,7 @@ date: 2014-02-27
 然后这便是一个典型的动态规划的问题了，用一个数组维护更新以每个字母结尾的p的连续字母子串的最大长度，最后加和。其实感觉讲的非常不清楚，还是代码更加直观，let's communicate with code ...
 <!--more-->
 
-###### Java:
+### Java:
 ``` java
 public class Solution {
     public int findSubstringInWraproundString(String p) {

@@ -21,7 +21,7 @@ date: 2014-10-26
 基于Iterator实现一个PeekingIterator，使得这个类中包含一个peek()方法返回最顶端的元素，因为直接调用next()会遍历所有元素，所以需要定义一个变量保存每次next()的结果，比较简单，实现方法如下。
 <!--more-->
 
-###### Java:
+### Java:
 ``` java
 // Java Iterator interface reference:
 // https://docs.oracle.com/javase/8/docs/api/java/util/Iterator.html

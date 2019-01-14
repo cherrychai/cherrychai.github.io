@@ -31,7 +31,7 @@ date: 2013-11-10
 其实这道题目看起来挺简单的，不过我还真的在某大公司被面试过，虽然当时面试的是一道变形题目，数组是有序的，而且要求不能用哈希，不过是校招面试的，我猜主要目的还是为了考查基本功吧。
 <!--more-->
 
-###### C++:
+### C++:
 ``` c++
 class Solution {
 public:
@@ -52,7 +52,7 @@ public:
 };
 ```
 
-###### Java:
+### Java:
 ``` java
 public class Solution {
     public int[] twoSum(int[] nums, int target) {

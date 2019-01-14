@@ -21,7 +21,7 @@ date: 2014-02-2
 典型的动态规划，思路清晰明了，判断s是不是true的问题又可以转化为判断s.substring(0,i)是不是true，如果s.substring(0,i)为true且s.substring(i,j)是字典中的单词，那么s.substring(0,j)为true，然后问题便解决了。
 <!--more-->
 
-###### Java:
+### Java:
 ``` java
 public class Solution {
     public boolean wordBreak(String s, List<String> wordDict) {
@@ -50,7 +50,7 @@ public class Solution {
 }
 ```
 
-###### Java:
+### Java:
 ``` java
 public class Solution {
     public boolean wordBreak(String s, List<String> wordDict) {

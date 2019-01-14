@@ -23,7 +23,7 @@ date: 2014-03-04
 算是LeetCode上需要写的比较长的一道题目了，我只想说离开IDE裸写这道题还是犯了很多错误的，而且居然下意识用了foreach也是醉醉的了，我都不知道已经多久没有用到它了，不得不说在IDE里面写代码还是省不少心的，不过也会惯坏自己，好多放到IDE里面非常明了的错误竟然肉眼检查不出来了，费了好大劲修复了所有的compile error之后就一遍AC了，枉我一直标榜自己纸上写代码的功力，近年来竟也退化了太多，果然不练习手就慢慢生了。
 <!--more-->
 
-###### Java:
+### Java:
 ``` java
 public class Solution {
     public List<String> wordBreak(String s, List<String> wordDict) {

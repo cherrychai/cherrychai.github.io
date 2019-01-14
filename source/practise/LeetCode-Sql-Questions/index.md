@@ -32,7 +32,7 @@ date: 2014-10-23
 >     +--------------+-------------+--------------+
 <!--more-->
 
-###### Answer:
+### Answer:
 ``` sql
 SELECT name,population,area FROM World WHERE area > 3000000 OR population > 25000000;
 ```
@@ -59,7 +59,7 @@ SELECT name,population,area FROM World WHERE area > 3000000 OR population > 2500
 >     | 3  | C    | f   | 5500   |
 >     | 4  | D    | m   | 500    |
 
-###### Answer:
+### Answer:
 ``` sql
 UPDATE salary SET sex = (CASE WHEN sex = 'm' THEN 'f' ELSE 'm' END);
 ```
@@ -91,7 +91,7 @@ UPDATE salary SET sex = (CASE WHEN sex = 'm' THEN 'f' ELSE 'm' END);
 >     |   1     | War       |   great 3D   |   8.9     |
 >     +---------+-----------+--------------+-----------+
 
-###### Answer:
+### Answer:
 ``` sql
 SELECT * FROM cinema WHERE id % 2 = 1 AND description != "boring" ORDER BY rating DESC;
 SELECT * FROM cinema WHERE MOD(id,2)=1 AND description != "boring" ORDER BY rating DESC;

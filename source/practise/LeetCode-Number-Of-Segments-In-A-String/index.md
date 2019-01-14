@@ -22,7 +22,7 @@ date: 2013-12-04
 以前一直用C++做题，这次突然想说写个Java吧，不曾想居然从来没有用Java取过String中的单个字符（工程中确实很难用到），囧，于是第一次用到了charAt，感觉换个语言做做题也是可以涨很多知识的，毕竟现在也是Java工程师了，很多东西还是需要熟练掌握的，加油。
 <!--more-->
 
-###### C++:
+### C++:
 ``` c++
 class Solution {
 public:
@@ -51,7 +51,7 @@ public:
 };
 ```
 
-###### Java:
+### Java:
 ``` java
 public class Solution {
     public int countSegments(String s) {

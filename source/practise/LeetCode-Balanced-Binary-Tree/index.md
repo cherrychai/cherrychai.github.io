@@ -23,7 +23,7 @@ date: 2014-03-05
 传引用进入函数然后通过指针更新其值的时候还是有些地方需要注意，许久不写其实我也有些生疏，这种小细节考考校招同学的基本功还是可以有的。
 <!--more-->
 
-###### Java:
+### Java:
 ``` java
 /**
  * Definition for a binary tree node.
@@ -57,7 +57,7 @@ public class Solution {
 }
 ```
 
-###### C++:
+### C++:
 ``` c++
 /**
  * Definition for a binary tree node.

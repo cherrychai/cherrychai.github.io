@@ -29,7 +29,7 @@ date: 2014-05-01
 二叉树的层序遍历，要求从上到下、从左到右输出结点信息，送分题，利用队列先进先出的特性按层次遍历，在遍历的过程中记录结点信息即可。另外由于本题要求已二维数组的形式输出结果，中间可以用一个null结点标注每一层的结束。
 <!--more-->
 
-###### Java:
+### Java:
 ``` java
 /**
  * Definition for a binary tree node.
@@ -76,7 +76,7 @@ public class Solution {
 }
 ```
 
-###### C++:
+### C++:
 ``` c++
 /**
  * Definition for a binary tree node.

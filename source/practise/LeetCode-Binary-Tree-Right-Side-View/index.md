@@ -22,7 +22,7 @@ date: 2014-05-03
 同[LeetCode - Binary Tree Level Order Traversal 2](http://localhost:4000/leetcode/2017/05/03/LeetCode-Binary-Tree-Level-Order-Traversal-2/)一样，也是[LeetCode - Binary Tree Level Order Traversal](http://chaihua.me/leetcode/2017/05/02/LeetCode-Binary-Tre-Level-Order-Traversal/)的变形，二叉树的层序遍历，如果是从左向右遍历则需要在遍历到每一层的最后一个节点时进行输出，如果是从右向左遍历则需要输出没一层的第一个节点。
 <!--more-->
 
-###### Java（从左向右遍历）:
+### Java（从左向右遍历）:
 ``` java
 /**
  * Definition for a binary tree node.
@@ -65,7 +65,7 @@ class Solution {
 }
 ```
 
-###### Java（从右向左遍历）:
+### Java（从右向左遍历）:
 ``` java
 /**
  * Definition for a binary tree node.

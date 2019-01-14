@@ -31,7 +31,7 @@ date: 2014-05-05
 最近最少使用算法，面试很喜欢考的一道题目，可以用LinkedHashMap实现。
 <!--more-->
 
-###### Java:
+### Java:
 ``` java
 class LRUCache {
     private Integer capacity;

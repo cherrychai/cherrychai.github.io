@@ -35,7 +35,7 @@ date: 2014-05-02
 - 仍然利用队列先进先出的特性输出每一层的结点信息，不同的是这次要对二叉树递归的进行层次遍历，然后在回溯的过程中输出结点信息，下面C++版本实现的便是这种方法，Java版本递归思路一样，只不过没有用队列
 <!--more-->
 
-###### C++:
+### C++:
 ``` c++
 /**
  * Definition for a binary tree node.
@@ -84,7 +84,7 @@ public:
 };
 ```
 
-###### Java:
+### Java:
 ``` java
 /**
  * Definition for a binary tree node.

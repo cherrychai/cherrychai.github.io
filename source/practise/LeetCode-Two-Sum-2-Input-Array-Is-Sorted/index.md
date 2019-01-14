@@ -22,7 +22,7 @@ date: 2013-11-16
 LeetCode上面这道题目还标注了Binary Search的标签，但是我总感觉二分查找其实不如双指针更适合这道题，留着以后研究吧。
 <!--more-->
 
-###### C++:
+### C++:
 ``` c++
 class Solution {
 public:
@@ -47,7 +47,7 @@ public:
 };
 ```
 
-###### Java:
+### Java:
 ``` java
 public class Solution {
     public int[] twoSum(int[] numbers, int target) {
