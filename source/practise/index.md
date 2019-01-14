@@ -19,11 +19,11 @@ date: 2013-07-01
 
 ### tree
 
-- \[DFS\][LeetCode-Balanced-Binary-Tree](/practise/LeetCode-Balanced-Binary-Tree)
-- \[BFS\][LeetCode-Binary-Tree-Level-Order-Traversal](/practise/LeetCode-Binary-Tree-Level-Order-Traversal)
-- \[BFS\][LeetCode-Binary-Tree-Level-Order-Traversal-2](/practise/LeetCode-Binary-Tree-Level-Order-Traversal-2)
-- \[BFS\][LeetCode-Binary-Tree-Right-Side-View](/practise/LeetCode-Binary-Tree-Right-Side-View)
-- \[BFS\][LeetCode-Binary-Tree-Zigzag-Level-Order-Traversal](/practise/LeetCode-Binary-Tree-Zigzag-Level-Order-Traversal)
+- \[DFS\] [LeetCode-Balanced-Binary-Tree](/practise/LeetCode-Balanced-Binary-Tree)
+- \[BFS\] [LeetCode-Binary-Tree-Level-Order-Traversal](/practise/LeetCode-Binary-Tree-Level-Order-Traversal)
+- \[BFS\] [LeetCode-Binary-Tree-Level-Order-Traversal-2](/practise/LeetCode-Binary-Tree-Level-Order-Traversal-2)
+- \[BFS\] [LeetCode-Binary-Tree-Right-Side-View](/practise/LeetCode-Binary-Tree-Right-Side-View)
+- \[BFS\] [LeetCode-Binary-Tree-Zigzag-Level-Order-Traversal](/practise/LeetCode-Binary-Tree-Zigzag-Level-Order-Traversal)
 
 ### hash
 - [LeetCode-Island-Perimeter](/practise/LeetCode-Island-Perimeter)
