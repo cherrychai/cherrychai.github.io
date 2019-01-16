@@ -11,3 +11,5 @@ date: 2018-06-01
 - \[读书\] [疯狂 Spring Cloud 架构实战](/notes/achetecture/疯狂SpringCloud微服务架构实战)
 - \[读书\] [可伸缩服务架构 - 框架与中间件](/notes/achetecture/可伸缩服务架构-框架与中间件)
 
+### 资料
+- \[工具\] [Intellij IDEA](/notes/useful/idea)
