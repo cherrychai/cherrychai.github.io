@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://chaihua.me">
   <title>疯狂 Spring Cloud 架构实战 | 慕湮</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="第1章 Spring Cloud 概述 1.1 传统的应用 1.2 微服务与 Spring Cloud 1.3 学习方面的准备工作   第2章 搭建开发环境 2.1 安装和配置 Maven 2.2 安装 Eclipse 2.3 Spring Boot 2.4 Spring Boot 配置文件 2.5 Spring Cloud 版本   第3章 微服务发布与调用 3.1 Eureka 介绍 3">
+  <meta name="description" content="第1章 Spring Cloud 概述  1.1 传统的应用 1.2 微服务与 Spring Cloud 1.3 学习方面的准备工作   第2章 搭建开发环境  2.1 安装和配置 Maven 2.2 安装 Eclipse 2.3 Spring Boot 2.4 Spring Boot 配置文件 2.5 Spring Cloud 版本   第3章 微服务发布与调用  3.1 Eureka 介">
 <meta property="og:type" content="website">
 <meta property="og:title" content="疯狂 Spring Cloud 架构实战">
 <meta property="og:url" content="http://chaihua.me/notes/achetecture/疯狂SpringCloud微服务架构实战/index.html">
 <meta property="og:site_name" content="慕湮">
-<meta property="og:description" content="第1章 Spring Cloud 概述 1.1 传统的应用 1.2 微服务与 Spring Cloud 1.3 学习方面的准备工作   第2章 搭建开发环境 2.1 安装和配置 Maven 2.2 安装 Eclipse 2.3 Spring Boot 2.4 Spring Boot 配置文件 2.5 Spring Cloud 版本   第3章 微服务发布与调用 3.1 Eureka 介绍 3">
+<meta property="og:description" content="第1章 Spring Cloud 概述  1.1 传统的应用 1.2 微服务与 Spring Cloud 1.3 学习方面的准备工作   第2章 搭建开发环境  2.1 安装和配置 Maven 2.2 安装 Eclipse 2.3 Spring Boot 2.4 Spring Boot 配置文件 2.5 Spring Cloud 版本   第3章 微服务发布与调用  3.1 Eureka 介">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://chaihua.me/notes/achetecture/疯狂SpringCloud微服务架构实战/084f304e-866d-418e-bc82-b5ecb664e367.jpg">
-<meta property="og:updated_time" content="2019-01-14T15:52:42.570Z">
+<meta property="og:updated_time" content="2019-01-17T11:12:11.016Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="疯狂 Spring Cloud 架构实战">
-<meta name="twitter:description" content="第1章 Spring Cloud 概述 1.1 传统的应用 1.2 微服务与 Spring Cloud 1.3 学习方面的准备工作   第2章 搭建开发环境 2.1 安装和配置 Maven 2.2 安装 Eclipse 2.3 Spring Boot 2.4 Spring Boot 配置文件 2.5 Spring Cloud 版本   第3章 微服务发布与调用 3.1 Eureka 介绍 3">
+<meta name="twitter:description" content="第1章 Spring Cloud 概述  1.1 传统的应用 1.2 微服务与 Spring Cloud 1.3 学习方面的准备工作   第2章 搭建开发环境  2.1 安装和配置 Maven 2.2 安装 Eclipse 2.3 Spring Boot 2.4 Spring Boot 配置文件 2.5 Spring Cloud 版本   第3章 微服务发布与调用  3.1 Eureka 介">
 <meta name="twitter:image" content="http://chaihua.me/notes/achetecture/疯狂SpringCloud微服务架构实战/084f304e-866d-418e-bc82-b5ecb664e367.jpg">
   
     <link rel="alternative" href="/atom.xml" title="慕湮" type="application/atom+xml">
@@ -194,112 +194,183 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><img src="/notes/achetecture/疯狂SpringCloud微服务架构实战/084f304e-866d-418e-bc82-b5ecb664e367.jpg" width="30%" height="30%" alt="" align="center"></p>
+        <img src="/notes/achetecture/疯狂SpringCloud微服务架构实战/084f304e-866d-418e-bc82-b5ecb664e367.jpg" width="30%" height="30%" alt="" align="center">
 <!-- toc -->
 <ul>
-<li><a href="#第1章-spring-cloud-概述">第1章 Spring Cloud 概述</a><ul>
-<li><a href="#11-传统的应用">1.1 传统的应用</a></li>
-<li><a href="#12-微服务与-spring-cloud">1.2 微服务与 Spring Cloud</a></li>
-<li><a href="#13-学习方面的准备工作">1.3 学习方面的准备工作</a></li>
+<li><a href="#%E7%AC%AC1%E7%AB%A0-spring-cloud-%E6%A6%82%E8%BF%B0">第1章 Spring Cloud 概述</a>
+<ul>
+<li><a href="#11-%E4%BC%A0%E7%BB%9F%E7%9A%84%E5%BA%94%E7%94%A8">1.1 传统的应用</a></li>
+<li><a href="#12-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E4%B8%8E-spring-cloud">1.2 微服务与 Spring Cloud</a></li>
+<li><a href="#13-%E5%AD%A6%E4%B9%A0%E6%96%B9%E9%9D%A2%E7%9A%84%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C">1.3 学习方面的准备工作</a></li>
 </ul>
 </li>
-<li><a href="#第2章-搭建开发环境">第2章 搭建开发环境</a><ul>
-<li><a href="#21-安装和配置-maven">2.1 安装和配置 Maven</a></li>
-<li><a href="#22-安装-eclipse">2.2 安装 Eclipse</a></li>
+<li><a href="#%E7%AC%AC2%E7%AB%A0-%E6%90%AD%E5%BB%BA%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83">第2章 搭建开发环境</a>
+<ul>
+<li><a href="#21-%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE-maven">2.1 安装和配置 Maven</a></li>
+<li><a href="#22-%E5%AE%89%E8%A3%85-eclipse">2.2 安装 Eclipse</a></li>
 <li><a href="#23-spring-boot">2.3 Spring Boot</a></li>
-<li><a href="#24-spring-boot-配置文件">2.4 Spring Boot 配置文件</a></li>
-<li><a href="#25-spring-cloud-版本">2.5 Spring Cloud 版本</a></li>
+<li><a href="#24-spring-boot-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6">2.4 Spring Boot 配置文件</a></li>
+<li><a href="#25-spring-cloud-%E7%89%88%E6%9C%AC">2.5 Spring Cloud 版本</a></li>
 </ul>
 </li>
-<li><a href="#第3章-微服务发布与调用">第3章 微服务发布与调用</a><ul>
-<li><a href="#31-eureka-介绍">3.1 Eureka 介绍</a></li>
-<li><a href="#32-第一个-eureka-服务">3.2 第一个 Eureka 服务</a></li>
-<li><a href="#33-eureka-集群搭建">3.3 Eureka 集群搭建</a></li>
-<li><a href="#34-服务实例的健康检查">3.4 服务实例的健康检查</a></li>
-<li><a href="#35-eureka-的常用配置">3.5 Eureka 的常用配置</a></li>
+<li><a href="#%E7%AC%AC3%E7%AB%A0-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%8F%91%E5%B8%83%E4%B8%8E%E8%B0%83%E7%94%A8">第3章 微服务发布与调用</a>
+<ul>
+<li><a href="#31-eureka-%E4%BB%8B%E7%BB%8D">3.1 Eureka 介绍</a></li>
+<li><a href="#32-%E7%AC%AC%E4%B8%80%E4%B8%AA-eureka-%E6%9C%8D%E5%8A%A1">3.2 第一个 Eureka 服务</a></li>
+<li><a href="#33-eureka-%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA">3.3 Eureka 集群搭建</a></li>
+<li><a href="#34-%E6%9C%8D%E5%8A%A1%E5%AE%9E%E4%BE%8B%E7%9A%84%E5%81%A5%E5%BA%B7%E6%A3%80%E6%9F%A5">3.4 服务实例的健康检查</a></li>
+<li><a href="#35-eureka-%E7%9A%84%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE">3.5 Eureka 的常用配置</a></li>
 </ul>
 </li>
-<li><a href="#第4章-负载均衡">第4章 负载均衡</a><ul>
-<li><a href="#41-ribbon-介绍">4.1 Ribbon 介绍</a></li>
-<li><a href="#42-第一个-ribbon-程序">4.2 第一个 Ribbon 程序</a></li>
-<li><a href="#43-ribbon-的负载均衡机制">4.3 Ribbon 的负载均衡机制</a></li>
-<li><a href="#44-在-spring-cloud-中使用-ribbon">4.4 在 Spring Cloud 中使用 Ribbon</a></li>
-<li><a href="#45-resttemplate-负载均衡">4.5 RestTemplate 负载均衡</a></li>
+<li><a href="#%E7%AC%AC4%E7%AB%A0-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1">第4章 负载均衡</a>
+<ul>
+<li><a href="#41-ribbon-%E4%BB%8B%E7%BB%8D">4.1 Ribbon 介绍</a></li>
+<li><a href="#42-%E7%AC%AC%E4%B8%80%E4%B8%AA-ribbon-%E7%A8%8B%E5%BA%8F">4.2 第一个 Ribbon 程序</a></li>
+<li><a href="#43-ribbon-%E7%9A%84%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E6%9C%BA%E5%88%B6">4.3 Ribbon 的负载均衡机制</a></li>
+<li><a href="#44-%E5%9C%A8-spring-cloud-%E4%B8%AD%E4%BD%BF%E7%94%A8-ribbon">4.4 在 Spring Cloud 中使用 Ribbon</a></li>
+<li><a href="#45-resttemplate-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1">4.5 RestTemplate 负载均衡</a></li>
 </ul>
 </li>
-<li><a href="#第5章-rest-客户端-feign">第5章 REST 客户端 Feign</a><ul>
-<li><a href="#51-rest-客户端">5.1 REST 客户端</a></li>
-<li><a href="#52-使用-feign">5.2 使用 Feign</a></li>
-<li><a href="#53-在-spring-cloud-中使用-feign">5.3 在 Spring Cloud 中使用 Feign</a></li>
+<li><a href="#%E7%AC%AC5%E7%AB%A0-rest-%E5%AE%A2%E6%88%B7%E7%AB%AF-feign">第5章 REST 客户端 Feign</a>
+<ul>
+<li><a href="#51-rest-%E5%AE%A2%E6%88%B7%E7%AB%AF">5.1 REST 客户端</a></li>
+<li><a href="#52-%E4%BD%BF%E7%94%A8-feign">5.2 使用 Feign</a></li>
+<li><a href="#53-%E5%9C%A8-spring-cloud-%E4%B8%AD%E4%BD%BF%E7%94%A8-feign">5.3 在 Spring Cloud 中使用 Feign</a></li>
 </ul>
 </li>
-<li><a href="#第6章-spring-cloud-的保护机制">第6章 Spring Cloud 的保护机制</a><ul>
-<li><a href="#61-概述">6.1 概述</a></li>
-<li><a href="#62-第一个-hystrix-程序">6.2 第一个 Hystrix 程序</a></li>
-<li><a href="#63-hystrix-的使用">6.3 Hystrix 的使用</a></li>
-<li><a href="#64-在-spring-cloud-中使用-hystrix">6.4 在 Spring Cloud 中使用 Hystrix</a></li>
+<li><a href="#%E7%AC%AC6%E7%AB%A0-spring-cloud-%E7%9A%84%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6">第6章 Spring Cloud 的保护机制</a>
+<ul>
+<li><a href="#61-%E6%A6%82%E8%BF%B0">6.1 概述</a></li>
+<li><a href="#62-%E7%AC%AC%E4%B8%80%E4%B8%AA-hystrix-%E7%A8%8B%E5%BA%8F">6.2 第一个 Hystrix 程序</a></li>
+<li><a href="#63-hystrix-%E7%9A%84%E4%BD%BF%E7%94%A8">6.3 Hystrix 的使用</a></li>
+<li><a href="#64-%E5%9C%A8-spring-cloud-%E4%B8%AD%E4%BD%BF%E7%94%A8-hystrix">6.4 在 Spring Cloud 中使用 Hystrix</a></li>
 </ul>
 </li>
-<li><a href="#第7章-微服务集群网关">第7章 微服务集群网关</a><ul>
-<li><a href="#71-zuul-框架介绍">7.1 Zuul 框架介绍</a></li>
-<li><a href="#72-在-web-项目中使用-zuul">7.2 在 Web 项目中使用 Zuul</a></li>
-<li><a href="#73-在微服务集群中初试-zuul">7.3 在微服务集群中初试 Zuul</a></li>
-<li><a href="#74-路由配置">7.4 路由配置</a></li>
-<li><a href="#75-zuul-的其他配置">7.5 Zuul 的其他配置</a></li>
-<li><a href="#76-zuul-功能进阶">7.6 Zuul 功能进阶</a></li>
+<li><a href="#%E7%AC%AC7%E7%AB%A0-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%9B%86%E7%BE%A4%E7%BD%91%E5%85%B3">第7章 微服务集群网关</a>
+<ul>
+<li><a href="#71-zuul-%E6%A1%86%E6%9E%B6%E4%BB%8B%E7%BB%8D">7.1 Zuul 框架介绍</a></li>
+<li><a href="#72-%E5%9C%A8-web-%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%BD%BF%E7%94%A8-zuul">7.2 在 Web 项目中使用 Zuul</a></li>
+<li><a href="#73-%E5%9C%A8%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%9B%86%E7%BE%A4%E4%B8%AD%E5%88%9D%E8%AF%95-zuul">7.3 在微服务集群中初试 Zuul</a></li>
+<li><a href="#74-%E8%B7%AF%E7%94%B1%E9%85%8D%E7%BD%AE">7.4 路由配置</a></li>
+<li><a href="#75-zuul-%E7%9A%84%E5%85%B6%E4%BB%96%E9%85%8D%E7%BD%AE">7.5 Zuul 的其他配置</a></li>
+<li><a href="#76-zuul-%E5%8A%9F%E8%83%BD%E8%BF%9B%E9%98%B6">7.6 Zuul 功能进阶</a></li>
 </ul>
 </li>
-<li><a href="#第8章-微服务与消息驱动">第8章 微服务与消息驱动</a><ul>
-<li><a href="#81-spring-cloud-stream-介绍">8.1 Spring Cloud Stream 介绍</a></li>
-<li><a href="#82-rabbitmq-框架">8.2 RabbitMQ 框架</a></li>
-<li><a href="#83-apache-kafka-框架">8.3 Apache Kafka 框架</a></li>
-<li><a href="#84-开发消息微服务">8.4 开发消息微服务</a></li>
+<li><a href="#%E7%AC%AC8%E7%AB%A0-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E4%B8%8E%E6%B6%88%E6%81%AF%E9%A9%B1%E5%8A%A8">第8章 微服务与消息驱动</a>
+<ul>
+<li><a href="#81-spring-cloud-stream-%E4%BB%8B%E7%BB%8D">8.1 Spring Cloud Stream 介绍</a></li>
+<li><a href="#82-rabbitmq-%E6%A1%86%E6%9E%B6">8.2 RabbitMQ 框架</a></li>
+<li><a href="#83-apache-kafka-%E6%A1%86%E6%9E%B6">8.3 Apache Kafka 框架</a></li>
+<li><a href="#84-%E5%BC%80%E5%8F%91%E6%B6%88%E6%81%AF%E5%BE%AE%E6%9C%8D%E5%8A%A1">8.4 开发消息微服务</a></li>
 </ul>
 </li>
-<li><a href="#第9章-集群配置中心">第9章 集群配置中心</a><ul>
-<li><a href="#91-概述">9.1 概述</a></li>
-<li><a href="#92-构建第一个例子">9.2 构建第一个例子</a><ul>
-<li><a href="#927-刷新-bean">9.2.7 刷新 Bean</a></li>
+<li><a href="#%E7%AC%AC9%E7%AB%A0-%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83">第9章 集群配置中心</a>
+<ul>
+<li><a href="#91-%E6%A6%82%E8%BF%B0">9.1 概述</a></li>
+<li><a href="#92-%E6%9E%84%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AA%E4%BE%8B%E5%AD%90">9.2 构建第一个例子</a></li>
+<li><a href="#93-%E9%85%8D%E7%BD%AE%E7%9A%84%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86">9.3 配置的加密与解密</a></li>
+<li><a href="#94-%E5%85%B6%E4%BB%96%E9%85%8D%E7%BD%AE">9.4 其他配置</a></li>
+<li><a href="#95-%E6%95%B4%E5%90%88%E4%BD%BF%E7%94%A8">9.5 整合使用</a></li>
 </ul>
 </li>
-<li><a href="#93-配置的加密与解密">9.3 配置的加密与解密</a><ul>
-<li><a href="#934-非对称加密">9.3.4 非对称加密</a></li>
+<li><a href="#%E7%AC%AC10%E7%AB%A0-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E8%B7%9F%E8%B8%AA">第10章 微服务跟踪</a>
+<ul>
+<li><a href="#101-%E6%A6%82%E8%BF%B0">10.1 概述</a></li>
+<li><a href="#102-sleuth-%E6%95%B4%E5%90%88-zipkin">10.2 Sleuth 整合 Zipkin</a></li>
+<li><a href="#103-sleuth-%E6%95%B4%E5%90%88-elk">10.3 Sleuth 整合 ELK</a></li>
 </ul>
 </li>
-<li><a href="#94-其他配置">9.4 其他配置</a></li>
-<li><a href="#95-整合使用">9.5 整合使用</a></li>
+<li><a href="#%E7%AC%AC11%E7%AB%A0-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%9E%E6%88%98">第11章 微服务数据库实战</a>
+<ul>
+<li><a href="#111-%E6%A6%82%E8%BF%B0">11.1 概述</a></li>
+<li><a href="#112-spring-data-%E4%B8%8E-jpa">11.2 Spring Data 与 JPA</a></li>
+<li><a href="#113-spring-data-%E4%B8%8E-mongodb">11.3 Spring Data 与 MongoDB</a></li>
+<li><a href="#114-spring-data-%E4%B8%8E-redis">11.4 Spring Data 与 Redis</a></li>
 </ul>
 </li>
-<li><a href="#第10章-微服务跟踪">第10章 微服务跟踪</a><ul>
-<li><a href="#101-概述">10.1 概述</a></li>
-<li><a href="#102-sleuth-整合-zipkin">10.2 Sleuth 整合 Zipkin</a></li>
-<li><a href="#103-sleuth-整合-elk">10.3 Sleuth 整合 ELK</a></li>
-</ul>
-</li>
-<li><a href="#第11章-微服务数据库实战">第11章 微服务数据库实战</a><ul>
-<li><a href="#111-概述">11.1 概述</a></li>
-<li><a href="#112-spring-data-与-jpa">11.2 Spring Data 与 JPA</a></li>
-<li><a href="#113-spring-data-与-mongodb">11.3 Spring Data 与 MongoDB</a></li>
-<li><a href="#114-spring-data-与-redis">11.4 Spring Data 与 Redis</a></li>
-</ul>
-</li>
-<li><a href="#第12章-案例实战">第12章 案例实战</a><ul>
-<li><a href="#121-概述">12.1 概述</a></li>
-<li><a href="#122-spring-boot-与-jsp">12.2 Spring Boot 与 JSP</a></li>
-<li><a href="#123-模板引擎-thymeleaf">12.3 模板引擎 Thymeleaf</a></li>
-<li><a href="#124-图书管理案例">12.4 图书管理案例</a></li>
+<li><a href="#%E7%AC%AC12%E7%AB%A0-%E6%A1%88%E4%BE%8B%E5%AE%9E%E6%88%98">第12章 案例实战</a>
+<ul>
+<li><a href="#121-%E6%A6%82%E8%BF%B0">12.1 概述</a></li>
+<li><a href="#122-spring-boot-%E4%B8%8E-jsp">12.2 Spring Boot 与 JSP</a></li>
+<li><a href="#123-%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E-thymeleaf">12.3 模板引擎 Thymeleaf</a></li>
+<li><a href="#124-%E5%9B%BE%E4%B9%A6%E7%AE%A1%E7%90%86%E6%A1%88%E4%BE%8B">12.4 图书管理案例</a></li>
 </ul>
 </li>
 </ul>
 <!-- tocstop -->
-<h1><span id="第1章-spring-cloud-概述">第1章 Spring Cloud 概述</span></h1><h2><span id="11-传统的应用">1.1 传统的应用</span></h2><h2><span id="12-微服务与-spring-cloud">1.2 微服务与 Spring Cloud</span></h2><h2><span id="13-学习方面的准备工作">1.3 学习方面的准备工作</span></h2><h1><span id="第2章-搭建开发环境">第2章 搭建开发环境</span></h1><h2><span id="21-安装和配置-maven">2.1 安装和配置 Maven</span></h2><h2><span id="22-安装-eclipse">2.2 安装 Eclipse</span></h2><h2><span id="23-spring-boot">2.3 Spring Boot</span></h2><h2><span id="24-spring-boot-配置文件">2.4 Spring Boot 配置文件</span></h2><h2><span id="25-spring-cloud-版本">2.5 Spring Cloud 版本</span></h2><h1><span id="第3章-微服务发布与调用">第3章 微服务发布与调用</span></h1><h2><span id="31-eureka-介绍">3.1 Eureka 介绍</span></h2><h2><span id="32-第一个-eureka-服务">3.2 第一个 Eureka 服务</span></h2><h2><span id="33-eureka-集群搭建">3.3 Eureka 集群搭建</span></h2><h2><span id="34-服务实例的健康检查">3.4 服务实例的健康检查</span></h2><h2><span id="35-eureka-的常用配置">3.5 Eureka 的常用配置</span></h2><h1><span id="第4章-负载均衡">第4章 负载均衡</span></h1><h2><span id="41-ribbon-介绍">4.1 Ribbon 介绍</span></h2><h2><span id="42-第一个-ribbon-程序">4.2 第一个 Ribbon 程序</span></h2><h2><span id="43-ribbon-的负载均衡机制">4.3 Ribbon 的负载均衡机制</span></h2><h2><span id="44-在-spring-cloud-中使用-ribbon">4.4 在 Spring Cloud 中使用 Ribbon</span></h2><h2><span id="45-resttemplate-负载均衡">4.5 RestTemplate 负载均衡</span></h2><h1><span id="第5章-rest-客户端-feign">第5章 REST 客户端 Feign</span></h1><h2><span id="51-rest-客户端">5.1 REST 客户端</span></h2><h2><span id="52-使用-feign">5.2 使用 Feign</span></h2><h2><span id="53-在-spring-cloud-中使用-feign">5.3 在 Spring Cloud 中使用 Feign</span></h2><h1><span id="第6章-spring-cloud-的保护机制">第6章 Spring Cloud 的保护机制</span></h1><h2><span id="61-概述">6.1 概述</span></h2><h2><span id="62-第一个-hystrix-程序">6.2 第一个 Hystrix 程序</span></h2><h2><span id="63-hystrix-的使用">6.3 Hystrix 的使用</span></h2><h2><span id="64-在-spring-cloud-中使用-hystrix">6.4 在 Spring Cloud 中使用 Hystrix</span></h2><h1><span id="第7章-微服务集群网关">第7章 微服务集群网关</span></h1><h2><span id="71-zuul-框架介绍">7.1 Zuul 框架介绍</span></h2><h2><span id="72-在-web-项目中使用-zuul">7.2 在 Web 项目中使用 Zuul</span></h2><h2><span id="73-在微服务集群中初试-zuul">7.3 在微服务集群中初试 Zuul</span></h2><h2><span id="74-路由配置">7.4 路由配置</span></h2><h2><span id="75-zuul-的其他配置">7.5 Zuul 的其他配置</span></h2><h2><span id="76-zuul-功能进阶">7.6 Zuul 功能进阶</span></h2><h1><span id="第8章-微服务与消息驱动">第8章 微服务与消息驱动</span></h1><h2><span id="81-spring-cloud-stream-介绍">8.1 Spring Cloud Stream 介绍</span></h2><h2><span id="82-rabbitmq-框架">8.2 RabbitMQ 框架</span></h2><h2><span id="83-apache-kafka-框架">8.3 Apache Kafka 框架</span></h2><h2><span id="84-开发消息微服务">8.4 开发消息微服务</span></h2><h1><span id="第9章-集群配置中心">第9章 集群配置中心</span></h1><h2><span id="91-概述">9.1 概述</span></h2><h2><span id="92-构建第一个例子">9.2 构建第一个例子</span></h2><h3><span id="927-刷新-bean">9.2.7 刷新 Bean</span></h3><p>在 Spring 的容器中，有一个类型为 RefreshBean 的 Bean。当 /fresh 端点被访问时，负责处理刷新的 ContextRefresher 类会先去远程的配置服务器刷新配置，然后再调用 RefreshBean 的 refreshAll 方法来处理实例。容器中使用了 @RefreshBean 注解进行修饰的 Bean，都会在缓存中进行销毁，当这些 Bean 被再次引用时，就会创建新的实例，以此达到一个『刷新』的效果。</p>
+<h2><span id="第1章-spring-cloud-概述">第1章 Spring Cloud 概述</span></h2>
+<h3><span id="11-传统的应用">1.1 传统的应用</span></h3>
+<h3><span id="12-微服务与-spring-cloud">1.2 微服务与 Spring Cloud</span></h3>
+<h3><span id="13-学习方面的准备工作">1.3 学习方面的准备工作</span></h3>
+<h2><span id="第2章-搭建开发环境">第2章 搭建开发环境</span></h2>
+<h3><span id="21-安装和配置-maven">2.1 安装和配置 Maven</span></h3>
+<h3><span id="22-安装-eclipse">2.2 安装 Eclipse</span></h3>
+<h3><span id="23-spring-boot">2.3 Spring Boot</span></h3>
+<h3><span id="24-spring-boot-配置文件">2.4 Spring Boot 配置文件</span></h3>
+<h3><span id="25-spring-cloud-版本">2.5 Spring Cloud 版本</span></h3>
+<h2><span id="第3章-微服务发布与调用">第3章 微服务发布与调用</span></h2>
+<h3><span id="31-eureka-介绍">3.1 Eureka 介绍</span></h3>
+<h3><span id="32-第一个-eureka-服务">3.2 第一个 Eureka 服务</span></h3>
+<h3><span id="33-eureka-集群搭建">3.3 Eureka 集群搭建</span></h3>
+<h3><span id="34-服务实例的健康检查">3.4 服务实例的健康检查</span></h3>
+<h3><span id="35-eureka-的常用配置">3.5 Eureka 的常用配置</span></h3>
+<h2><span id="第4章-负载均衡">第4章 负载均衡</span></h2>
+<h3><span id="41-ribbon-介绍">4.1 Ribbon 介绍</span></h3>
+<h3><span id="42-第一个-ribbon-程序">4.2 第一个 Ribbon 程序</span></h3>
+<h3><span id="43-ribbon-的负载均衡机制">4.3 Ribbon 的负载均衡机制</span></h3>
+<h3><span id="44-在-spring-cloud-中使用-ribbon">4.4 在 Spring Cloud 中使用 Ribbon</span></h3>
+<h3><span id="45-resttemplate-负载均衡">4.5 RestTemplate 负载均衡</span></h3>
+<h2><span id="第5章-rest-客户端-feign">第5章 REST 客户端 Feign</span></h2>
+<h3><span id="51-rest-客户端">5.1 REST 客户端</span></h3>
+<h3><span id="52-使用-feign">5.2 使用 Feign</span></h3>
+<h3><span id="53-在-spring-cloud-中使用-feign">5.3 在 Spring Cloud 中使用 Feign</span></h3>
+<h2><span id="第6章-spring-cloud-的保护机制">第6章 Spring Cloud 的保护机制</span></h2>
+<h3><span id="61-概述">6.1 概述</span></h3>
+<h3><span id="62-第一个-hystrix-程序">6.2 第一个 Hystrix 程序</span></h3>
+<h3><span id="63-hystrix-的使用">6.3 Hystrix 的使用</span></h3>
+<h3><span id="64-在-spring-cloud-中使用-hystrix">6.4 在 Spring Cloud 中使用 Hystrix</span></h3>
+<h2><span id="第7章-微服务集群网关">第7章 微服务集群网关</span></h2>
+<h3><span id="71-zuul-框架介绍">7.1 Zuul 框架介绍</span></h3>
+<h3><span id="72-在-web-项目中使用-zuul">7.2 在 Web 项目中使用 Zuul</span></h3>
+<h3><span id="73-在微服务集群中初试-zuul">7.3 在微服务集群中初试 Zuul</span></h3>
+<h3><span id="74-路由配置">7.4 路由配置</span></h3>
+<h3><span id="75-zuul-的其他配置">7.5 Zuul 的其他配置</span></h3>
+<h3><span id="76-zuul-功能进阶">7.6 Zuul 功能进阶</span></h3>
+<h2><span id="第8章-微服务与消息驱动">第8章 微服务与消息驱动</span></h2>
+<h3><span id="81-spring-cloud-stream-介绍">8.1 Spring Cloud Stream 介绍</span></h3>
+<h3><span id="82-rabbitmq-框架">8.2 RabbitMQ 框架</span></h3>
+<h3><span id="83-apache-kafka-框架">8.3 Apache Kafka 框架</span></h3>
+<h3><span id="84-开发消息微服务">8.4 开发消息微服务</span></h3>
+<h2><span id="第9章-集群配置中心">第9章 集群配置中心</span></h2>
+<h3><span id="91-概述">9.1 概述</span></h3>
+<h3><span id="92-构建第一个例子">9.2 构建第一个例子</span></h3>
+<h4><span id="927-刷新-bean">9.2.7 刷新 Bean</span></h4>
+<p>在 Spring 的容器中，有一个类型为 RefreshBean 的 Bean。当 /fresh 端点被访问时，负责处理刷新的 ContextRefresher 类会先去远程的配置服务器刷新配置，然后再调用 RefreshBean 的 refreshAll 方法来处理实例。容器中使用了 @RefreshBean 注解进行修饰的 Bean，都会在缓存中进行销毁，当这些 Bean 被再次引用时，就会创建新的实例，以此达到一个『刷新』的效果。</p>
 <blockquote>
-<p>此处理解一下『惰性更新』的概念，说是更新，但实际只是销毁，需要用的时候再去获取新的值。</p>
+<p>CC：此处理解一下『惰性更新』的概念，说是更新，但实际只是销毁，需要用的时候再去获取新的值。</p>
 </blockquote>
-<h2><span id="93-配置的加密与解密">9.3 配置的加密与解密</span></h2><p>在实际应用中会涉及很多敏感的数据，这些数据会被加密保存到 SVN 仓库中，最常见的就是数据库密码。Spring Cloud Config 为这类敏感数据提供了加密和解密的功能，加密后的密文在传输给客户端前会进行解密。配置服务器支持对称加密和非对称加密，对称加密使用 AES 算法，非对称加密使用 RSA 算法。</p>
-<h3><span id="934-非对称加密">9.3.4 非对称加密</span></h3><p>对称加密算法在加密和解密时都使用同一个密钥，而非对称加密则使用一对密钥。使用公钥加密时，解密就需要使用私钥。Spring Cloud Config 同样支持非对称加密，使用 keytool 工具生成一对密钥用于加密和解密，在控制台输入以下命令：</p>
+<h3><span id="93-配置的加密与解密">9.3 配置的加密与解密</span></h3>
+<p>在实际应用中会涉及很多敏感的数据，这些数据会被加密保存到 SVN 仓库中，最常见的就是数据库密码。Spring Cloud Config 为这类敏感数据提供了加密和解密的功能，加密后的密文在传输给客户端前会进行解密。配置服务器支持对称加密和非对称加密，对称加密使用 AES 算法，非对称加密使用 RSA 算法。</p>
+<h4><span id="934-非对称加密">9.3.4 非对称加密</span></h4>
+<p>对称加密算法在加密和解密时都使用同一个密钥，而非对称加密则使用一对密钥。使用公钥加密时，解密就需要使用私钥。Spring Cloud Config 同样支持非对称加密，使用 keytool 工具生成一对密钥用于加密和解密，在控制台输入以下命令：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -genkeypair -alias &quot;testKey&quot; -keyalg &quot;RSA&quot; -keystore &quot;D:\myTest.keystore&quot;</span><br></pre></td></tr></table></figure>
-<h2><span id="94-其他配置">9.4 其他配置</span></h2><h2><span id="95-整合使用">9.5 整合使用</span></h2><h1><span id="第10章-微服务跟踪">第10章 微服务跟踪</span></h1><h2><span id="101-概述">10.1 概述</span></h2><h2><span id="102-sleuth-整合-zipkin">10.2 Sleuth 整合 Zipkin</span></h2><h2><span id="103-sleuth-整合-elk">10.3 Sleuth 整合 ELK</span></h2><h1><span id="第11章-微服务数据库实战">第11章 微服务数据库实战</span></h1><h2><span id="111-概述">11.1 概述</span></h2><h2><span id="112-spring-data-与-jpa">11.2 Spring Data 与 JPA</span></h2><h2><span id="113-spring-data-与-mongodb">11.3 Spring Data 与 MongoDB</span></h2><h2><span id="114-spring-data-与-redis">11.4 Spring Data 与 Redis</span></h2><h1><span id="第12章-案例实战">第12章 案例实战</span></h1><h2><span id="121-概述">12.1 概述</span></h2><h2><span id="122-spring-boot-与-jsp">12.2 Spring Boot 与 JSP</span></h2><h2><span id="123-模板引擎-thymeleaf">12.3 模板引擎 Thymeleaf</span></h2><h2><span id="124-图书管理案例">12.4 图书管理案例</span></h2>
+<h3><span id="94-其他配置">9.4 其他配置</span></h3>
+<h3><span id="95-整合使用">9.5 整合使用</span></h3>
+<h2><span id="第10章-微服务跟踪">第10章 微服务跟踪</span></h2>
+<h3><span id="101-概述">10.1 概述</span></h3>
+<h3><span id="102-sleuth-整合-zipkin">10.2 Sleuth 整合 Zipkin</span></h3>
+<h3><span id="103-sleuth-整合-elk">10.3 Sleuth 整合 ELK</span></h3>
+<h2><span id="第11章-微服务数据库实战">第11章 微服务数据库实战</span></h2>
+<h3><span id="111-概述">11.1 概述</span></h3>
+<h3><span id="112-spring-data-与-jpa">11.2 Spring Data 与 JPA</span></h3>
+<h3><span id="113-spring-data-与-mongodb">11.3 Spring Data 与 MongoDB</span></h3>
+<h3><span id="114-spring-data-与-redis">11.4 Spring Data 与 Redis</span></h3>
+<h2><span id="第12章-案例实战">第12章 案例实战</span></h2>
+<h3><span id="121-概述">12.1 概述</span></h3>
+<h3><span id="122-spring-boot-与-jsp">12.2 Spring Boot 与 JSP</span></h3>
+<h3><span id="123-模板引擎-thymeleaf">12.3 模板引擎 Thymeleaf</span></h3>
+<h3><span id="124-图书管理案例">12.4 图书管理案例</span></h3>
+
       
 
       
