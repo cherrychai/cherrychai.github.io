@@ -16,4 +16,6 @@
 - .tagcloud a.color4 #ffc385 橙色偏黄
 - .tagcloud a.color5 #4bb280 绿色
 
-文字高亮 深红色 #be0000
+深红色
+<font color=#be0000></font>
+<font color=#007bfb></font>
