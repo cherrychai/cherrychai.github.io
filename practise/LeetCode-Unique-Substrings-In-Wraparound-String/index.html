@@ -194,32 +194,39 @@
       
         <blockquote>
 <p><a href="https://leetcode.com/problems/unique-substrings-in-wraparound-string/" target="_blank" rel="noopener">467. Unique Substrings in Wraparound String</a></p>
-<p>Consider the string s to be the infinite wraparound string of “abcdefghijklmnopqrstuvwxyz”, so s will look like this: “…zabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcd….”.</p>
+<p>Consider the string s to be the infinite wraparound string of “abcdefghijklmnopqrstuvwxyz”, so s will look like this: “…zabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcd…”.</p>
 <p>Now we have another string p. Your job is to find out how many unique non-empty substrings of p are present in s. In particular, your input is the string p and you need to output the number of different non-empty substrings of p in the string s.</p>
 <p><strong>Note:</strong> p consists of only lowercase English letters and the size of p might be over 10000.</p>
 <p><strong>Example 1:</strong></p>
 <pre><code>Input: &quot;a&quot;
 Output: 1
 Explanation: Only the substring &quot;a&quot; of string &quot;a&quot; is in the string s.
-</code></pre><p><strong>Example 2:</strong></p>
+</code></pre>
+<p><strong>Example 2:</strong></p>
 <pre><code>Input: &quot;cac&quot;
 Output: 2
 Explanation: There are two substrings &quot;a&quot;, &quot;c&quot; of string &quot;cac&quot; in the string s.
-</code></pre><p><strong>Example 3:</strong></p>
+</code></pre>
+<p><strong>Example 3:</strong></p>
 <pre><code>Input: &quot;zab&quot;
 Output: 6
 Explanation: There are six substrings &quot;z&quot;, &quot;a&quot;, &quot;b&quot;, &quot;za&quot;, &quot;ab&quot;, &quot;zab&quot; of string &quot;zab&quot; in the string s.
-</code></pre></blockquote>
+</code></pre>
+</blockquote>
 <p>周日竞赛的题目，有点小tricky，但也很有趣。题意是说在由26个字母从a到z按顺序循环组成的无限封闭字符串 s中，给定字符串p，找到所有符合条件的p的子串，条件就是这些子串需要在封闭字符串中出现（翻译的好拗口）。</p>
 <p>解决这道题目需要明白以下几点：</p>
 <ul>
-<li><p>需要注意到封闭字符串s是按照字母顺序排列的，所以每2个相邻字母之间的ASCII码相差1（特殊注意za的情况），那么满足这个条件的子串一定是可以在s中出现的</p>
+<li>
+<p>需要注意到封闭字符串s是按照字母顺序排列的，所以每2个相邻字母之间的ASCII码相差1（特殊注意za的情况），那么满足这个条件的子串一定是可以在s中出现的</p>
 </li>
-<li><p>可以看到对于一串连续字母bcde，字母串的长度即为以e结尾的符合要求的子串的个数，那么求p.substring(0,i)中以p.charAt(i)结尾的满足条件的解便可以转化为求以p.charAt(i)结尾的最长连续字母串的长度</p>
+<li>
+<p>可以看到对于一串连续字母bcde，字母串的长度即为以e结尾的符合要求的子串的个数，那么求p.substring(0,i)中以p.charAt(i)结尾的满足条件的解便可以转化为求以p.charAt(i)结尾的最长连续字母串的长度</p>
 </li>
 </ul>
-<p>然后这便是一个典型的动态规划的问题了，用一个数组维护更新以每个字母结尾的p的连续字母子串的最大长度，最后加和。其实感觉讲的非常不清楚，还是代码更加直观，let’s communicate with code …<br><a id="more"></a></p>
-<h3><span id="java">Java:</span></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findSubstringInWraproundString</span><span class="params">(String p)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">26</span>];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> len = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; p.length(); ++i) &#123;</span><br><span class="line">            <span class="comment">// pay attention to [za]</span></span><br><span class="line">            <span class="keyword">if</span> (i &gt; <span class="number">0</span> &amp;&amp; (p.charAt(i) == p.charAt(i-<span class="number">1</span>) + <span class="number">1</span> || p.charAt(i) == p.charAt(i-<span class="number">1</span>) - <span class="number">25</span>)) &#123;</span><br><span class="line">                ++len;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                len = <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// update the dp set</span></span><br><span class="line">            dp[p.charAt(i) - <span class="string">'a'</span>] = Math.max(dp[p.charAt(i) - <span class="string">'a'</span>], len);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">26</span>; ++i) &#123;</span><br><span class="line">            res += dp[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后这便是一个典型的动态规划的问题了，用一个数组维护更新以每个字母结尾的p的连续字母子串的最大长度，最后加和。其实感觉讲的非常不清楚，还是代码更加直观，let’s communicate with code …</p>
+<a id="more"></a>
+<h3><span id="java">Java:</span></h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findSubstringInWraproundString</span><span class="params">(String p)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">26</span>];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> len = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; p.length(); ++i) &#123;</span><br><span class="line">            <span class="comment">// pay attention to [za]</span></span><br><span class="line">            <span class="keyword">if</span> (i &gt; <span class="number">0</span> &amp;&amp; (p.charAt(i) == p.charAt(i-<span class="number">1</span>) + <span class="number">1</span> || p.charAt(i) == p.charAt(i-<span class="number">1</span>) - <span class="number">25</span>)) &#123;</span><br><span class="line">                ++len;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                len = <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// update the dp set</span></span><br><span class="line">            dp[p.charAt(i) - <span class="string">'a'</span>] = Math.max(dp[p.charAt(i) - <span class="string">'a'</span>], len);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">26</span>; ++i) &#123;</span><br><span class="line">            res += dp[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
 
       
@@ -429,6 +436,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>
