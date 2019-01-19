@@ -204,8 +204,7 @@
 | Andorra         | Europe     | 468        | 78115        | 3712000       |
 | Angola          | Africa     | 1246700    | 20609294     | 100990000     |
 +-----------------+------------+------------+--------------+---------------+
-</code></pre>
-<p>A country is big if it has an area of bigger than 3 million square km or a population of more than 25 million.</p>
+</code></pre><p>A country is big if it has an area of bigger than 3 million square km or a population of more than 25 million.</p>
 <p>Write a SQL solution to output big countries’ name, population and area.</p>
 <p>For example, according to the above table, we should output:</p>
 <pre><code>+--------------+-------------+--------------+
@@ -214,91 +213,28 @@
 | Afghanistan  | 25500100    | 652230       |
 | Algeria      | 37100000    | 2381741      |
 +--------------+-------------+--------------+
-</code></pre>
+</code></pre><a id="more"></a>
 </blockquote>
-<a id="more"></a>
-<h3><span id="answer">Answer:</span></h3>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">name</span>,population,area <span class="keyword">FROM</span> World <span class="keyword">WHERE</span> area &gt; <span class="number">3000000</span> <span class="keyword">OR</span> population &gt; <span class="number">25000000</span>;</span><br></pre></td></tr></table></figure>
+<h3><span id="answer">Answer:</span></h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">name</span>,population,area <span class="keyword">FROM</span> World <span class="keyword">WHERE</span> area &gt; <span class="number">3000000</span> <span class="keyword">OR</span> population &gt; <span class="number">25000000</span>;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p><a href="https://leetcode.com/problems/swap-salary/" target="_blank" rel="noopener">627. Swap Salary</a></p>
 <p>Given a table salary, such as the one below, that has m=male and f=female values. Swap all f and m values (i.e., change all f values to m and vice versa) with a single update query and no intermediate temp table.</p>
 <p>For example:</p>
-<table>
-<thead>
-<tr>
-<th>id</th>
-<th>name</th>
-<th>sex</th>
-<th>salary</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>A</td>
-<td>m</td>
-<td>2500</td>
-</tr>
-<tr>
-<td>2</td>
-<td>B</td>
-<td>f</td>
-<td>1500</td>
-</tr>
-<tr>
-<td>3</td>
-<td>C</td>
-<td>m</td>
-<td>5500</td>
-</tr>
-<tr>
-<td>4</td>
-<td>D</td>
-<td>f</td>
-<td>500</td>
-</tr>
-</tbody>
-</table>
-<p>After running your query, the above salary table should have the following rows:</p>
-<table>
-<thead>
-<tr>
-<th>id</th>
-<th>name</th>
-<th>sex</th>
-<th>salary</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>A</td>
-<td>f</td>
-<td>2500</td>
-</tr>
-<tr>
-<td>2</td>
-<td>B</td>
-<td>m</td>
-<td>1500</td>
-</tr>
-<tr>
-<td>3</td>
-<td>C</td>
-<td>f</td>
-<td>5500</td>
-</tr>
-<tr>
-<td>4</td>
-<td>D</td>
-<td>m</td>
-<td>500</td>
-</tr>
-</tbody>
-</table>
-</blockquote>
-<h3><span id="answer">Answer:</span></h3>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> salary <span class="keyword">SET</span> sex = (<span class="keyword">CASE</span> <span class="keyword">WHEN</span> sex = <span class="string">'m'</span> <span class="keyword">THEN</span> <span class="string">'f'</span> <span class="keyword">ELSE</span> <span class="string">'m'</span> <span class="keyword">END</span>);</span><br></pre></td></tr></table></figure>
+<pre><code>| id | name | sex | salary |
+|----|------|-----|--------|
+| 1  | A    | m   | 2500   |
+| 2  | B    | f   | 1500   |
+| 3  | C    | m   | 5500   |
+| 4  | D    | f   | 500    |
+</code></pre><p>After running your query, the above salary table should have the following rows:</p>
+<pre><code>| id | name | sex | salary |
+|----|------|-----|--------|
+| 1  | A    | f   | 2500   |
+| 2  | B    | m   | 1500   |
+| 3  | C    | f   | 5500   |
+| 4  | D    | m   | 500    |
+</code></pre></blockquote>
+<h3><span id="answer">Answer:</span></h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> salary <span class="keyword">SET</span> sex = (<span class="keyword">CASE</span> <span class="keyword">WHEN</span> sex = <span class="string">'m'</span> <span class="keyword">THEN</span> <span class="string">'f'</span> <span class="keyword">ELSE</span> <span class="string">'m'</span> <span class="keyword">END</span>);</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p><a href="https://leetcode.com/problems/not-boring-movies/" target="_blank" rel="noopener">620. Not Boring Movies</a></p>
 <p>X city opened a new cinema, many people would like to go to this cinema. The cinema also gives out a poster indicating the movies’ ratings and descriptions.</p>
@@ -313,18 +249,15 @@
 |   4     | Ice song  |   Fantacy    |   8.6     |
 |   5     | House card|   Interesting|   9.1     |
 +---------+-----------+--------------+-----------+
-</code></pre>
-<p>For the example above, the output should be:</p>
+</code></pre><p>For the example above, the output should be:</p>
 <pre><code>+---------+-----------+--------------+-----------+
 |   id    | movie     |  description |  rating   |
 +---------+-----------+--------------+-----------+
 |   5     | House card|   Interesting|   9.1     |
 |   1     | War       |   great 3D   |   8.9     |
 +---------+-----------+--------------+-----------+
-</code></pre>
-</blockquote>
-<h3><span id="answer">Answer:</span></h3>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> cinema <span class="keyword">WHERE</span> <span class="keyword">id</span> % <span class="number">2</span> = <span class="number">1</span> <span class="keyword">AND</span> description != <span class="string">"boring"</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> rating <span class="keyword">DESC</span>;</span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> cinema <span class="keyword">WHERE</span> <span class="keyword">MOD</span>(<span class="keyword">id</span>,<span class="number">2</span>)=<span class="number">1</span> <span class="keyword">AND</span> description != <span class="string">"boring"</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> rating <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure>
+</code></pre></blockquote>
+<h3><span id="answer">Answer:</span></h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> cinema <span class="keyword">WHERE</span> <span class="keyword">id</span> % <span class="number">2</span> = <span class="number">1</span> <span class="keyword">AND</span> description != <span class="string">"boring"</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> rating <span class="keyword">DESC</span>;</span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> cinema <span class="keyword">WHERE</span> <span class="keyword">MOD</span>(<span class="keyword">id</span>,<span class="number">2</span>)=<span class="number">1</span> <span class="keyword">AND</span> description != <span class="string">"boring"</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> rating <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure>
 
       
 
