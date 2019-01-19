@@ -152,5 +152,7 @@ date: 2019-01-06
 
 ### 3.6 自研客户端分片框架 dbsplit 的设计、实现与使用
 
+[dbsplit](https://gitee.com/robertleepeak/dbsplit) 扩展了 Spring 的 JdbcTemplate，在 JdbcTemplate 上增加了分库分表、读写分离和失效转移等功能，并与 Spring JDBC 保持相同的风格，简单实用，避免了外部依赖，不需要类似 Cobar 和 Mycat 的代理服务器，堪称可伸缩的 Spring JdbcTemplate。
+
 ## 第4章 缓存的本质和缓存使用的优秀时间
 
