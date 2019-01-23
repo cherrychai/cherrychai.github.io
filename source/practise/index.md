@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 日常刷题
+title: CODING PRACTISE
 date: 2013-07-01
 ---
 

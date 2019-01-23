@@ -1,40 +1,40 @@
 ---
 layout: post
-title: GC
+title: Garbage Collection
 date: 2019-01-02
 ---
 
 <!-- toc -->
 
-# GC 迭代
+## GC 迭代
 
 Serial、ParNew、Parallel Scavenge 用于新生代，CMS、Serial Old、Paralled Old 用于老年代。并且他们相互之间以相对固定的组合使用（具体组合关系如上图）。G1是一个独立的收集器不依赖其他6种收集器。ZGC是目前JDK 11的实验收集器。
 
-## Serial 收集器
+### Serial 收集器
 
 Serial，是单线程执行垃圾回收的。当需要执行垃圾回收时，程序会暂停一切手上的工作，然后单线程执行垃圾回收。
 因为新生代的特点是对象存活率低，所以收集算法用的是复制算法，把新生代存活对象复制到老年代，复制的内容不多，性能较好。
 
-## ParNew 收集器
+### ParNew 收集器
 
 ParNew 同样用于新生代，是 Serial 的多线程版本，并且在参数、算法（同样是复制算法）上也完全和 Serial 相同。
 Par 是 Parallel 的缩写，但它的并行仅仅指的是收集多线程并行，并不是收集和原程序可以并行进行。ParNew 也是需要暂停程序一切的工作，然后多线程执行垃圾回收。
 
-## Parallel Scavenge 收集器 (jdk1.8 默认垃圾收集器)
+### Parallel Scavenge 收集器 (jdk1.8 默认垃圾收集器)
 
 新生代的收集器，同样用的是复制算法，也是并行多线程收集。与 ParNew 最大的不同，它关注的是垃圾回收的吞吐量。
 这里的吞吐量指的是 总时间与垃圾回收时间的比例。这个比例越高，证明垃圾回收占整个程序运行的比例越小。
 
-## Serial Old 收集器
+### Serial Old 收集器
 
 老年代的收集器，与 Serial 一样是单线程，不同的是算法用的是标记-整理（Mark-Compact）。
 因为老年代里面对象的存活率高，如果依旧是用复制算法，需要复制的内容较多，性能较差。并且在极端情况下，当存活为 100% 时，没有办法用复制算法。所以需要用 Mark-Compact，以有效地避免这些问题。
 
-## Parallel Old 收集器
+### Parallel Old 收集器
 
 老年代的收集器，是Parallel Scavenge老年代的版本。其中的算法替换成Mark-Compact。
 
-## CMS 收集器
+### CMS 收集器
 
 CMS，Concurrent Mark Sweep，同样是老年代的收集器。它关注的是垃圾回收最短的停顿时间（低停顿），在老年代并不频繁 GC 的场景下，是比较适用的。
 
@@ -56,7 +56,7 @@ CMS，Concurrent Mark Sweep，同样是老年代的收集器。它关注的是�
 有人会觉得既然 Mark Sweep 会造成内存碎片，那么为什么不把算法换成 Mark Compact 呢？
 答案其实很简答，因为当并发清除的时候，用 Compact 整理内存的话，原来的用户线程使用的内存还怎么用呢？要保证用户线程能继续执行，前提的它运行的资源不受影响嘛。Mark Compact 更适合『Stop The World』这种场景下使用。
 
-## G1 收集器 (jdk1.9 默认垃圾收集器)
+### G1 收集器 (jdk1.9 默认垃圾收集器)
 
 开启方式：
 ```
@@ -82,7 +82,7 @@ G1，Garbage First，在 JDK 1.7 版本正式启用，是当时最前沿的垃�
 
 在 Region 层面上，整体的算法偏向于 Mark-Compact。因为是 Compact，会影响用户线程执行，所以回收阶段需要 STW 执行。
 
-## 令人惊叹的 ZGC
+### 令人惊叹的 ZGC
 
 开启方式：
 ```
@@ -109,7 +109,7 @@ ZGC 利用指针的 64 位中的几位表示 Finalizable、Remapped、Marked1、
 
 ZGC 虽然目前还在 JDK 11 还在实验阶段，但由于算法与思想是一个非常大的提升，相信在未来不久会成为主流的 GC 收集器使用。
 
-# 基本概念
+## 基本概念
 
 ### 元空间
 
@@ -163,7 +163,7 @@ ZGC来了 !!! Java程序员可以光荣的远离讨厌的GC停顿和调优了。
 
 
 
-# GC 参数
+## GC 参数
 
 打印 GC 参数：
 
@@ -180,16 +180,16 @@ ZGC来了 !!! Java程序员可以光荣的远离讨厌的GC停顿和调优了。
 设置并行标记的线程数。将 n 设置为并行垃圾回收线程数 (ParallelGCThreads) 的 1/4 左右。
 
 
-# Q&A
+## Q&A
 
 Q: 什么时候发生 YGC 呢？
 A: 当 Eden 不够放入新创建的对象时，也就是Eden 区满了，JVM 就会清理Eden 区的空间，将存活的对象放入 to 区，如果 to 区放不下，则直接进入老年代。
 
-# 参考资料
+## 参考资料
 
-[JVM G1 垃圾回收器总结](http://www.leonlu.cc/profession/24-jvm-g1-gc/)
-[G1 Garbage Collector is mature in Java 9, finally](http://blog.mgm-tp.com/2018/01/g1-mature-in-java9/)
-[Make G1 the Default Garbage Collector](https://segmentfault.com/a/1190000013615459)
-[Metaspace 之一: Metaspace整体介绍 (永久代被替换原因、元空间特点、元空间内存查看分析方法)](https://www.cnblogs.com/duanxz/p/3520829.html)
-[深入浅出 JVM GC (2)](https://www.cnblogs.com/stateis0/p/9062188.html)
-[一文了解JVM全部垃圾回收器，从Serial到ZGC](https://juejin.im/post/5bade237e51d450ea401fd71)
+- [JVM G1 垃圾回收器总结](http://www.leonlu.cc/profession/24-jvm-g1-gc/)
+- [G1 Garbage Collector is mature in Java 9, finally](http://blog.mgm-tp.com/2018/01/g1-mature-in-java9/)
+- [Make G1 the Default Garbage Collector](https://segmentfault.com/a/1190000013615459)
+- [Metaspace 之一: Metaspace整体介绍 (永久代被替换原因、元空间特点、元空间内存查看分析方法)](https://www.cnblogs.com/duanxz/p/3520829.html)
+- [深入浅出 JVM GC (2)](https://www.cnblogs.com/stateis0/p/9062188.html)
+- [一文了解JVM全部垃圾回收器，从Serial到ZGC](https://juejin.im/post/5bade237e51d450ea401fd71)

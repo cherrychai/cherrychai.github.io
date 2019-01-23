@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 留言板
+title: COMMENTS
 date: 2018-01-08
 comments: true
 ---

@@ -10,12 +10,15 @@
 - \#999999：文字灰色浅
 - \#696969：文字灰色深
 
-- .tagcloud a.color1 #ff8685 橙色
-- .tagcloud a.color2 #85c1ff 蓝色
-- .tagcloud a.color3 #996ec1 紫色
-- .tagcloud a.color4 #ffc385 橙色偏黄
-- .tagcloud a.color5 #4bb280 绿色
+- .tagcloud a.color1 #b24b7d 偏红（Happy New Year）
+- .tagcloud a.color2 #ffc385 橙色偏黄
+- .tagcloud a.color3 #4bb280 绿色
+- .tagcloud a.color4 #399aff 蓝色（程序媛）
+- .tagcloud a.color5 #e700e5 玫红（Java）（我的爱情）
+- .tagcloud a.color6 #ff8685 橙色（花开的声音）
+- .tagcloud a.color7 #996ec1 紫色
 
 深红色
 <font color=#be0000></font>
+蓝色
 <font color=#007bfb></font>
