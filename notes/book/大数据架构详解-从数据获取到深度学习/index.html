@@ -8,18 +8,19 @@
   <link rel="dns-prefetch" href="http://chaihua.me">
   <title>大数据架构详解-从数据获取到深度学习 | 慕湮</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="第一章 大数据是什么 1.1 大数据导论 1.1.1 大数据简史 1.2 企业数据资产 1.3 大数据挑战 1.4 运营商大数据架构 1.5 运营商常见的大数据业务   第二章 数据获取 2.1 数据分类 2.2 数据获取组件 2.3 探针 2.4 网页采集 2.5 日志收集 2.6 数据分发中间件   第三章 流处理 3.1 算子 3.2 流的概念 3.3 流的应用场景 3.4 业界两种典">
+  <meta name="description" content="第一章 大数据是什么 1.1 大数据导论 1.1.1 大数据简史 1.2 企业数据资产 1.3 大数据挑战 1.4 运营商大数据架构 1.5 运营商常见的大数据业务   第二章 数据获取 2.1 数据分类 2.2 数据获取组件 2.3 探针 2.4 网页采集 2.4.2 简单爬虫 Python 代码示例 2.5 日志收集 2.6 数据分发中间件   第三章 流处理 3.1 算子 3.2 流的">
 <meta property="og:type" content="website">
 <meta property="og:title" content="大数据架构详解-从数据获取到深度学习">
 <meta property="og:url" content="http://chaihua.me/notes/book/大数据架构详解-从数据获取到深度学习/index.html">
 <meta property="og:site_name" content="慕湮">
-<meta property="og:description" content="第一章 大数据是什么 1.1 大数据导论 1.1.1 大数据简史 1.2 企业数据资产 1.3 大数据挑战 1.4 运营商大数据架构 1.5 运营商常见的大数据业务   第二章 数据获取 2.1 数据分类 2.2 数据获取组件 2.3 探针 2.4 网页采集 2.5 日志收集 2.6 数据分发中间件   第三章 流处理 3.1 算子 3.2 流的概念 3.3 流的应用场景 3.4 业界两种典">
+<meta property="og:description" content="第一章 大数据是什么 1.1 大数据导论 1.1.1 大数据简史 1.2 企业数据资产 1.3 大数据挑战 1.4 运营商大数据架构 1.5 运营商常见的大数据业务   第二章 数据获取 2.1 数据分类 2.2 数据获取组件 2.3 探针 2.4 网页采集 2.4.2 简单爬虫 Python 代码示例 2.5 日志收集 2.6 数据分发中间件   第三章 流处理 3.1 算子 3.2 流的">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://chaihua.me/notes/book/大数据架构详解-从数据获取到深度学习/ed9c2cab-03b5-4aae-a21a-b40e83ed379a.jpg">
-<meta property="og:updated_time" content="2019-01-24T09:16:13.694Z">
+<meta property="og:image" content="http://chaihua.me/notes/book/大数据架构详解-从数据获取到深度学习/92d18423-1258-48da-ac17-4c13b61deef2.png">
+<meta property="og:updated_time" content="2019-01-31T15:05:23.496Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="大数据架构详解-从数据获取到深度学习">
-<meta name="twitter:description" content="第一章 大数据是什么 1.1 大数据导论 1.1.1 大数据简史 1.2 企业数据资产 1.3 大数据挑战 1.4 运营商大数据架构 1.5 运营商常见的大数据业务   第二章 数据获取 2.1 数据分类 2.2 数据获取组件 2.3 探针 2.4 网页采集 2.5 日志收集 2.6 数据分发中间件   第三章 流处理 3.1 算子 3.2 流的概念 3.3 流的应用场景 3.4 业界两种典">
+<meta name="twitter:description" content="第一章 大数据是什么 1.1 大数据导论 1.1.1 大数据简史 1.2 企业数据资产 1.3 大数据挑战 1.4 运营商大数据架构 1.5 运营商常见的大数据业务   第二章 数据获取 2.1 数据分类 2.2 数据获取组件 2.3 探针 2.4 网页采集 2.4.2 简单爬虫 Python 代码示例 2.5 日志收集 2.6 数据分发中间件   第三章 流处理 3.1 算子 3.2 流的">
 <meta name="twitter:image" content="http://chaihua.me/notes/book/大数据架构详解-从数据获取到深度学习/ed9c2cab-03b5-4aae-a21a-b40e83ed379a.jpg">
   
     <link rel="alternative" href="/atom.xml" title="慕湮" type="application/atom+xml">
@@ -211,6 +212,7 @@
 <li><a href="#22-数据获取组件">2.2 数据获取组件</a></li>
 <li><a href="#23-探针">2.3 探针</a></li>
 <li><a href="#24-网页采集">2.4 网页采集</a></li>
+<li><a href="#242-简单爬虫-python-代码示例">2.4.2 简单爬虫 Python 代码示例</a></li>
 <li><a href="#25-日志收集">2.5 日志收集</a></li>
 <li><a href="#26-数据分发中间件">2.6 数据分发中间件</a></li>
 </ul>
@@ -236,7 +238,26 @@
 <h2><span id="第一章-大数据是什么">第一章 大数据是什么</span></h2><h3><span id="11-大数据导论">1.1 大数据导论</span></h3><h3><span id="111-大数据简史">1.1.1 大数据简史</span></h3><p>这里特别要指出，Hadoop 并不等同于大数据，大数据也并不特指 Hadoop，大数据只是一门市场语言，代表的是一种概念，一种问题解决思路，一系列技术的集合，Hadoop 只是其中一种具体的处理数据的框架技术。</p>
 <h3><span id="12-企业数据资产">1.2 企业数据资产</span></h3><h3><span id="13-大数据挑战">1.3 大数据挑战</span></h3><h3><span id="14-运营商大数据架构">1.4 运营商大数据架构</span></h3><h3><span id="15-运营商常见的大数据业务">1.5 运营商常见的大数据业务</span></h3><h2><span id="第二章-数据获取">第二章 数据获取</span></h2><h3><span id="21-数据分类">2.1 数据分类</span></h3><h3><span id="22-数据获取组件">2.2 数据获取组件</span></h3><h3><span id="23-探针">2.3 探针</span></h3><h4><span id="231-探针原理">2.3.1 探针原理</span></h4><h4><span id="232-探针的关键能力">2.3.2 探针的关键能力</span></h4><h5><span id="1-大容量">1. 大容量</span></h5><h5><span id="2-协议智能识别">2. 协议智能识别</span></h5><p>传统的协议识别方法采用 SPI (Shallow Packet Inspection) 检测技术。SPI 对 IP 包头中的 Five Tuples，即『五元组（源地址、目的地址、源端口、目的端口及协议类型）』信息进行分析，来确定当前流量的基本信息。</p>
 <h5><span id="3-安全的影响">3. 安全的影响</span></h5><p>探针的核心能力就是获取通信的数据，但是随着越来越多的网站使用 HTTPS/QUIC 加密 L7 协议，传统的探针能力就会收到极大的限制，因为无法解析 L7 协议的内容。</p>
-<h5><span id="4-ib-infiniband-技术">4. IB (InfiniBand) 技术</span></h5><h3><span id="24-网页采集">2.4 网页采集</span></h3><h3><span id="25-日志收集">2.5 日志收集</span></h3><h3><span id="26-数据分发中间件">2.6 数据分发中间件</span></h3><h2><span id="第三章-流处理">第三章 流处理</span></h2><h3><span id="31-算子">3.1 算子</span></h3><h3><span id="32-流的概念">3.2 流的概念</span></h3><h3><span id="33-流的应用场景">3.3 流的应用场景</span></h3><h3><span id="34-业界两种典型的流引擎">3.4 业界两种典型的流引擎</span></h3><h3><span id="35-cep">3.5 CEP</span></h3><h3><span id="36-实时结合机器学习">3.6 实时结合机器学习</span></h3><h2><span id="第四章-交互式分析">第四章 交互式分析</span></h2><h2><span id="第五章-批处理技术">第五章 批处理技术</span></h2><h2><span id="第六章-机器学习与数据挖掘">第六章 机器学习与数据挖掘</span></h2><h2><span id="第七章-资源管理">第七章 资源管理</span></h2><h2><span id="第八章-存储是基础">第八章 存储是基础</span></h2><h2><span id="第九章-大数据云化">第九章 大数据云化</span></h2><h2><span id="第十章-大数据技术开发文档">第十章 大数据技术开发文档</span></h2>
+<h5><span id="4-ib-infiniband-技术">4. IB (InfiniBand) 技术</span></h5><h3><span id="24-网页采集">2.4 网页采集</span></h3><h4><span id="241-网络爬虫">2.4.1 网络爬虫</span></h4><h5><span id="1-基本原理">1. 基本原理</span></h5><p>网络爬虫的基本工作流程如下：</p>
+<p>1) 首先选取一部分种子 URL。<br>2) 将这些 URL 放入待抓取 URL 队列。<br>3) 从待抓取 URL 中去除待抓取的 URL，解析 DNS，得到主机的 IP，并将 URL 对应的网页下载下来，存储到已下载网页库中。此外，将这些 URL 放入已抓取 URL 队列中。<br>4) 分析已抓取到的网页内容中的其他 URL，并且将 URL 放入待抓取 URL 队列，从而进入下一个循环。</p>
+<h5><span id="2-抓取策略">2. 抓取策略</span></h5><p>1) 深度优先遍历策略<br>2) 宽度优先遍历策略<br>3) 反向链接数策略：反向链接数是指一个网页被其他网页链接指向的数量。反向链接数表示的是一个网页的内容受到其他人推荐的程度。因此，很多时候搜索引擎的抓取系统会使用这个指标来评价网页的重要程度，从而决定不同网页的抓取顺序。在真实的网络环境中，由于广告链接、作弊链接的存在，反向链接数不可能完全等同于网页的重要程度。因此，搜索引擎往往考虑一些可靠的反向链接数。<br>4) PartialPageRank 策略<br>5) OPIC 策略<br>6) 大站优先策略</p>
+<h5><span id="3-更新策略">3. 更新策略</span></h5><p>1) 历史参考策略：顾名思义，历史参考策略是指根据页面以往的历史更新数据，预测该页面未来何时会发生变化。一般来说，是通过泊松过程进行建模来预测的。<br>2) 用户体验策略<br>3) 聚类抽样策略</p>
+<h5><span id="4-系统架构">4. 系统架构</span></h5><h3><span id="242-简单爬虫-python-代码示例">2.4.2 简单爬虫 Python 代码示例</span></h3><h3><span id="25-日志收集">2.5 日志收集</span></h3><p>Flume 是 Cloudera 公司的一款高性能、高可用的分布式日志收集系统，现在已经是 Apache 的顶级项目。同 Flume 相似的日志手机系统还有 Facebook Scribe、Apache Chuwka。</p>
+<h3><span id="26-数据分发中间件">2.6 数据分发中间件</span></h3><h4><span id="261-数据分发中间件的作用">2.6.1 数据分发中间件的作用</span></h4><h4><span id="262-kafka-架构和原理">2.6.2 Kafka 架构和原理</span></h4><h5><span id="1-kafka-产生背景">1. Kafka 产生背景</span></h5><p>Kafka 是 LinkedIn 于 2010 年 12 月开源的消息系统，主要用于处理活跃的流式数据。</p>
+<h5><span id="2-kafka-架构">2. Kafka 架构</span></h5><p>整个架构中包括三个角色。</p>
+<ul>
+<li>生产者 (Producer)：消息和数据产生者。</li>
+<li>代理 (Broker)：缓存代理，Kafka 的核心功能。</li>
+<li>消费者 (Consumer)：消息和数据消费者。</li>
+</ul>
+<p>整体架构很简单，Kafka 给 Producer 和 Consumer 提供注册的接口，数据从 Producer 发送到 Broker，Broker 承担一个中间缓存和分发的作用，负责分发注册到系统中的 Consumer。</p>
+<p><img src="/notes/book/大数据架构详解-从数据获取到深度学习/92d18423-1258-48da-ac17-4c13b61deef2.png" width="50%" height="50%" alt="" align="center"></p>
+<h5><span id="3-设计要点">3. 设计要点</span></h5><p>Kafka 非常高效，下面介绍一下 Kafka 高效的原因，对理解 Kafka 非常有帮助。</p>
+<ul>
+<li>直接使用 Linux 文件系统的 Cache 来高效缓存数据。</li>
+<li>采用 Linux Zero-Copy 提高发送性能。传统的数据发送需要发送 4 次上下文切换，采用 Sendfile 系统调用之后，数据直接在内核态交换，系统上下文切换减少为 2 次。根据测试结果，可以提高 60% 的数据发送性能。数据在磁盘上的存取代价为 O(1)。</li>
+</ul>
+<h2><span id="第三章-流处理">第三章 流处理</span></h2><h3><span id="31-算子">3.1 算子</span></h3><h3><span id="32-流的概念">3.2 流的概念</span></h3><h3><span id="33-流的应用场景">3.3 流的应用场景</span></h3><h3><span id="34-业界两种典型的流引擎">3.4 业界两种典型的流引擎</span></h3><h3><span id="35-cep">3.5 CEP</span></h3><h3><span id="36-实时结合机器学习">3.6 实时结合机器学习</span></h3><h2><span id="第四章-交互式分析">第四章 交互式分析</span></h2><h2><span id="第五章-批处理技术">第五章 批处理技术</span></h2><h2><span id="第六章-机器学习与数据挖掘">第六章 机器学习与数据挖掘</span></h2><h2><span id="第七章-资源管理">第七章 资源管理</span></h2><h2><span id="第八章-存储是基础">第八章 存储是基础</span></h2><h2><span id="第九章-大数据云化">第九章 大数据云化</span></h2><h2><span id="第十章-大数据技术开发文档">第十章 大数据技术开发文档</span></h2>
       
 
       
