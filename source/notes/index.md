@@ -13,6 +13,7 @@ date: 2018-06-01
 ### 资料
 - [Java](/notes/knowledge/java/)
 - [Garbage Collection](/notes/knowledge/garbage-collection/)
+- [Reactor 3 Reference Guide](/notes/knowledge/reactor-3-reference-guide/)
 
 ### 工具
 - [Intellij IDEA](/notes/tool/intellij-idea/)

@@ -92,8 +92,6 @@ date: 2019-01-06
 
 ##### 1. 扩容和迁移
 
-##### 2. 分库分表维度导致的查询问题
-
 常用的解决方式如下：
 1) 在多个分片表查询后合并数据集，这种方式的效率很低。
 2) 记录两份数据，一份按照买家维度分表，一份按照商品维度分表。
@@ -154,5 +152,9 @@ date: 2019-01-06
 
 [dbsplit](https://gitee.com/robertleepeak/dbsplit) 扩展了 Spring 的 JdbcTemplate，在 JdbcTemplate 上增加了分库分表、读写分离和失效转移等功能，并与 Spring JDBC 保持相同的风格，简单实用，避免了外部依赖，不需要类似 Cobar 和 Mycat 的代理服务器，堪称可伸缩的 Spring JdbcTemplate。
 
+
+
 ## 第4章 缓存的本质和缓存使用的优秀时间
+
+
 
