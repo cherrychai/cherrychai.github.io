@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://chaihua.me">
   <title>Reactor 3 Reference Guide | 慕湮</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1 About the Documentation 1.1 Latest Version &amp;amp; Copyright Notice 1.2 Contributing to the Documentation 1.3 Getting Help     1 About the Documentation1.1 Latest Version &amp;amp; Copyright NoticeThe R">
+  <meta name="description" content="1 About the Documentation 1.1 Latest Version &amp;amp; Copyright Notice 1.2 Contributing to the Documentation 1.3 Getting Help 1.4 Where to Go from Here   2 Getting Started 2.1 Introducing Reactor 2.2 P">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Reactor 3 Reference Guide">
 <meta property="og:url" content="http://chaihua.me/notes/knowledge/reactor-3-reference-guide/index.html">
 <meta property="og:site_name" content="慕湮">
-<meta property="og:description" content="1 About the Documentation 1.1 Latest Version &amp;amp; Copyright Notice 1.2 Contributing to the Documentation 1.3 Getting Help     1 About the Documentation1.1 Latest Version &amp;amp; Copyright NoticeThe R">
+<meta property="og:description" content="1 About the Documentation 1.1 Latest Version &amp;amp; Copyright Notice 1.2 Contributing to the Documentation 1.3 Getting Help 1.4 Where to Go from Here   2 Getting Started 2.1 Introducing Reactor 2.2 P">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-01-31T15:27:19.623Z">
+<meta property="og:updated_time" content="2019-02-11T14:18:11.585Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Reactor 3 Reference Guide">
-<meta name="twitter:description" content="1 About the Documentation 1.1 Latest Version &amp;amp; Copyright Notice 1.2 Contributing to the Documentation 1.3 Getting Help     1 About the Documentation1.1 Latest Version &amp;amp; Copyright NoticeThe R">
+<meta name="twitter:description" content="1 About the Documentation 1.1 Latest Version &amp;amp; Copyright Notice 1.2 Contributing to the Documentation 1.3 Getting Help 1.4 Where to Go from Here   2 Getting Started 2.1 Introducing Reactor 2.2 P">
   
     <link rel="alternative" href="/atom.xml" title="慕湮" type="application/atom+xml">
   
@@ -198,13 +198,60 @@
 <li><a href="#11-latest-version-copyright-notice">1.1 Latest Version &amp; Copyright Notice</a></li>
 <li><a href="#12-contributing-to-the-documentation">1.2 Contributing to the Documentation</a></li>
 <li><a href="#13-getting-help">1.3 Getting Help</a></li>
+<li><a href="#14-where-to-go-from-here">1.4 Where to Go from Here</a></li>
 </ul>
 </li>
+<li><a href="#2-getting-started">2 Getting Started</a><ul>
+<li><a href="#21-introducing-reactor">2.1 Introducing Reactor</a></li>
+<li><a href="#22-prerequisites">2.2 Prerequisites</a></li>
+<li><a href="#23-understanding-the-bom">2.3 Understanding the BOM</a></li>
+<li><a href="#24-getting-reactor">2.4 Getting Reactor</a></li>
+</ul>
+</li>
+<li><a href="#3-introduction-to-reactive-programming">3 Introduction to Reactive Programming</a></li>
 </ul>
 <!-- tocstop -->
 <h2><span id="1-about-the-documentation">1 About the Documentation</span></h2><h3><span id="11-latest-version-amp-copyright-notice">1.1 Latest Version &amp; Copyright Notice</span></h3><p>The Reactor reference guide is available as HTML documents. The latest copy is available at <a href="http://projectreactor.io/docs/core/release/reference/docs/index.html" target="_blank" rel="noopener">http://projectreactor.io/docs/core/release/reference/docs/index.html</a></p>
 <p>Copies of this document may be made for your own use and for distribution to others, provided that you do not charge any fee for such copies and further provided that each copy contains this Copyright Notice, whether distributed in print or electronically.</p>
-<h3><span id="12-contributing-to-the-documentation">1.2 Contributing to the Documentation</span></h3><h3><span id="13-getting-help">1.3 Getting Help</span></h3>
+<h3><span id="12-contributing-to-the-documentation">1.2 Contributing to the Documentation</span></h3><h3><span id="13-getting-help">1.3 Getting Help</span></h3><h3><span id="14-where-to-go-from-here">1.4 Where to Go from Here</span></h3><ul>
+<li>Head to <a href="#2-getting-started">Getting Started</a> if you feel like jumping straight into the code.</li>
+<li>If you are new to Reactive Programming, though, you should probably start with the <a href="">Introduction to Reactive Programming</a>.</li>
+<li>If you are familiar with Reactor concepts and are just looking for the right tool for the job but cannot think of a relevant operator, try the <a href="">Which operator do I need?</a> Appendix.</li>
+<li>In order to dig deeper into the core features of Reactor, head to <a href="">Reactor Core Features</a>, to learn:<ul>
+<li>More about Reactor’s reactive types in the “<a href=""><code>Flux</code>, an Asynchronous Sequence of 0-N Items</a>“ and “<a href=""><code>Mono</code>, an Asynchronous 0-1 Result</a>“ sections.</li>
+<li>How to switch threading contexts using <a href="">a Scheduler</a>.</li>
+<li>How to handle errors in the Handling Errors section.</li>
+</ul>
+</li>
+<li>Unit testing? Yes it is possible with the <code>reactor-test</code> project! See <a href="">Testing</a>.</li>
+<li><a href="">Programmatically creating a sequence</a> offers a more advanced way of creating of reactive sources.</li>
+<li>Other advanced topics are covered in <a href="">Advanced Features and Concepts</a>.</li>
+</ul>
+<h2><span id="2-getting-started">2 Getting Started</span></h2><h3><span id="21-introducing-reactor">2.1 Introducing Reactor</span></h3><p>Reactor is a fully non-blocking reactive programming foundation for the JVM, with efficient demand management (in the form of managing “backpressure”). It integrates directly with the Java 8 functional APIs, notably <code>CompletableFuture</code>, <code>Stream</code>, and <code>Duration</code>. It offers composable asynchronous sequence APIs <code>Flux</code> (for [N] elements) and <code>Mono</code> (for [0|1] elements), extensively implementing the <a href="http://www.reactive-streams.org/" target="_blank" rel="noopener">Reactive Streams</a> specification.</p>
+<p>Reactor also supports non-blocking inter-process communication with the <code>reactor-netty</code> project. Suited for Microservices Architecture, Reactor Netty offers backpressure-ready network engines for HTTP (including Websockets), TCP, and UDP. Reactive Encoding and Decoding are fully supported.</p>
+<h3><span id="22-prerequisites">2.2 Prerequisites</span></h3><p>Reactor Core runs on <code>Java 8</code> and above.</p>
+<p>It has a transitive dependency on <code>org.reactive-streams:reactive-streams:1.0.2</code>.</p>
+<h3><span id="23-understanding-the-bom">2.3 Understanding the BOM</span></h3><p>Reactor 3 uses a BOM model since <code>reactor-core 3.0.4</code>, with the <code>Aluminium</code> release train. This curated list groups artifacts that are meant to work well together, providing the relevant versions despite potentially divergent versioning schemes in these artifacts.</p>
+<p>The BOM (Bill of Materials) is itself versioned, using a release train scheme with a codename followed by a qualifier. Here are a few examples:</p>
+<ul>
+<li>Aluminium-RELEASE</li>
+<li>Californium-BUILD-SNAPSHOT</li>
+<li>Aluminium-SR1</li>
+<li>Bismuth-RELEASE</li>
+<li>Californium-SR32</li>
+</ul>
+<p>The codenames represent what would traditionally be the MAJOR.MINOR number. They (mostly) come from the <a href="https://en.wikipedia.org/wiki/Periodic_table#Overview" target="_blank" rel="noopener">Periodic Table of Elements</a>, in increasing alphabetical order.</p>
+<p>The qualifiers are (in chronological order):</p>
+<ul>
+<li><font color="#c7254e">BUILD-SNAPSHOT</font></li>
+<li><font color="#c7254e">M1..N</font>: Milestones or developer previews</li>
+<li><font color="#c7254e">RELEASE</font>: The first GA (General Availability) release in a codename series</li>
+<li><font color="#c7254e">SR1..N</font>: The subsequent GA releases in a codename series (equivalent to PATCH number, SR stands for “Service Release”).</li>
+</ul>
+<h3><span id="24-getting-reactor">2.4 Getting Reactor</span></h3><p>As mentioned earlier, the easiest way to use Reactor in your core is to use the BOM and add the relevant dependencies to your project. Note that, when adding such a dependency, you must omit the version so that the version gets picked up from the BOM.</p>
+<h4><span id="241-maven-installation">2.4.1 Maven Installation</span></h4><h4><span id="242-gradle-installation">2.4.2 Gradle installation</span></h4><p>Gradle has no core support for Maven BOMs, but you can use Spring’s <a href="https://github.com/spring-gradle-plugins/dependency-management-plugin" target="_blank" rel="noopener">gradle-dependency-management</a> plugin.</p>
+<h4><span id="243-milestones-and-snapshots">2.4.3 Milestones and Snapshots</span></h4><h2><span id="3-introduction-to-reactive-programming">3 Introduction to Reactive Programming</span></h2><p>The reactive programming paradigm is often presented in object-oriented languages as an extension of the Observer design pattern.</p>
+
       
 
       

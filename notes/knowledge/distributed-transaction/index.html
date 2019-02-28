@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://chaihua.me">
-  <title>NOTES | 慕湮</title>
+  <title>分布式事务 | 慕湮</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="读书 [2018] [架构] 疯狂 Spring Cloud 架构实战 [2019] [架构] 可伸缩服务架构 - 框架与中间件 [2019] [大数据] 大数据架构详解-从数据获取到深度学习 [2018] [提升] 创业维艰  资料 Java Garbage Collection Reactor 3 Reference Guide 分布式事务  工具 Intellij IDEA">
+  <meta name="description" content="ACID A:原子性(Atomicity) C:一致性(Consistency) I:隔离性(Isolation) D:持久性(Durability)   CAP C (Consistency) 一致性 A (Availability) 可用性 P (Partition tolerance) 分区容错性   分布式事务协议 两阶段提交协议 2PC 三阶段提交协议 3PC   参考资料   AC">
 <meta property="og:type" content="website">
-<meta property="og:title" content="NOTES">
-<meta property="og:url" content="http://chaihua.me/notes/index.html">
+<meta property="og:title" content="分布式事务">
+<meta property="og:url" content="http://chaihua.me/notes/knowledge/distributed-transaction/index.html">
 <meta property="og:site_name" content="慕湮">
-<meta property="og:description" content="读书 [2018] [架构] 疯狂 Spring Cloud 架构实战 [2019] [架构] 可伸缩服务架构 - 框架与中间件 [2019] [大数据] 大数据架构详解-从数据获取到深度学习 [2018] [提升] 创业维艰  资料 Java Garbage Collection Reactor 3 Reference Guide 分布式事务  工具 Intellij IDEA">
+<meta property="og:description" content="ACID A:原子性(Atomicity) C:一致性(Consistency) I:隔离性(Isolation) D:持久性(Durability)   CAP C (Consistency) 一致性 A (Availability) 可用性 P (Partition tolerance) 分区容错性   分布式事务协议 两阶段提交协议 2PC 三阶段提交协议 3PC   参考资料   AC">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-02-14T09:01:34.251Z">
+<meta property="og:updated_time" content="2019-02-14T08:59:06.776Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="NOTES">
-<meta name="twitter:description" content="读书 [2018] [架构] 疯狂 Spring Cloud 架构实战 [2019] [架构] 可伸缩服务架构 - 框架与中间件 [2019] [大数据] 大数据架构详解-从数据获取到深度学习 [2018] [提升] 创业维艰  资料 Java Garbage Collection Reactor 3 Reference Guide 分布式事务  工具 Intellij IDEA">
+<meta name="twitter:title" content="分布式事务">
+<meta name="twitter:description" content="ACID A:原子性(Atomicity) C:一致性(Consistency) I:隔离性(Isolation) D:持久性(Durability)   CAP C (Consistency) 一致性 A (Availability) 可用性 P (Partition tolerance) 分区容错性   分布式事务协议 两阶段提交协议 2PC 三阶段提交协议 3PC   参考资料   AC">
   
     <link rel="alternative" href="/atom.xml" title="慕湮" type="application/atom+xml">
   
@@ -179,33 +179,58 @@
         
   
     <h1 class="article-title" itemprop="name">
-      NOTES
+      分布式事务
     </h1>
   
 
         
-        <a href="/notes/index.html" class="archive-article-date">
-  	<time datetime="2018-05-31T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-01</time>
+        <a href="/notes/knowledge/distributed-transaction/index.html" class="archive-article-date">
+  	<time datetime="2019-02-13T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-14</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3><span id="读书">读书</span></h3><ul>
-<li>[2018] [架构] <a href="/notes/book/疯狂Spring-Cloud微服务架构实战/">疯狂 Spring Cloud 架构实战</a></li>
-<li>[2019] [架构] <a href="/notes/book/可伸缩服务架构-框架与中间件/">可伸缩服务架构 - 框架与中间件</a></li>
-<li>[2019] [大数据] <a href="/notes/book/大数据架构详解-从数据获取到深度学习/">大数据架构详解-从数据获取到深度学习</a></li>
-<li>[2018] [提升] <a href="/notes/book/创业维艰/">创业维艰</a></li>
+        <!-- toc -->
+<ul>
+<li><a href="#acid">ACID</a><ul>
+<li><a href="#a原子性atomicity">A:原子性(Atomicity)</a></li>
+<li><a href="#c一致性consistency">C:一致性(Consistency)</a></li>
+<li><a href="#i隔离性isolation">I:隔离性(Isolation)</a></li>
+<li><a href="#d持久性durability">D:持久性(Durability)</a></li>
 </ul>
-<h3><span id="资料">资料</span></h3><ul>
-<li><a href="/notes/knowledge/java/">Java</a></li>
-<li><a href="/notes/knowledge/garbage-collection/">Garbage Collection</a></li>
-<li><a href="/notes/knowledge/reactor-3-reference-guide/">Reactor 3 Reference Guide</a></li>
-<li><a href="/notes/knowledge/distributed-transaction/">分布式事务</a></li>
+</li>
+<li><a href="#cap">CAP</a><ul>
+<li><a href="#c-consistency-一致性">C (Consistency) 一致性</a></li>
+<li><a href="#a-availability-可用性">A (Availability) 可用性</a></li>
+<li><a href="#p-partition-tolerance-分区容错性">P (Partition tolerance) 分区容错性</a></li>
 </ul>
-<h3><span id="工具">工具</span></h3><ul>
-<li><a href="/notes/tool/intellij-idea/">Intellij IDEA</a></li>
+</li>
+<li><a href="#分布式事务协议">分布式事务协议</a><ul>
+<li><a href="#两阶段提交协议-2pc">两阶段提交协议 2PC</a></li>
+<li><a href="#三阶段提交协议-3pc">三阶段提交协议 3PC</a></li>
+</ul>
+</li>
+<li><a href="#参考资料">参考资料</a></li>
+</ul>
+<!-- tocstop -->
+<h2><span id="acid">ACID</span></h2><p>说到数据库事务就不得不说，数据库事务中的四大特性，ACID:</p>
+<h3><span id="a原子性atomicity">A:原子性(Atomicity)</span></h3><p>一个事务(transaction)中的所有操作，要么全部完成，要么全部不完成，不会结束在中间某个环节。事务在执行过程中发生错误，会被回滚（Rollback）到事务开始前的状态，就像这个事务从来没有执行过一样。<br>就像你买东西要么交钱收货一起都执行，要么要是发不出货，就退钱。</p>
+<h3><span id="c一致性consistency">C:一致性(Consistency)</span></h3><p>事务的一致性指的是在一个事务执行之前和执行之后数据库都必须处于一致性状态。如果事务成功地完成，那么系统中所有变化将正确地应用，系统处于有效状态。如果在事务中出现错误，那么系统中的所有变化将自动地回滚，系统返回到原始状态。</p>
+<h3><span id="i隔离性isolation">I:隔离性(Isolation)</span></h3><p>指的是在并发环境中，当不同的事务同时操纵相同的数据时，每个事务都有各自的完整数据空间。由并发事务所做的修改必须与任何其他并发事务所做的修改隔离。事务查看数据更新时，数据所处的状态要么是另一事务修改它之前的状态，要么是另一事务修改它之后的状态，事务不会查看到中间状态的数据。<br>打个比方，你买东西这个事情，是不影响其他人的。</p>
+<h3><span id="d持久性durability">D:持久性(Durability)</span></h3><p>指的是只要事务成功结束，它对数据库所做的更新就必须永久保存下来。即使发生系统崩溃，重新启动数据库系统后，数据库还能恢复到事务成功结束时的状态。<br>打个比方，你买东西的时候需要记录在账本上，即使老板忘记了那也有据可查。</p>
+<p>而事务的ACID是通过InnoDB日志和锁来保证。事务的隔离性是通过数据库锁的机制实现的，持久性通过redo log（重做日志）来实现，原子性和一致性通过Undo log来实现。UndoLog的原理很简单，为了满足事务的原子性，在操作任何数据之前，首先将数据备份到一个地方（这个存储数据备份的地方称为UndoLog）。然后进行数据的修改。如果出现了错误或者用户执行了ROLLBACK语句，系统可以利用Undo Log中的备份将数据恢复到事务开始之前的状态。<br>和Undo Log相反，RedoLog记录的是新数据的备份。在事务提交前，只要将RedoLog持久化即可，不需要将数据持久化。当系统崩溃时，虽然数据没有持久化，但是RedoLog已经持久化。系统可以根据RedoLog的内容，将所有数据恢复到最新的状态。</p>
+<h2><span id="cap">CAP</span></h2><p>CAP理论说的是：在一个分布式系统中，最多只能满足C、A、P中的两个需求。<br>对于一个业务系统来说，可用性和分区容错性是必须要满足的两个条件，并且这两者是相辅相成的。</p>
+<h3><span id="c-consistency-一致性">C (Consistency) 一致性</span></h3><p>同一数据的多个副本是否实时相同。</p>
+<h3><span id="a-availability-可用性">A (Availability) 可用性</span></h3><p>一定时间内 &amp; 系统返回一个明确的结果 则称为该系统可用。</p>
+<h3><span id="p-partition-tolerance-分区容错性">P (Partition tolerance) 分区容错性</span></h3><p>将同一服务分布在多个系统中，从而保证某一个系统宕机，仍然有其他系统提供相同的服务。</p>
+<p>所以分布式系统理论上不可能选择CA架构，只能选择CP或者AP架构。</p>
+<p>对于CP来说，放弃可用性，追求一致性和分区容错性，我们的zookeeper其实就是追求的强一致。</p>
+<p>对于AP来说，放弃一致性(这里说的一致性是强一致性)，追求分区容错性和可用性，这是很多分布式系统设计时的选择，后面的BASE也是根据AP来扩展。</p>
+<h2><span id="分布式事务协议">分布式事务协议</span></h2><h3><span id="两阶段提交协议-2pc">两阶段提交协议 2PC</span></h3><h3><span id="三阶段提交协议-3pc">三阶段提交协议 3PC</span></h3><h2><span id="参考资料">参考资料</span></h2><ul>
+<li><a href="https://juejin.im/post/5aa3c7736fb9a028bb189bca" target="_blank" rel="noopener">常用的分布式事务解决方案</a></li>
+<li><a href="https://juejin.im/post/5b5a0bf9f265da0f6523913b" target="_blank" rel="noopener">再有人问你分布式事务，把这篇扔给他</a></li>
 </ul>
 
       
@@ -291,7 +316,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://chaihua.me/notes/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://chaihua.me/notes/knowledge/distributed-transaction/" alt="微信分享二维码">
     </div>
 </div>
 
