@@ -19,6 +19,6 @@
 - .tagcloud a.color7 #996ec1 紫色
 
 深红色
-<font color=#be0000></font>
+<font color=#c7254e></font>
 蓝色
 <font color=#007bfb></font>

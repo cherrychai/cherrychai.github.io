@@ -14,6 +14,8 @@ date: 2018-06-01
 - [Java](/notes/knowledge/java/)
 - [Garbage Collection](/notes/knowledge/garbage-collection/)
 - [Reactor 3 Reference Guide](/notes/knowledge/reactor-3-reference-guide/)
+- [分布式事务](/notes/knowledge/distributed-transaction/)
+
 
 ### 工具
 - [Intellij IDEA](/notes/tool/intellij-idea/)
