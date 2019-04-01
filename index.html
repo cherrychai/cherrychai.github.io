@@ -170,6 +170,266 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-沧海一粟" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/23/沧海一粟/">沧海一粟</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/23/沧海一粟/" class="archive-article-date">
+  	<time datetime="2019-03-22T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我有这么一个空间，但是当我突然不见了，也许没有人会知道我有这些东西，它们会随着我的消失而消失，就像从来没有出现过。</p>
+<p>有时会思考活着的意义，怎样才算是过完有价值的一生。有时想想，人，生不带来，死不带走，到底活着的意义又是什么的。建造这个社会，也许就只是像搭积木一样，只有下面的积木搭起来，上面的积木才能堆上去。</p>
+<p>我突然有些理解那些书和电视里面所说的，让我们的子孙也可以看到贝加尔湖上面的冰雪融化的意义，也许这样我们才会觉得自己的生命是有意义的，不然有的时候真的不知道自己在干什么，就跟闹着玩一样。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/花开的声音/" class="article-tag-list-link color6">花开的声音</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/23/沧海一粟/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-java.io.NotSerializableException-java.util.ArrayList$SubList" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/10/java.io.NotSerializableException-java.util.ArrayList$SubList/">java.io.NotSerializableException-java.util.ArrayList$SubList</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/10/java.io.NotSerializableException-java.util.ArrayList$SubList/" class="archive-article-date">
+  	<time datetime="2019-03-09T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近通过 dubbo 调用一个接口报出了序列化错误，对方需要的入参是一个 list，我传的也是个 list，本来以为不会有问题呢，后来看了下日志发现如下报错：</p>
+<blockquote>
+<p>Caused by: java.io.NotSerializableException: java.util.ArrayList$SubList<br>at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)<br>at java.io.ObjectOutputStream.writeObject(ObjectOutputStream.java:348)<br>at com.esotericsoftware.kryo.serializers.JavaSerializer.write(JavaSerializer.java:30)</p>
+</blockquote>
+<p>当然，原因也是很容易找到的。因为我要访问的接口是一个批量接口，限制每次传递 10 个 ID，但是我这边每次可能有上百个 ID，所以就用了 guava 的 partion 方法进行了切分，但是 Lists.partition 的返回值是 subList，而且 subList (RandomAccessSubList) 没有实现序列化，所以就报错啦。</p>
+<p>Lists.partition 的定义如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Returns consecutive &#123;<span class="doctag">@linkplain</span> List#subList(int, int) sublists&#125; of a list,</span></span><br><span class="line"><span class="comment"> * each of the same size (the final list may be smaller). For example,</span></span><br><span class="line"><span class="comment"> * partitioning a list containing &#123;<span class="doctag">@code</span> [a, b, c, d, e]&#125; with a partition</span></span><br><span class="line"><span class="comment"> * size of 3 yields &#123;<span class="doctag">@code</span> [[a, b, c], [d, e]]&#125; -- an outer list containing</span></span><br><span class="line"><span class="comment"> * two inner lists of three and two elements, all in the original order.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;The outer list is unmodifiable, but reflects the latest state of the</span></span><br><span class="line"><span class="comment"> * source list. The inner lists are sublist views of the original list,</span></span><br><span class="line"><span class="comment"> * produced on demand using &#123;<span class="doctag">@link</span> List#subList(int, int)&#125;, and are subject</span></span><br><span class="line"><span class="comment"> * to all the usual caveats about modification as explained in that API.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> list the list to return consecutive sublists of</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> size the desired size of each sublist (the last may be</span></span><br><span class="line"><span class="comment"> *     smaller)</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> a list of consecutive sublists</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@throws</span> IllegalArgumentException if &#123;<span class="doctag">@code</span> partitionSize&#125; is nonpositive</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; List&lt;List&lt;T&gt;&gt; partition(List&lt;T&gt; list, <span class="keyword">int</span> size) &#123;</span><br><span class="line">  checkNotNull(list);</span><br><span class="line">  checkArgument(size &gt; <span class="number">0</span>);</span><br><span class="line">  <span class="keyword">return</span> (list <span class="keyword">instanceof</span> RandomAccess)</span><br><span class="line">      ? <span class="keyword">new</span> RandomAccessPartition&lt;T&gt;(list, size)</span><br><span class="line">      : <span class="keyword">new</span> Partition&lt;T&gt;(list, size);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编写测试代码如下：</p>
+        
+          <a class="article-more-a" href="/2019/03/10/java.io.NotSerializableException-java.util.ArrayList$SubList/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/程序媛/" class="article-tag-list-link color4">程序媛</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/10/java.io.NotSerializableException-java.util.ArrayList$SubList/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-最近踩的几个数据库相关的坑" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/01/10/最近踩的几个数据库相关的坑/">最近踩的几个数据库相关的坑</a>
+    </h1>
+  
+
+        
+        <a href="/2019/01/10/最近踩的几个数据库相关的坑/" class="archive-article-date">
+  	<time datetime="2019-01-09T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ol>
+<li>空格问题：之恒</li>
+<li>空格问题：入驻</li>
+<li>并发问题</li>
+<li>order by 问题</li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">DB</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/程序媛/" class="article-tag-list-link color4">程序媛</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/01/10/最近踩的几个数据库相关的坑/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-JAVA添加文字和图片水印" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -755,263 +1015,6 @@
 
 
   
-    <article id="post-新年碎碎念" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/01/13/新年碎碎念/">新年碎碎念</a>
-    </h1>
-  
-
-        
-        <a href="/2017/01/13/新年碎碎念/" class="archive-article-date">
-  	<time datetime="2017-01-12T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>又到了旧的一年匆忙结束而新的一年翩然来临的时候，每年的这个时候我都会碎碎念一些有的没的，回顾一下过去，展望一下未来，今年也不会例外。</p>
-<p>上一篇博文是Farewell to 2015，顺带许下了2016年的几个愿望，匆忙瞄了一眼基本都没有实现，每年制定的目标总是像读书时候带回家去的暑假作业一样，永远都无法开始。</p>
-<p>如果说2015是忙忙碌碌的一年，那么2016就是忙忙碌碌而又碌碌无为的一年，不但没有收获反而多了好多负面情绪，对现状的不满以及对生活的无奈，也许这就是成长的烦恼。好在豆豆是一个充满正能量的人，总能在我即将崩溃的时候给我力量，也是苦了他了。年少时总是说如果不能璀璨的活着，那么不如寂静的死去，而越长大却越发现绝大多数人都是在按部就班的平淡的生活着，平淡的可怕。也许我已经足够好，没有按照父母安排的既定路线，没有过着一眼望到头的人生，想着3、5年之后甚至还有机会去往另外一个陌生的城市，就觉得生活还有好多希望。人生路漫漫，除了修行，别无他法，所以也不可苛求太多，能有一人陪伴摸索前行，足矣。</p>
-        
-          <a class="article-more-a" href="/2017/01/13/新年碎碎念/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Happy New Year</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/花开的声音/" class="article-tag-list-link color6">花开的声音</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/01/13/新年碎碎念/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Farewell-to-2015" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/03/Farewell-to-2015/">Farewell to 2015</a>
-    </h1>
-  
-
-        
-        <a href="/2016/01/03/Farewell-to-2015/" class="archive-article-date">
-  	<time datetime="2016-01-02T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-01-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>旧的一年终将逝去，新的一年终会来临。</p>
-<p>2015年最重要的是豆豆终于开始了人生第一份工作（博后不算的话），中间虽然也有各种纠结各种取舍，但我相信他的最终选择一定是正确的。关于继续出国还是回来工作的争执总算可以停止了，虽然我说不管怎样我都会支持他，但他终归还是放心不下我一个人在国内，而意国我又不愿意去，有时候命运就是这样，如果当初他选择的国家是美国，也许现在我们已经都在大洋彼岸了，但是幸与不幸，没有经历过却是永远无法知道的。</p>
-<p>2015年是和豆豆一起生活的第一个年头，没有像小说里那样因为看到很多对方在生活上的不良习惯而兵分两路，反而感觉一切都是那样的顺其自然，就像上辈子也是住在一起。吵架肯定还是会有的，不过都是一些无聊的小事，基本都不会过夜。2015年的最后一天是结婚2周年的纪念日，我把之前在意国游玩的照片做成新年日历送给豆豆，豆豆很喜欢，我们约定以后每年都要去一个新的地方看看，见识不一样的风土人情。</p>
-        
-          <a class="article-more-a" href="/2016/01/03/Farewell-to-2015/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Happy New Year</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/花开的声音/" class="article-tag-list-link color6">花开的声音</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/01/03/Farewell-to-2015/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-无题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/11/17/无题/">无题</a>
-    </h1>
-  
-
-        
-        <a href="/2015/11/17/无题/" class="archive-article-date">
-  	<time datetime="2015-11-16T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-11-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>很久没有写博客了，不但博客长了草，人也像长了草一样，了无生气，一片荒芜。每次想起来总是以工作很忙没时间为借口来原谅自己，但是真的是这样吗？显然不是，因为还有时间追新出的电视剧，还有时间看无聊的YY小说，还有时间参加各种聚会，甚至还有时间唱歌打牌，却再也没有时间像从前一样思索自己的人生。</p>
-<p>工作之后感觉整个人变得懈怠了，变得安于现状，变得不思进取，变得趋于平庸，说好的绽放青春、大展宏图呢，毕业时的豪言壮语这么快就全部喂狗了吗？我似乎不再愿意花时间去学习、去思考，而只是机械的完成分配的工作，然后任性妄为的将大把时间花费在一些毫无意义的地方，我不知道这样的自己和行尸走肉有什么区别。作为一个悲观主义者，我开始感到深深的恐惧，我害怕在这样荒芜的生活中迷失了自己，我害怕多年之后的我会怨恨现在的自己。</p>
-<p>记得小时候总是幻想这个世界是为自己设定的，周围的人都是群众演员，常常和那个造物主谈条件，试图用自己的魔法棒控制周围的一切，这种中二病居然持续了很久，直到近几年才越来越觉得自己才是个群众演员，才越来越认清自己的渺小与无奈。有时甚至不明白生活的意义是什么，也曾想过如果自己突然死掉了那这个世界上的一切是不是就和自己没有任何联系了，那是不是死亡也是无所谓的，但每每这样想的时候却又明确感到自己仍然眷恋这个世界，眷恋这个自己并没有那么喜欢的世界，也许只是因为某个人，也许只是因为某个小小的自己也说不清的原因，总之就在这样反反复复的思想斗争中坚强的生活着。</p>
-<p>从前我总是喜欢给自己设定一些目标，证明自己的态度，但往往都实现不了，因为我不是一个有毅力的孩子，所以今天我只是想和自己随便聊聊，拔掉脑袋上的草，种一些更有意义的植物，比如向日葵。</p>
-        
-          <a class="article-more-a" href="/2015/11/17/无题/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/花开的声音/" class="article-tag-list-link color6">花开的声音</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/11/17/无题/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1112,6 +1115,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">DB</a>
               </li>
             
             <div class="clearfix"></div>
