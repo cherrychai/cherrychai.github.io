@@ -360,12 +360,11 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <ol>
-<li>空格问题：之恒</li>
-<li>空格问题：入驻</li>
-<li>并发问题</li>
-<li>order by 问题</li>
-</ol>
+        <p>（待完善）</p>
+<h3><span id="1-空格问题">1 空格问题</span></h3><p>varchar 类型和 char 类型</p>
+<h3><span id="2-空格问题">2 空格问题</span></h3><p>mybatis 入库的时候一般都会 trim 一下，但是查询的时候可能不会 trim，所以会造成查询的问题</p>
+<h3><span id="3-并发问题">3 并发问题</span></h3><p>查询的时候没有加锁</p>
+<h3><span id="4-order-by-问题">4 order by 问题</span></h3><p>数据库查询直接 order by 的时候一般是按照插入顺序排序的（如果有自增的 mall id 的话那么也是按照 mall id 排序的），有时做数据库滚动查询的时候便会忘记 order by 字段，但是如果查询的时候设置了其他的条件，尤其是有索引的情况下，会按照其他索引排序，这样也就造成了问题。</p>
 
       
 

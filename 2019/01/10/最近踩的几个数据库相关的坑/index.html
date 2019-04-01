@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://chaihua.me">
   <title>最近踩的几个数据库相关的坑 | 慕湮</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="空格问题：之恒 空格问题：入驻 并发问题 order by 问题">
+  <meta name="description" content="（待完善） 1 空格问题varchar 类型和 char 类型 2 空格问题mybatis 入库的时候一般都会 trim 一下，但是查询的时候可能不会 trim，所以会造成查询的问题 3 并发问题查询的时候没有加锁 4 order by 问题数据库查询直接 order by 的时候一般是按照插入顺序排序的（如果有自增的 mall id 的话那么也是按照 mall id 排序的），有时做数据库滚动查">
 <meta name="keywords" content="DB">
 <meta property="og:type" content="article">
 <meta property="og:title" content="最近踩的几个数据库相关的坑">
 <meta property="og:url" content="http://chaihua.me/2019/01/10/最近踩的几个数据库相关的坑/index.html">
 <meta property="og:site_name" content="慕湮">
-<meta property="og:description" content="空格问题：之恒 空格问题：入驻 并发问题 order by 问题">
+<meta property="og:description" content="（待完善） 1 空格问题varchar 类型和 char 类型 2 空格问题mybatis 入库的时候一般都会 trim 一下，但是查询的时候可能不会 trim，所以会造成查询的问题 3 并发问题查询的时候没有加锁 4 order by 问题数据库查询直接 order by 的时候一般是按照插入顺序排序的（如果有自增的 mall id 的话那么也是按照 mall id 排序的），有时做数据库滚动查">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-01T14:48:05.985Z">
+<meta property="og:updated_time" content="2019-04-01T14:57:04.838Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="最近踩的几个数据库相关的坑">
-<meta name="twitter:description" content="空格问题：之恒 空格问题：入驻 并发问题 order by 问题">
+<meta name="twitter:description" content="（待完善） 1 空格问题varchar 类型和 char 类型 2 空格问题mybatis 入库的时候一般都会 trim 一下，但是查询的时候可能不会 trim，所以会造成查询的问题 3 并发问题查询的时候没有加锁 4 order by 问题数据库查询直接 order by 的时候一般是按照插入顺序排序的（如果有自增的 mall id 的话那么也是按照 mall id 排序的），有时做数据库滚动查">
   
     <link rel="alternative" href="/atom.xml" title="慕湮" type="application/atom+xml">
   
@@ -193,12 +193,11 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <ol>
-<li>空格问题：之恒</li>
-<li>空格问题：入驻</li>
-<li>并发问题</li>
-<li>order by 问题</li>
-</ol>
+        <p>（待完善）</p>
+<h3><span id="1-空格问题">1 空格问题</span></h3><p>varchar 类型和 char 类型</p>
+<h3><span id="2-空格问题">2 空格问题</span></h3><p>mybatis 入库的时候一般都会 trim 一下，但是查询的时候可能不会 trim，所以会造成查询的问题</p>
+<h3><span id="3-并发问题">3 并发问题</span></h3><p>查询的时候没有加锁</p>
+<h3><span id="4-order-by-问题">4 order by 问题</span></h3><p>数据库查询直接 order by 的时候一般是按照插入顺序排序的（如果有自增的 mall id 的话那么也是按照 mall id 排序的），有时做数据库滚动查询的时候便会忘记 order by 字段，但是如果查询的时候设置了其他的条件，尤其是有索引的情况下，会按照其他索引排序，这样也就造成了问题。</p>
 
       
 
