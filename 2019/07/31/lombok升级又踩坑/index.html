@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://chaihua.me">
   <title>lombok 升级又踩坑 | 慕湮</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="今天某服务只是升级了一个下游依赖的版本，本来以为妥妥的无风险上线，结果上线之后发现有一个 http 请求的成功率居然直接掉 0 了，报错核心内容如下：  Type definition error: [simple type, class hahaha.contract.xxVO]; nested exception is com.fasterxml.jackson.databind.exc.In">
+  <meta name="description" content="今天某服务只是升级了一个下游依赖的版本，本来以为妥妥的无风险上线，结果上线之后发现其提供的其中一个 http 请求的成功率居然直接掉 0 了，报错核心内容如下：  Type definition error: [simple type, class hahaha.contract.SsssssVO]; nested exception is com.fasterxml.jackson.databi">
 <meta name="keywords" content="Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="lombok 升级又踩坑">
 <meta property="og:url" content="http://chaihua.me/2019/07/31/lombok升级又踩坑/index.html">
 <meta property="og:site_name" content="慕湮">
-<meta property="og:description" content="今天某服务只是升级了一个下游依赖的版本，本来以为妥妥的无风险上线，结果上线之后发现有一个 http 请求的成功率居然直接掉 0 了，报错核心内容如下：  Type definition error: [simple type, class hahaha.contract.xxVO]; nested exception is com.fasterxml.jackson.databind.exc.In">
+<meta property="og:description" content="今天某服务只是升级了一个下游依赖的版本，本来以为妥妥的无风险上线，结果上线之后发现其提供的其中一个 http 请求的成功率居然直接掉 0 了，报错核心内容如下：  Type definition error: [simple type, class hahaha.contract.SsssssVO]; nested exception is com.fasterxml.jackson.databi">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-31T11:55:17.963Z">
+<meta property="og:updated_time" content="2019-07-31T12:48:11.122Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="lombok 升级又踩坑">
-<meta name="twitter:description" content="今天某服务只是升级了一个下游依赖的版本，本来以为妥妥的无风险上线，结果上线之后发现有一个 http 请求的成功率居然直接掉 0 了，报错核心内容如下：  Type definition error: [simple type, class hahaha.contract.xxVO]; nested exception is com.fasterxml.jackson.databind.exc.In">
+<meta name="twitter:description" content="今天某服务只是升级了一个下游依赖的版本，本来以为妥妥的无风险上线，结果上线之后发现其提供的其中一个 http 请求的成功率居然直接掉 0 了，报错核心内容如下：  Type definition error: [simple type, class hahaha.contract.SsssssVO]; nested exception is com.fasterxml.jackson.databi">
   
     <link rel="alternative" href="/atom.xml" title="慕湮" type="application/atom+xml">
   
@@ -193,52 +193,41 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>今天某服务只是升级了一个下游依赖的版本，本来以为妥妥的无风险上线，结果上线之后发现有一个 http 请求的成功率居然直接掉 0 了，报错核心内容如下：</p>
+        <p>今天某服务只是升级了一个下游依赖的版本，本来以为妥妥的无风险上线，结果上线之后发现其提供的其中一个 http 请求的成功率居然直接掉 0 了，报错核心内容如下：</p>
 <blockquote>
-<p>Type definition error: [simple type, <code>class hahaha.contract.xxVO</code>]; nested exception is <code>com.fasterxml.jackson.databind.exc.InvalidDefinitionException</code>: Cannot construct instance of <code>class hahaha.contract.xxVO</code> (no Creators, like default construct, exist): cannot deserialize from Object value (no delegate- or property-based Creator)</p>
+<p>Type definition error: [simple type, <code>class hahaha.contract.SsssssVO</code>]; nested exception is com.fasterxml.jackson.databind.exc.InvalidDefinitionException: Cannot construct instance of <code>class hahaha.contract.SsssssVO</code> (no Creators, like default construct, exist): cannot deserialize from Object value (no delegate- or property-based Creator)</p>
 </blockquote>
-<p>新增代码都不相关，估计是某公共组件升级导致的，报错代码倒是比较清晰，直接定位到 xxVO 这个 class，走进去一看发现这个类是这样定义的：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Builder</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">xxVO</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">3189276661411975774L</span>;</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">private</span> String xxA;</span><br><span class="line">    <span class="keyword">private</span> String xxB;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>可以发现添加了 @Builder ，而@Builder 会默认生产全参数构造器，根据报错日志显示（no Creators, like default construct），初步怀疑是由于缺失默认构造器导致，进一步根据以往的经验（其实我也忘记深层次原因了）我在 service-template 里面写过这么一段：推荐增加 lombok @Builder 方法，注意需要同步增加 @NoArgsConstructor 和 @AllArgsConstructor(access = AccessLevel.PROTECTED) ,设置 AccessLevel 是为了避免全参构造函数暴露出去。然后当时搜『InvalidDefinitionException: Cannot construct instance of』也刚好搜到一个内容是和 @Builder 有关的，就先在这个 class 增加了  @NoArgsConstructor 和 @AllArgsConstructor(access = AccessLevel.PROTECTED)，然后问题解决。</p>
+<p>对比下下游依赖的前后两个版本，差异也非常简单，无非就是升级了某些公共组件的版本，一时半会也看不出有什么危害性的代码。不过好在报错信息还是比较清晰的，直接定位到 <code>SsssssVO</code> 这个 class，找到原始代码跟进去一看发现这个类是这样定义的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Builder</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SsssssVO</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">5555556666667777777L</span>;</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">private</span> String xxA;</span><br><span class="line">    <span class="keyword">private</span> String xxB;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>咋一看好像蛮正常的，很简单的定义，增加了 2 个常规注解，但是如果对 <code>@Builder</code> 注解比较熟悉的话，会发现单独的这个注解在这里其实有点可疑。<code>@Builder</code> 会生成全参数构造器覆盖默认的构造器，再结合报错信息 ‘no Creators, like default construct’ 会联想到错误原因是不是因为缺失默认的构造器，进一步根据以往的经验（其实我也忘记深层次原因了），一般在添加 lombok <code>@Builder</code> 方法的同时会同步添加 <code>@NoArgsConstructor</code> 和 <code>@AllArgsConstructor(access = AccessLevel.PROTECTED)</code> ，其中设置 <code>AccessLevel</code> 是为了避免全参构造函数暴露出去。然后当时搜 ‘InvalidDefinitionException: Cannot construct instance of’ 这个报错信息的时候也刚好搜到一个内容是和 <code>@Builder</code> 有关的，说是把 <code>@Builder</code> 去掉就好了，但是我们如果把 <code>@Builder</code> 去掉的话还需要修改其他代码，所以就先在 <code>SsssssVO</code> 这个 class 上增加了 <code>@NoArgsConstructor</code> 和 <code>@AllArgsConstructor(access = AccessLevel.PROTECTED)</code> 两个注解，发版上线，问题解决。</p>
 <a id="more"></a>
-<p>分析问题<br>再来进一步分析原因，发现这个问题可能和 lombok 新版本的一个 break change 有关，然后翻了下基础组件 merchant-common 的升级记录，发现里面的 lombok 版本从 v1.16.16 升到了 v1.18.8，其中经历了一个版本 v1.16.20。那我们看看 v1.16.20 改变了什么呢？</p>
-<p><a href="https://projectlombok.org/changelog" target="_blank" rel="noopener">https://projectlombok.org/changelog</a></p>
-<p>BREAKING CHANGE: lombok config key lombok.anyConstructor.suppressConstructorProperties is now deprecated and defaults to true, that is, by default lombok no longer automatically generates @ConstructorPropertiesannotations. New config key lombok.anyConstructor.addConstructorProperties now exists; set it to true if you want the old behavior. Oracle more or less broke this annotation with the release of </p>
-<p>也就是说 v1.16.20 之前的时候如果只有 @Data 和 @Builder 注解会生成这样的代码：</p>
-<p>public class TransferRelationshipVO implements Serializable {<br>    private static final long serialVersionUID = 3189276661411975774L;<br>    private String xxA;<br>    private String xxB;</p>
-<pre><code>@ConstructorProperties({&quot;xxA&quot;, &quot;xxB&quot;})  //注意：此行高能
-TransferRelationshipVO(String xxA, String xxB) {
-    this.xxA = xxA;
-    this.xxB = xxB;
-}
-
-public static TransferRelationshipVO.TransferRelationshipVOBuilder builder() {
-    return new TransferRelationshipVO.TransferRelationshipVOBuilder();
-}
-
-... 省略更多 ...
-</code></pre><p>}<br>但是 v1.18.8 版本的时候 只有 @Data 和 @Builder 注解生成的代码如下：</p>
-<p>public class TransferRelationshipVO implements Serializable {<br>    private static final long serialVersionUID = 3189276661411975774L;<br>    private String xxA;<br>    private String xxB;</p>
-<pre><code>TransferRelationshipVO(String xxA, String xxB) {
-    this.xxA = xxA;
-    this.xxB = xxB;
-}
-
-public static TransferRelationshipVO.TransferRelationshipVOBuilder builder() {
-    return new TransferRelationshipVO.TransferRelationshipVOBuilder();
-}
-
-... 省略更多 ...
-</code></pre><p>}<br>注意下面的代码少了 @ConstructorProperties({“xxA”, “xxB”}) 这一行，就导致 jackson 在反序列化的时候无法构造出需要的结构。所以在这种情况下主动增加了 @NoArgsConstructor 和 @AllArgsConstructor(access = AccessLevel.PROTECTED) 生成无参构造函数就可以 work 了。当然即使不是这个原因其实在使用 @Builder 的时候也是推荐增加另外两个注解的，只是有的时候觉得不影响业务所以没那么注意了。</p>
-<p>至于 lombok 为什么要做这样一个 break change，看到有文档说是为了支持 Java 9：Lombok stopped generating @ConstructorProperties on constructors with version 1.16.20 (see changelog), because it might break Java 9+ applications that use modules. 详细解释有待其他同学补充。</p>
-<p>Q&amp;A<br>问：所以结论是什么？</p>
-<p>答：不使用 @Builder，或者是在添加 @Builder 的同时添加 @NoArgsConstructor 和 @AllArgsConstructor(access = AccessLevel.PROTECTED)。</p>
-<p>问：还是没有看懂为什么加了 @NoArgsConstructor 和 @AllArgsConstructor(access = AccessLevel.PROTECTED) 之后就 OK 了呢？</p>
-<p>答：加 @AllArgsConstructor 的原因是因为如果只加了 @NoArgsConstructor 的话编译会报错的，加 @NoArgsConstructor 的原因是为了生成一个无参构造函数给 jackson 用，这样反序列化的时候生成一个空结构，之后 set set 就好了。</p>
-<p>问：为什么 quebec 升级之后没有出现问题？</p>
-<p>答：quebec 提供的是 dubbo 接口，dubbo 序列化反序列化使用的 hessian 而不是 jackson，所以不会有问题。</p>
-<p>问：为什么 http response 中用到的 class 只加了 @Data 和 @Builder 注解升级之后也没有问题？</p>
-<p>答：response 是直接将拿到的 body 包进去，没有进行反序列化，所以也不会有问题呢。</p>
+<p>解决了问题之后我们再来进一步分析原因，为什么之前只加了 <code>@Builder</code> 也能正常工作，但是升级了版本就开始报错了呢。那明显可以看到这个问题应该是和 lombok 或者 jackson 的版本有关，排查了下 jackson 没升级，但是 lombok 的版本从 v1.16.16 升级到了 v1.18.8，这其中经历了一个版本 v1.16.20，这次的问题就是 v1.16.20 的其中一个 break change 引起的。我们看下 lombok 的官方 <a href="https://projectlombok.org/changelog" target="_blank" rel="noopener">change log</a> 是这样说的：</p>
+<blockquote>
+<p>BREAKING CHANGE: lombok config key <code>lombok.anyConstructor.suppressConstructorProperties</code> is now deprecated and defaults to true, that is, by default lombok no longer automatically generates <code>@ConstructorProperties</code> annotations. New config key <code>lombok.anyConstructor.addConstructorProperties</code> now exists; set it to true if you want the old behavior. Oracle more or less broke this annotation with the release of JDK9, necessitating this breaking change.</p>
+</blockquote>
+<p>测试了下发现 v1.16.20 之前的时候如果只有 @Data 和 @Builder 注解编译生成的代码是这样的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SsssssVO</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">5555556666667777777L</span>;</span><br><span class="line">    <span class="keyword">private</span> String xxA;</span><br><span class="line">    <span class="keyword">private</span> String xxB;</span><br><span class="line"> </span><br><span class="line">    <span class="meta">@ConstructorProperties</span>(&#123;<span class="string">"xxA"</span>, <span class="string">"xxB"</span>&#125;)  <span class="comment">//注意：此行就是问题的关键</span></span><br><span class="line">    SsssssVO(String xxA, String xxB) &#123;</span><br><span class="line">        <span class="keyword">this</span>.xxA = xxA;</span><br><span class="line">        <span class="keyword">this</span>.xxB = xxB;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> SsssssVO.<span class="function">SsssssVOBuilder <span class="title">builder</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> SsssssVO.SsssssVOBuilder();</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    ... 省略更多 ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是 v1.16.20 之后，比如 v1.18.8 版本只有 @Data 和 @Builder 注解的时候编译生成的代码是这样的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SsssssVO</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">5555556666667777777L</span>;</span><br><span class="line">    <span class="keyword">private</span> String xxA;</span><br><span class="line">    <span class="keyword">private</span> String xxB;</span><br><span class="line"> </span><br><span class="line">    SsssssVO(String xxA, String xxB) &#123;</span><br><span class="line">        <span class="keyword">this</span>.xxA = xxA;</span><br><span class="line">        <span class="keyword">this</span>.xxB = xxB;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> SsssssVO.<span class="function">TransferRelationshipVOBuilder <span class="title">builder</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> SsssssVO.TransferRelationshipVOBuilder();</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    ... 省略更多 ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong>下面的代码少了 <code>@ConstructorProperties({&quot;xxA&quot;, &quot;xxB&quot;})</code> 这一行，就是这关键的一行导致 jackson 在反序列化的时候无法构造出需要的结构。所以在这种情况下主动增加了 <code>@NoArgsConstructor</code> 和 <code>@AllArgsConstructor(access = AccessLevel.PROTECTED)</code> 生成无参构造函数就可以正常工作了。当然即使不是这个原因其实在使用 <code>@Builder</code> 的时候也是推荐增加另外两个注解的，只是有的时候觉得不影响业务所以没那么注意了。</p>
+<p>至于 lombok 为什么要做这样一个 break change，看到文档说是为了支持 Java 9，后续有了更详细的解释会再和大家说。</p>
+<blockquote>
+<p>Lombok stopped generating @ConstructorProperties on constructors with version 1.16.20 (see changelog), because it might break Java 9+ applications that use modules.</p>
+</blockquote>
+<h3><span id="新增一个问答环节补充我没有讲清楚的部分">新增一个问答环节补充我没有讲清楚的部分</span></h3><p>问：所以小姐姐最终的结论是什么？</p>
+<blockquote>
+<p>答：升级了 lombok 高版本之后不使用 <code>@Builder</code>，或者是在添加 <code>@Builder</code> 的同时添加 <code>@NoArgsConstructor</code> 和 <code>@AllArgsConstructor(access = AccessLevel.PROTECTED)</code>。</p>
+</blockquote>
+<p>问：还是没有看懂为什么加了 <code>@NoArgsConstructor</code> 和 <code>@AllArgsConstructor(access = AccessLevel.PROTECTED)</code> 之后就 OK 了呢？</p>
+<blockquote>
+<p>答：加 <code>@AllArgsConstructor</code> 的原因是因为如果只加了 <code>@NoArgsConstructor</code> 的话编译会报错的，加 <code>@NoArgsConstructor</code> 的原因是为了生成一个无参构造函数给 jackson 用，这样反序列化的时候生成一个空结构，之后 set set 就好了。</p>
+</blockquote>
+<p>问：为什么下游服务自己升级之后没有出现问题？</p>
+<blockquote>
+<p>答：喵，这个问题就知道你们要问。因为下游服务只提供的是 dubbo rpc 接口，dubbo 序列化反序列化使用的 hessian 而不是 jackson，所以不会有问题。</p>
+</blockquote>
+<p>问：为什么 http response 中也有 class 只加了 @Data 和 @Builder 注解但是没有报错呢？</p>
+<p>答：response 是直接将拿到的 body 包进去，没有进行反序列化（而 request 需要将前端传过来的 json 字符串反序列化），所以也不会有问题呢。</p>
 <h3><span id="参考资料">参考资料</span></h3><ul>
 <li><a href="https://stackoverflow.com/questions/51368115/invaliddefinitionexception-cannot-construct-instance-of-com-vehicle-datatransf" target="_blank" rel="noopener">InvalidDefinitionException: Cannot construct instance of <code>com.vehicle.datatransferobject.VehicleDTO</code></a></li>
 <li><a href="https://stackoverflow.com/questions/51464720/lombok-1-18-0-and-jackson-2-9-6-not-working-together" target="_blank" rel="noopener">Lombok 1.18.0 and Jackson 2.9.6 not working together</a></li>

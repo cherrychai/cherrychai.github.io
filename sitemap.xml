@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://chaihua.me/2019/07/31/lombok%E5%8D%87%E7%BA%A7%E5%8F%88%E8%B8%A9%E5%9D%91/</loc>
+    
+    <lastmod>2019-07-31T12:48:11.122Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://chaihua.me/2019/03/23/%E6%B2%A7%E6%B5%B7%E4%B8%80%E7%B2%9F/</loc>
     
     <lastmod>2019-07-31T12:07:05.340Z</lastmod>
@@ -12,13 +19,6 @@
     <loc>http://chaihua.me/backup/-2019-07-15-Java8-List-%E5%8E%BB%E9%87%8D.html</loc>
     
     <lastmod>2019-07-31T11:59:09.071Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://chaihua.me/2019/07/31/lombok%E5%8D%87%E7%BA%A7%E5%8F%88%E8%B8%A9%E5%9D%91/</loc>
-    
-    <lastmod>2019-07-31T11:55:17.963Z</lastmod>
     
   </url>
   
