@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://chaihua.me">
   <title>HTTP | 慕湮</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="###">
+  <meta name="description" content="缓存   缓存在 http1.0 时代，给客户端设定缓存方式可通过两个字段 Pragma 和 Expires 来规范。虽然这两个字段早可抛弃，但为了做 http 协议的向下兼容，你还是可以看到很多网站依旧会带上这两个字段。例如在访问腾讯课堂的时候，通过浏览器调试工具可以看到部分 HTTP 响应是包含 Expires 头部的。 ragma当该字段值为 no-cache 的时候（事实上现在 RFC">
 <meta property="og:type" content="website">
 <meta property="og:title" content="HTTP">
 <meta property="og:url" content="http://chaihua.me/notes/knowledge/http/index.html">
 <meta property="og:site_name" content="慕湮">
-<meta property="og:description" content="###">
+<meta property="og:description" content="缓存   缓存在 http1.0 时代，给客户端设定缓存方式可通过两个字段 Pragma 和 Expires 来规范。虽然这两个字段早可抛弃，但为了做 http 协议的向下兼容，你还是可以看到很多网站依旧会带上这两个字段。例如在访问腾讯课堂的时候，通过浏览器调试工具可以看到部分 HTTP 响应是包含 Expires 头部的。 ragma当该字段值为 no-cache 的时候（事实上现在 RFC">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-22T07:52:54.420Z">
+<meta property="og:updated_time" content="2019-05-04T13:55:30.962Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTTP">
-<meta name="twitter:description" content="###">
+<meta name="twitter:description" content="缓存   缓存在 http1.0 时代，给客户端设定缓存方式可通过两个字段 Pragma 和 Expires 来规范。虽然这两个字段早可抛弃，但为了做 http 协议的向下兼容，你还是可以看到很多网站依旧会带上这两个字段。例如在访问腾讯课堂的时候，通过浏览器调试工具可以看到部分 HTTP 响应是包含 Expires 头部的。 ragma当该字段值为 no-cache 的时候（事实上现在 RFC">
   
     <link rel="alternative" href="/atom.xml" title="慕湮" type="application/atom+xml">
   
@@ -193,8 +193,14 @@
     <div class="article-entry" itemprop="articleBody">
       
         <!-- toc -->
+<ul>
+<li><a href="#缓存">缓存</a></li>
+</ul>
 <!-- tocstop -->
-<p>###</p>
+<h3><span id="缓存">缓存</span></h3><p>在 http1.0 时代，给客户端设定缓存方式可通过两个字段 Pragma 和 Expires 来规范。虽然这两个字段早可抛弃，但为了做 http 协议的向下兼容，你还是可以看到很多网站依旧会带上这两个字段。例如在访问<a href="">腾讯课堂</a>的时候，通过浏览器调试工具可以看到部分 HTTP 响应是包含 Expires 头部的。</p>
+<h4><span id="ragma">ragma</span></h4><p>当该字段值为 no-cache 的时候（事实上现在 RFC 中也仅标明该可选值），会知会客户端不要对该资源读缓存，即每次都得向服务器发一次请求才行。</p>
+<h4><span id="expires">Expires</span></h4><p>有了Pragma来禁用缓存，自然也需要有个东西来启用缓存和定义缓存时间，对http1.0而言，Expires就是做这件事的首部字段。 Expires的值对应一个GMT（格林尼治时间），比如Mon, 22 Jul 2002 11:12:01 GMT来告诉浏览器资源缓存过期时间，如果还没过该时间点则不发请求。</p>
+<h4><span id="cache-control">Cache-Control</span></h4><p>针对上述的“Expires时间是相对服务器而言，无法保证和客户端时间统一”的问题，http1.1新增了 Cache-Control 来定义缓存过期时间。注意：若报文中同时出现了 Expires 和 Cache-Control，则以 Cache-Control 为准。<br>也就是说优先级从高到低分别是 Pragma -&gt; Cache-Control -&gt; Expires 。<br>Cache-Control也是一个通用首部字段，这意味着它能分别在请求报文和响应报文中使用。</p>
 
       
 
@@ -416,10 +422,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">DB</a>
               </li>
             
             <div class="clearfix"></div>

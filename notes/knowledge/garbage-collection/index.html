@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="慕湮">
 <meta property="og:description" content="GC 迭代 Serial 收集器 ParNew 收集器 Parallel Scavenge 收集器 (jdk1.8 默认垃圾收集器) Serial Old 收集器 Parallel Old 收集器 CMS 收集器 G1 收集器 (jdk1.9 默认垃圾收集器) 令人惊叹的 ZGC   基本概念 元空间 压缩的类空间 Eden Space（heap区） Young GC Survivor Spa">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-01-22T02:45:03.894Z">
+<meta property="og:updated_time" content="2019-05-27T03:18:36.369Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Garbage Collection">
 <meta name="twitter:description" content="GC 迭代 Serial 收集器 ParNew 收集器 Parallel Scavenge 收集器 (jdk1.8 默认垃圾收集器) Serial Old 收集器 Parallel Old 收集器 CMS 收集器 G1 收集器 (jdk1.9 默认垃圾收集器) 令人惊叹的 ZGC   基本概念 元空间 压缩的类空间 Eden Space（heap区） Young GC Survivor Spa">
@@ -215,16 +215,15 @@
 <li><a href="#zgc">ZGC</a></li>
 </ul>
 </li>
-<li><a href="#gc-参数">GC 参数</a><ul>
-<li><a href="#-xxparallelgcthreadsn">-XX:ParallelGCThreads=n</a></li>
-<li><a href="#-xxconcgcthreadsn">-XX:ConcGCThreads=n</a></li>
+<li><a href="#g1">G1</a><ul>
+<li><a href="#各种参数">各种参数</a></li>
 </ul>
 </li>
 <li><a href="#qa">Q&amp;A</a></li>
 <li><a href="#参考资料">参考资料</a></li>
 </ul>
 <!-- tocstop -->
-<h2><span id="gc-迭代">GC 迭代</span></h2><p>Serial、ParNew、Parallel Scavenge 用于新生代，CMS、Serial Old、Paralled Old 用于老年代。并且他们相互之间以相对固定的组合使用（具体组合关系如上图）。G1是一个独立的收集器不依赖其他6种收集器。ZGC是目前JDK 11的实验收集器。</p>
+<h2><span id="gc-迭代">GC 迭代</span></h2><p>Serial、ParNew、Parallel Scavenge 用于新生代，CMS、Serial Old、Paralled Old 用于老年代。并且他们相互之间以相对固定的组合使用（具体组合关系如上图）。G1 是一个独立的收集器不依赖其他 6 种收集器。ZGC 是目前 JDK 11 的实验收集器。</p>
 <h3><span id="serial-收集器">Serial 收集器</span></h3><p>Serial，是单线程执行垃圾回收的。当需要执行垃圾回收时，程序会暂停一切手上的工作，然后单线程执行垃圾回收。<br>因为新生代的特点是对象存活率低，所以收集算法用的是复制算法，把新生代存活对象复制到老年代，复制的内容不多，性能较好。</p>
 <h3><span id="parnew-收集器">ParNew 收集器</span></h3><p>ParNew 同样用于新生代，是 Serial 的多线程版本，并且在参数、算法（同样是复制算法）上也完全和 Serial 相同。<br>Par 是 Parallel 的缩写，但它的并行仅仅指的是收集多线程并行，并不是收集和原程序可以并行进行。ParNew 也是需要暂停程序一切的工作，然后多线程执行垃圾回收。</p>
 <h3><span id="parallel-scavenge-收集器-jdk18-默认垃圾收集器">Parallel Scavenge 收集器 (jdk1.8 默认垃圾收集器)</span></h3><p>新生代的收集器，同样用的是复制算法，也是并行多线程收集。与 ParNew 最大的不同，它关注的是垃圾回收的吞吐量。<br>这里的吞吐量指的是 总时间与垃圾回收时间的比例。这个比例越高，证明垃圾回收占整个程序运行的比例越小。</p>
@@ -287,12 +286,36 @@
 <h3><span id="old-genheap区">Old Gen（heap区）</span></h3><p>老年代，用于存放新生代中经过多次垃圾回收仍然存活的对象，也有可能是新生代分配不了内存的大对象会直接进入老年代。经过多次垃圾回收都没有被回收的对象，这些对象的年代已经足够old了，就会放入到老年代。</p>
 <p>当老年代被放满的之后，虚拟机会进行垃圾回收，称之为Major GC。由于Major GC除并发GC外均需对整个堆进行扫描和回收，因此又称为Full GC。</p>
 <h3><span id="zgc">ZGC</span></h3><p>ZGC来了 !!! Java程序员可以光荣的远离讨厌的GC停顿和调优了。ZGC的成绩是，无论你开了多大的堆内存(1288G？ 2T？)，硬是能保证低于10毫秒的JVM停顿。</p>
-<h2><span id="gc-参数">GC 参数</span></h2><p>打印 GC 参数：</p>
-<p>-XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps -XX:+PrintTenuringDistribution -XX:+PrintGCApplicationStoppedTime -XX:+PrintSafepointStatistics -XX:PrintSafepointStatisticsCount=1</p>
+<h2><span id="g1">G1</span></h2><p>G1 采取了不同的策略来解决并行、串行和CMS收集器的碎片、暂停时间不可控制等问题——G1将整个堆分成相同大小的 分区 (Region)，如下图所示。<br>每个分区都可能是年轻代也可能是老年代，但是在同一时刻只能属于某个代。</p>
+<p>年轻代、幸存区、老年代这些概念还存在，成为逻辑上的概念，这样方便复用之前分代框架的逻辑。在物理上不需要连续，则带来了额外的好处——有的分区内垃圾对象特别多，有的分区内垃圾对象很少，G1 会优先回收垃圾对象特别多的分区，这样可以花费较少的时间来回收这些分区的垃圾，这也就是 G1 名字的由来，即首先收集垃圾最多的分区。</p>
+<p>G1收集器的收集活动主要有四种操作：</p>
+<ul>
+<li>新生代垃圾收集</li>
+<li>后台收集、并发周期</li>
+<li>混合式垃圾收集</li>
+<li>必要时候的Full GC</li>
+</ul>
+<p>Eden 区耗尽的时候就会触发新生代收集，新生代垃圾收集会对整个新生代进行回收<br>新生代垃圾收集期间，整个应用 STW<br>新生代垃圾收集是由多线程并发执行的<br>新生代收集结束后依然存活的对象，会被拷贝到一个新的 Survivor 分区，或者是老年代。</p>
+<p>G1 设计了一个标记阈值，它描述的是总体 Java 堆大小的百分比，默认值是 45，这个值可以通过命令 -XX:InitiatingHeapOccupancyPercent(IHOP) 来调整，一旦达到这个阈值就回触发一次并发收集周期。</p>
+<p>第二、G1的并发标记周期包括多个阶段：</p>
+<p>并发标记周期采用的算法是我们前文提到的SATB标记算法，产出是找出一些垃圾对象最多的老年代分区。</p>
+<p>初始标记（initial-mark），在这个阶段，应用会经历STW，通常初始标记阶段会跟一次新生代收集一起进行，换句话说——既然这两个阶段都需要暂停应用，G1 GC就重用了新生代收集来完成初始标记的工作。在新生代垃圾收集中进行初始标记的工作，会让停顿时间稍微长一点，并且会增加CPU的开销。初始标记做的工作是设置两个TAMS变量（NTAMS和PTAMS）的值，所有在TAMS之上的对象在这个并发周期内会被识别为隐式存活对象；</p>
+<p>根分区扫描（root-region-scan），这个过程不需要暂停应用，在初始标记或新生代收集中被拷贝到survivor分区的对象，都需要被看做是根，这个阶段G1开始扫描survivor分区，所有被survivor分区所引用的对象都会被扫描到并将被标记。survivor分区就是根分区，正因为这个，该阶段不能发生新生代收集，如果扫描根分区时，新生代的空间恰好用尽，新生代垃圾收集必须等待根分区扫描结束才能完成。如果在日志中发现根分区扫描和新生代收集的日志交替出现，就说明当前应用需要调优。</p>
+<p>并发标记阶段（concurrent-mark），并发标记阶段是多线程的，我们可以通过-XX:ConcGCThreads来设置并发线程数，默认情况下，G1垃圾收集器会将这个线程总数设置为并行垃圾线程数（-XX:ParallelGCThreads）的四分之一；并发标记会利用trace算法找到所有活着的对象，并记录在一个bitmap中，因为在TAMS之上的对象都被视为隐式存活，因此我们只需要遍历那些在TAMS之下的；记录在标记的时候发生的引用改变，SATB的思路是在开始的时候设置一个快照，然后假定这个快照不改变，根据这个快照去进行trace，这时候如果某个对象的引用发生变化，就需要通过pre-write barrier logs将该对象的旧的值记录在一个SATB缓冲区中，如果这个缓冲区满了，就把它加到一个全局的列表中——G1会有并发标记的线程定期去处理这个全局列表。</p>
+<p>重新标记阶段（remarking），重新标记阶段是最后一个标记阶段，需要暂停整个应用，G1垃圾收集器会处理掉剩下的SATB日志缓冲区和所有更新的引用，同时G1垃圾收集器还会找出所有未被标记的存活对象。这个阶段还会负责引用处理等工作。<br>清理阶段（cleanup），清理阶段真正回收的内存很小，截止到这个阶段,G1垃圾收集器主要是标记处哪些老年代分区可以回收，将老年代按照它们的存活度（liveness）从小到大排列。这个过程还会做几个事情：识别出所有空闲的分区、RSet梳理、将不用的类从metaspace中卸载、回收巨型对象等等。识别出每个分区里存活的对象有个好处是在遇到一个完全空闲的分区时，它的RSet可以立即被清理，同时这个分区可以立刻被回收并释放到空闲队列中，而不需要再放入CSet等待混合收集阶段回收；梳理RSet有助于发现无用的引用。</p>
+<p>第三、混合收集只会回收一部分老年代分区，下图是第一次混合收集前后的堆情况对比。</p>
+<p>混合收集会执行多次，一直运行到（几乎）所有标记点老年代分区都被回收，在这之后就会恢复到常规的新生代垃圾收集周期。当整个堆的使用率超过指定的百分比时，G1 GC会启动新一轮的并发标记周期。</p>
+<p>G1收集器的模式主要有两种：</p>
+<p>Young GC（新生代垃圾收集）<br>Mixed GC（混合垃圾收集）</p>
+<p>G1的调优目标主要是在避免FULL GC和疏散失败的前提下，尽量实现较短的停顿时间和较高的吞吐量。关于G1 GC的调优，需要记住以下几点：</p>
+<p>不要自己显式设置新生代的大小（用Xmn或-XX:NewRatio参数），如果显式设置新生代的大小，会导致目标时间这个参数失效。<br>由于G1收集器自身已经有一套预测和调整机制了，因此我们首先的选择是相信它，即调整-XX:MaxGCPauseMillis=N参数，这也符合G1的目的——让GC调优尽量简单，这里有个取舍：如果减小这个参数的值，就意味着会调小新生代的大小，也会导致新生代GC发生得更频繁，同时，还会导致混合收集周期中回收的老年代分区减少，从而增加FULL GC的风险。这个时间设置得越短，应用的吞吐量也会受到影响。<br>针对混合垃圾收集的调优。如果调整这期望的最大暂停时间这个参数还是无法解决问题，即在日志中仍然可以看到FULL GC的现象，那么就需要自己手动做一些调整，可以做的调整包括：<br>调整G1垃圾收集的后台线程数，通过设置-XX:ConcGCThreads=n这个参数，可以增加后台标记线程的数量，帮G1赢得这场你追我赶的游戏；<br>调整G1垃圾收集器并发周期的频率，如果让G1更早得启动垃圾收集，也可以帮助G1赢得这场比赛，那么可以通过设置-XX:InitiatingHeapOccupancyPercent这个参数来实现这个目标，如果将这个参数调小，G1就会更早得触发并发垃圾收集周期。这个值需要谨慎设置：如果这个参数设置得太高，会导致FULL GC出现得频繁；如果这个值设置得过小，又会导致G1频繁得进行并发收集，白白浪费CPU资源。通过GC日志可以通过一个点来判断GC是否正常——在一轮并发周期结束后，需要确保堆剩下的空间小于InitiatingHeapOccupancyPercent的值。<br>调整G1垃圾收集器的混合收集的工作量，即在一次混合垃圾收集中尽量多处理一些分区，可以从另外一方面提高混合垃圾收集的频率。在一次混合收集中可以回收多少分区，取决于三个因素：（1）有多少个分区被认定为垃圾分区，-XX:G1MixedGCLiveThresholdPercent=n这个参数表示如果一个分区中的存活对象比例超过n，就不会被挑选为垃圾分区，因此可以通过这个参数控制每次混合收集的分区个数，这个参数的值越大，某个分区越容易被当做是垃圾分区；（2）G1在一个并发周期中，最多经历几次混合收集周期，这个可以通过-XX:G1MixedGCCountTarget=n设置，默认是8，如果减小这个值，可以增加每次混合收集收集的分区数，但是可能会导致停顿时间过长；（3）期望的GC停顿的最大值，由MaxGCPauseMillis参数确定，默认值是200ms，在混合收集周期内的停顿时间是向上规整的，如果实际运行时间比这个参数小，那么G1就能收集更多的分区。</p>
+<p>-XX:+UseG1GC    使用G1收集器 JDK1.8中还需要显式指定<br>-XX:MaxGCPauseMillis=n  设置一个期望的最大GC暂停时间，这是一个柔性的目标，JVM会尽力去达到这个目标 200<br>-XX:InitiatingHeapOccupancyPercent=n    当整个堆的空间使用百分比超过这个值时，就会触发一次并发收集周期，记住是整个堆  45<br>-XX:NewRatio=n  新生代和老年代的比例  2<br>-XX:SurvivorRatio=n Eden空间和Survivor空间的比例    8<br>-XX:MaxTenuringThreshold=n  对象在新生代中经历的最多的新生代收集，或者说最大的岁数 G1中是15<br>-XX:ParallelGCThreads=n 设置垃圾收集器的并行阶段的垃圾收集线程数    不同的平台有不同的值<br>-XX:ConcGCThreads=n 设置垃圾收集器并发执行GC的线程数   n一般是ParallelGCThreads的四分之一<br>-XX:G1ReservePercent=n  设置作为空闲空间的预留内存百分比，以降低目标空间溢出（疏散失败）的风险。默认值是 10%。增加或减少这个值，请确保对总的 Java 堆调整相同的量   10<br>-XX:G1HeapRegionSize=n  分区的大小   堆内存大小的1/2000，单位是MB，值是2的幂，范围是1MB到32MB之间<br>-XX:G1HeapWastePercent=n    设置您愿意浪费的堆百分比。如果可回收百分比小于堆废物百分比，JavaHotSpotVM不会启动混合垃圾回收周期（注意，这个参数可以用于调整混合收集的频率）。  JDK1.8是5<br>-XX:G1MixedGCCountTarget=8  设置并发周期后需要执行多少次混合收集，如果混合收集中STW的时间过长，可以考虑增大这个参数。（注意：这个可以用来调整每次混合收集中回收掉老年代分区的多少，即调节混合收集的停顿时间）  8<br>-XX:G1MixedGCLiveThresholdPercent=n 一个分区是否会被放入mix GC的CSet的阈值。对于一个分区来说，它的存活对象率如果超过这个比例，则改分区不会被列入mixed gc的CSet中   JDK1.6和1.7是65，JDK1.8是85</p>
+<h3><span id="各种参数">各种参数</span></h3><h4><span id="打印-gc-参数">打印 GC 参数：</span></h4><p>-XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps -XX:+PrintTenuringDistribution -XX:+PrintGCApplicationStoppedTime -XX:+PrintSafepointStatistics -XX:PrintSafepointStatisticsCount=1</p>
 <p>-XX:+PrintGC -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+UseCompressedClassPointers -XX:+UseCompressedOops -XX:+UseParallelGC</p>
-<h3><span id="-xxparallelgcthreadsn">-XX:ParallelGCThreads=n</span></h3><p>设置 STW 工作线程数的值。将 n 的值设置为逻辑处理器的数量。n 的值与逻辑处理器的数量相同，最多为 8。如果逻辑处理器不止八个，则将 n 的值设置为逻辑处理器数的 5/8 左右。这适用于大多数情况，除非是较大的 SPARC 系统，其中 n 的值可以是逻辑处理器数的 5/16 左右。</p>
-<h3><span id="-xxconcgcthreadsn">-XX:ConcGCThreads=n</span></h3><p>设置并行标记的线程数。将 n 设置为并行垃圾回收线程数 (ParallelGCThreads) 的 1/4 左右。</p>
+<h4><span id="-xxparallelgcthreadsn">-XX:ParallelGCThreads=n</span></h4><p>设置 STW 工作线程数的值。将 n 的值设置为逻辑处理器的数量。n 的值与逻辑处理器的数量相同，最多为 8。如果逻辑处理器不止八个，则将 n 的值设置为逻辑处理器数的 5/8 左右。这适用于大多数情况，除非是较大的 SPARC 系统，其中 n 的值可以是逻辑处理器数的 5/16 左右。</p>
+<h4><span id="-xxconcgcthreadsn">-XX:ConcGCThreads=n</span></h4><p>设置并行标记的线程数。将 n 设置为并行垃圾回收线程数 (ParallelGCThreads) 的 1/4 左右。</p>
 <h2><span id="qampa">Q&amp;A</span></h2><p>Q: 什么时候发生 YGC 呢？<br>A: 当 Eden 不够放入新创建的对象时，也就是Eden 区满了，JVM 就会清理Eden 区的空间，将存活的对象放入 to 区，如果 to 区放不下，则直接进入老年代。</p>
+<p>Q: ParallelGCThreads和ConcGCThreads的区别？<br>A: ParallelGCThreads指得是在STW阶段，并行执行垃圾收集动作的线程数，ParallelGCThreads的值一般等于逻辑CPU核数，如果CPU核数大于8，则设置为5/8 * cpus，在SPARC等大型机上这个系数是5/16。；ConcGCThreads指的是在并发标记阶段，并发执行标记的线程数，一般设置为ParallelGCThreads的四分之一。</p>
 <h2><span id="参考资料">参考资料</span></h2><ul>
 <li><a href="http://www.leonlu.cc/profession/24-jvm-g1-gc/" target="_blank" rel="noopener">JVM G1 垃圾回收器总结</a></li>
 <li><a href="http://blog.mgm-tp.com/2018/01/g1-mature-in-java9/" target="_blank" rel="noopener">G1 Garbage Collector is mature in Java 9, finally</a></li>
@@ -300,6 +323,7 @@
 <li><a href="https://www.cnblogs.com/duanxz/p/3520829.html" target="_blank" rel="noopener">Metaspace 之一: Metaspace整体介绍 (永久代被替换原因、元空间特点、元空间内存查看分析方法)</a></li>
 <li><a href="https://www.cnblogs.com/stateis0/p/9062188.html" target="_blank" rel="noopener">深入浅出 JVM GC (2)</a></li>
 <li><a href="https://juejin.im/post/5bade237e51d450ea401fd71" target="_blank" rel="noopener">一文了解JVM全部垃圾回收器，从Serial到ZGC</a></li>
+<li><a href="http://cmsblogs.com/?p=3842" target="_blank" rel="noopener">可能是最全面的G1学习笔记</a></li>
 </ul>
 
       
@@ -522,10 +546,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">DB</a>
               </li>
             
             <div class="clearfix"></div>

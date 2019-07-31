@@ -170,6 +170,99 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-lombok升级又踩坑" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/31/lombok升级又踩坑/">lombok 升级又踩坑</a>
+    </h1>
+  
+
+        
+        <a href="/2019/07/31/lombok升级又踩坑/" class="archive-article-date">
+  	<time datetime="2019-07-30T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天某服务只是升级了一个下游依赖的版本，本来以为妥妥的无风险上线，结果上线之后发现有一个 http 请求的成功率居然直接掉 0 了，报错核心内容如下：</p>
+<blockquote>
+<p>Type definition error: [simple type, <code>class hahaha.contract.xxVO</code>]; nested exception is <code>com.fasterxml.jackson.databind.exc.InvalidDefinitionException</code>: Cannot construct instance of <code>class hahaha.contract.xxVO</code> (no Creators, like default construct, exist): cannot deserialize from Object value (no delegate- or property-based Creator)</p>
+</blockquote>
+<p>新增代码都不相关，估计是某公共组件升级导致的，报错代码倒是比较清晰，直接定位到 xxVO 这个 class，走进去一看发现这个类是这样定义的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Builder</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">xxVO</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">3189276661411975774L</span>;</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">private</span> String xxA;</span><br><span class="line">    <span class="keyword">private</span> String xxB;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以发现添加了 @Builder ，而@Builder 会默认生产全参数构造器，根据报错日志显示（no Creators, like default construct），初步怀疑是由于缺失默认构造器导致，进一步根据以往的经验（其实我也忘记深层次原因了）我在 service-template 里面写过这么一段：推荐增加 lombok @Builder 方法，注意需要同步增加 @NoArgsConstructor 和 @AllArgsConstructor(access = AccessLevel.PROTECTED) ,设置 AccessLevel 是为了避免全参构造函数暴露出去。然后当时搜『InvalidDefinitionException: Cannot construct instance of』也刚好搜到一个内容是和 @Builder 有关的，就先在这个 class 增加了  @NoArgsConstructor 和 @AllArgsConstructor(access = AccessLevel.PROTECTED)，然后问题解决。</p>
+        
+          <a class="article-more-a" href="/2019/07/31/lombok升级又踩坑/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/程序媛/" class="article-tag-list-link color4">程序媛</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/07/31/lombok升级又踩坑/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-沧海一粟" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -190,8 +283,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>我有这么一个空间，但是当我突然不见了，也许没有人会知道我有这些东西，它们会随着我的消失而消失，就像从来没有出现过。</p>
-<p>有时会思考活着的意义，怎样才算是过完有价值的一生。有时想想，人，生不带来，死不带走，到底活着的意义又是什么的。建造这个社会，也许就只是像搭积木一样，只有下面的积木搭起来，上面的积木才能堆上去。</p>
+        <p>时常会思考活着的意义，怎样才算是过完有价值的一生。有时想想，人，生不带来，死不带走，到底活着的意义又是什么的。建造这个社会，也许就只是像搭积木一样，只有下面的积木搭起来，上面的积木才能堆上去。</p>
 <p>我突然有些理解那些书和电视里面所说的，让我们的子孙也可以看到贝加尔湖上面的冰雪融化的意义，也许这样我们才会觉得自己的生命是有意义的，不然有的时候真的不知道自己在干什么，就跟闹着玩一样。</p>
 
       
@@ -311,95 +403,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/03/10/java.io.NotSerializableException-java.util.ArrayList$SubList/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-最近踩的几个数据库相关的坑" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/10/最近踩的几个数据库相关的坑/">最近踩的几个数据库相关的坑</a>
-    </h1>
-  
-
-        
-        <a href="/2019/01/10/最近踩的几个数据库相关的坑/" class="archive-article-date">
-  	<time datetime="2019-01-09T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>（待完善）</p>
-<h3><span id="1-空格问题">1 空格问题</span></h3><p>varchar 类型和 char 类型</p>
-<h3><span id="2-空格问题">2 空格问题</span></h3><p>mybatis 入库的时候一般都会 trim 一下，但是查询的时候可能不会 trim，所以会造成查询的问题</p>
-<h3><span id="3-并发问题">3 并发问题</span></h3><p>查询的时候没有加锁</p>
-<h3><span id="4-order-by-问题">4 order by 问题</span></h3><p>数据库查询直接 order by 的时候一般是按照插入顺序排序的（如果有自增的 mall id 的话那么也是按照 mall id 排序的），有时做数据库滚动查询的时候便会忘记 order by 字段，但是如果查询的时候设置了其他的条件，尤其是有索引的情况下，会按照其他索引排序，这样也就造成了问题。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">DB</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/程序媛/" class="article-tag-list-link color4">程序媛</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/01/10/最近踩的几个数据库相关的坑/">展开全文 >></a>
         </p>
       
 
@@ -1114,10 +1117,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">DB</a>
               </li>
             
             <div class="clearfix"></div>
